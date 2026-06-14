@@ -1,17 +1,81 @@
 ---
 import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage?: string;
+  showSponsors?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogImage = "/images/2026/social/social-sharing-general.png",
+  showSponsors = true,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
+  .href;
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:site" content="@cascadiajs" />
+
+    <!-- Fonts: Adobe Typekit -->
+    <link rel="stylesheet" href="https://use.typekit.net/nln6hzq.css" />
+
+    <!-- Icons: Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
   </head>
-  <body>
-    <slot />
+  <body
+    class="bg-seafoam-cream md:grid md:min-h-screen md:grid-rows-[auto_1fr_auto]"
+  >
+    <header class="bg-sound-navy px-6 py-4 text-white">
+      <p class="font-display text-sm">CascadiaJS — header placeholder</p>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    {
+      showSponsors && (
+        <section class="bg-cedar-cream px-6 py-8 text-center">
+          <p class="text-sound-navy font-serif text-lg">
+            Sponsors — placeholder
+          </p>
+        </section>
+      )
+    }
+
+    <footer class="bg-sound-navy px-6 py-4 text-white">
+      <p class="font-display text-sm">CascadiaJS — footer placeholder</p>
+    </footer>
   </body>
 </html>
