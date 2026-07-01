@@ -15,10 +15,22 @@
   --font-serif: freight-macro-pro, ui-serif, Georgia, serif;
 }
 
+/* Match the reference's base typographic norms. Tailwind's preflight forces
+   line-height: 1.5 globally; the reference leaves the base at the browser
+   default (normal ≈ 1.2) and only opts paragraphs into 1.5. Letter-spacing is
+   normal everywhere (Tailwind's default already), so kerning needs no override. */
+html {
+  line-height: normal;
+}
+
 body {
   font-family: var(--font-sans);
   font-size: 18px;
   font-weight: 200;
+}
+
+p {
+  line-height: 1.5;
 }
 
 h1 {
