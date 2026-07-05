@@ -2,13 +2,15 @@
 
 **Stack:** Astro. All new work is Astro only.
 
-**Reference repo:** `reference/cascadiajs/` is a read-only, fixed-commit git submodule of the legacy Enhance implementation. Use it ONLY for visual fidelity, CSS, and design tokens.
+**Reference repo:** `reference/cascadiajs/` is a read-only, fixed-commit git submodule of the legacy Enhance implementation. Use it ONLY for visual fidelity, CSS, and design tokens. Never make any changes to files within `/reference/cascadiajs/
+
 - Never copy Enhance routing patterns, `$`/`$$` catch-all routes, or component patterns into Astro.
 - Exclude it from all tooling: TypeScript, ESLint, Prettier, and Astro config.
 
 **Acceptance bar:** The new app must be indistinguishable from the legacy site — visually, by URL, and behaviorally. URL preservation is in scope.
 
 **Out of scope:**
+
 - Luma ticketing integration
 - Supabase backend
 - Astra DB
