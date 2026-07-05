@@ -8,4 +8,4 @@ Do not add `toHaveScreenshot` baselines: screenshot regression testing was consi
 
 The porting workflow this supports: base the styling on the reference repo (the visual spec, per ADR-0001), then compare the result against the live page and resolve differences.
 
-Never use Python to verify the live page. Use utilities that are present in Playwright or stop and explain the blocking problem and ask for how to proceed.
+Never use scripting (i.e. python, bash or node) to verify the live page. Use utilities that are present in Playwright or stop and explain the blocking problem and ask for how to proceed.

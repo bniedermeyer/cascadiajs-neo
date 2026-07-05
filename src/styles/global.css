@@ -19,26 +19,26 @@
    line-height: 1.5 globally; the reference leaves the base at the browser
    default (normal ≈ 1.2) and only opts paragraphs into 1.5. Letter-spacing is
    normal everywhere (Tailwind's default already), so kerning needs no override. */
-html {
-  line-height: normal;
-}
+@layer base {
+  html {
+    line-height: normal;
+  }
 
-body {
-  font-family: var(--font-sans);
-  font-size: 18px;
-  font-weight: 200;
-}
+  body {
+    font-family: var(--font-sans);
+  }
 
-p {
-  line-height: 1.5;
-}
+  p {
+    line-height: 1.5;
+  }
 
-h1 {
-  font-family: var(--font-display);
-}
+  h1 {
+    font-family: var(--font-display);
+  }
 
-h2,
-h3,
-h4 {
-  font-family: var(--font-serif);
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+  }
 }

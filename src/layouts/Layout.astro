@@ -60,13 +60,13 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
   >
     <SiteHeader />
 
-    <main>
+    <main class="text-[18px] font-extralight">
       <slot />
     </main>
 
     {
       showSponsors && (
-        <section class="bg-cedar-cream px-6 py-8 text-center">
+        <section class="bg-cedar-cream px-6 py-8 text-center font-extralight">
           <p class="text-sound-navy font-serif text-lg">
             Sponsors — placeholder
           </p>
