@@ -16,9 +16,12 @@
 }
 
 /* Match the reference's base typographic norms. Tailwind's preflight forces
-   line-height: 1.5 globally; the reference leaves the base at the browser
-   default (normal ≈ 1.2) and only opts paragraphs into 1.5. Letter-spacing is
-   normal everywhere (Tailwind's default already), so kerning needs no override. */
+   line-height: 1.5 globally; the reference sets a fixed 18px/1.125em on the
+   body, which — because line-height computed from an em/px value (unlike a
+   unitless one) is inherited as a fixed length — cascades down as ~20.25px to
+   every descendant regardless of that descendant's own font-size, until a
+   heading re-declares it relative to its own size. Letter-spacing is normal
+   everywhere (Tailwind's default already), so kerning needs no override. */
 @layer base {
   html {
     line-height: normal;
@@ -26,19 +29,42 @@
 
   body {
     font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.125em;
+    color: var(--color-ink);
   }
 
   p {
     line-height: 1.5;
+    margin: 0 0 16px 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 32px 0 16px 0;
+    color: var(--color-sound-navy);
+    font-weight: 500;
+    line-height: 1.125em;
   }
 
   h1 {
     font-family: var(--font-display);
+    font-size: 40px;
   }
 
   h2,
   h3,
   h4 {
     font-family: var(--font-serif);
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  h3 {
+    font-size: 24px;
   }
 }

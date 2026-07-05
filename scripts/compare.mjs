@@ -85,6 +85,26 @@ const PAGES = {
       {
         label: "hero heading",
         live: "#hero h2",
+        local: "main h2",
+      },
+      {
+        label: "hero pre-header",
+        live: "#hero .pre-header",
+        local: "main article div",
+      },
+      {
+        label: "hero CTA box",
+        live: "#hero .cta",
+        local: "main article div:has(> a[href='/2026'])",
+      },
+      {
+        label: "hero CTA text",
+        live: "#hero .cta a",
+        local: "main a[href='/2026']",
+      },
+      {
+        label: "trailer heading",
+        live: "#trailer h1",
         local: "main h1",
       },
       { label: "footer", live: "footer", local: "footer" },

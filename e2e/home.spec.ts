@@ -41,6 +41,50 @@ test.describe("home page", () => {
     }
   });
 
+  test("hero shows pre-header, heading, and intro copy", async ({ page }) => {
+    await expect(page.getByText("Connecting devs since 2012")).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        level: 2,
+        name: "We're a community for web + AI developers in the Pacific Northwest.",
+      }),
+    ).toBeVisible();
+    await expect(
+      page.getByText(
+        "We create events that will help you level up, grow your network, find a job and have fun!",
+        { exact: false },
+      ),
+    ).toBeVisible();
+  });
+
+  test("hero CTA links to /2026", async ({ page }) => {
+    const cta = page.getByRole("link", { name: "CascadiaJS: June 2026" });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/2026");
+  });
+
+  test("hero image is present with its alt text", async ({ page }) => {
+    const image = page.getByRole("img", {
+      name: "Sasquatch driving a camper van",
+    });
+    await expect(image).toBeVisible();
+  });
+
+  test("trailer shows the 2025 recap heading and video", async ({ page }) => {
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: "Check-out our 2025 Recap!",
+      }),
+    ).toBeVisible();
+    const video = page.getByTitle("CascadiaJS 2025 Recap Video");
+    await expect(video).toBeVisible();
+    await expect(video).toHaveAttribute(
+      "src",
+      /customer-err733fa36e0jnfx\.cloudflarestream\.com/,
+    );
+  });
+
   test("site footer is present with its sections", async ({ page }) => {
     const footer = page.getByRole("contentinfo");
     await expect(footer).toBeVisible();

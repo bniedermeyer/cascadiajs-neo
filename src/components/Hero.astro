@@ -1,0 +1,22 @@
+---
+interface Props {
+  preHeader: string;
+  heading: string;
+  imageSrc: string;
+  imageAlt: string;
+}
+
+const { preHeader, heading, imageSrc, imageAlt } = Astro.props;
+---
+
+<section class="p-8 text-left md:mx-auto md:flex md:max-w-[1064px]">
+  <article class="md:mr-4 md:flex-1">
+    <div class="font-display text-sound-navy m-0 text-[18px]">{preHeader}</div>
+    <h2 class="mt-4 mb-0">{heading}</h2>
+    <br />
+    <slot />
+  </article>
+  <article class="md:flex-1">
+    <img src={imageSrc} alt={imageAlt} class="h-auto w-full" />
+  </article>
+</section>

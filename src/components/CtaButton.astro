@@ -1,0 +1,29 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "secondary";
+}
+
+const { href, variant = "primary" } = Astro.props;
+
+const base =
+  "font-display my-4 inline-block border-4 px-4 py-2 text-[24px] font-medium";
+
+const variants = {
+  primary:
+    "bg-cascade-blue border-cascade-blue hover:bg-sound-navy hover:border-sound-navy",
+  secondary:
+    "border-cascade-blue hover:border-sound-navy bg-transparent font-light",
+};
+
+const linkVariants = {
+  primary: "text-cedar-cream no-underline",
+  secondary: "text-cascade-blue group-hover:text-sound-navy no-underline",
+};
+---
+
+<div class={`group ${base} ${variants[variant]}`}>
+  <a href={href} class={linkVariants[variant]}>
+    <slot />
+  </a>
+</div>

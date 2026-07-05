@@ -1,0 +1,18 @@
+---
+import VideoEmbed from "./VideoEmbed.astro";
+
+interface Props {
+  heading: string;
+  videoSrc: string;
+  videoTitle: string;
+}
+
+const { heading, videoSrc, videoTitle } = Astro.props;
+---
+
+<section class="p-8 text-center">
+  <h1 class="mt-0 mb-8 text-[48px]">{heading}</h1>
+  <div class="md:mx-auto md:w-[70%]">
+    <VideoEmbed src={videoSrc} title={videoTitle} />
+  </div>
+</section>
