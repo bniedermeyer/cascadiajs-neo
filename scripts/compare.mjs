@@ -123,36 +123,31 @@ const PAGES = {
         live: "footer a[href='/2025']",
         local: "footer a[href='/2025']",
       },
-      // Sponsors (SponsorsGrid, issue #17): the Layout drop-in renders the
-      // tiered 2026 grid (`event="2026" tiered`) in place of the placeholder.
-      // Selectors below target the Enhance `sponsors-grid-2026` element's
-      // class names (`.tier-label`, `.diamond`, `.gold`, `.community`), the
-      // legacy tiered grid's actual DOM. Today cascadiajs.com's homepage
-      // renders the flat "Past Sponsors" grid in this slot instead (its
-      // sponsors-grid CSS confirms the 50px->60px flat sizing this component
-      // also implements), so these three pairs currently report MISSING on
-      // `live` rather than a geometry diff — that's a live-page-mapping gap,
-      // not a component defect. Revisit once #18 settles which page/section
-      // actually shows the tiered grid live, and repoint `live` accordingly.
+      // Sponsors (issue #18): the home page renders the page-owned flat
+      // "Past Sponsors" section — `#sponsors` (.landing padding, centered),
+      // an <h1>, the flat SponsorsGrid, and the "Sponsor Our Event" CTA.
+      // These pairs map the legacy Enhance DOM to our Astro DOM for that
+      // section. The tiered grid is not shown on any page yet, so it is not
+      // compared here.
       {
-        label: "sponsors tier label",
-        live: "div.tier-label",
-        local: "span:has-text('diamond')",
+        label: "sponsors section (.landing padding, centered)",
+        live: "#sponsors",
+        local: "#sponsors",
       },
       {
-        label: "sponsors diamond tier logo wrapper (200px md height)",
-        live: ".diamond div",
-        local: "div:has(> a[href='/sponsors/aws'])",
+        label: "sponsors heading (Past Sponsors, 48px)",
+        live: "#sponsors h1",
+        local: "#sponsors h1",
       },
       {
-        label: "sponsors gold tier logo wrapper (110px md height)",
-        live: ".gold div",
-        local: "div:has(> a[href='/sponsors/elastic'])",
+        label: "sponsors flat logo (60px md height)",
+        live: "#sponsors .sponsors-grid div img",
+        local: "#sponsors img",
       },
       {
-        label: "sponsors community tier logo (50px md height, unlinked)",
-        live: ".community div img",
-        local: "img[alt='Cloudflare logo']",
+        label: "sponsors CTA (Sponsor Our Event)",
+        live: "#sponsors .cta a",
+        local: "#sponsors a[href='/2026/sponsor']",
       },
     ],
   },

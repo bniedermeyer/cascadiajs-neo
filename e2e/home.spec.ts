@@ -125,4 +125,16 @@ test.describe("home page", () => {
       page.getByRole("link", { name: "Cloudflare logo" }),
     ).toHaveCount(0);
   });
+
+  test("sponsors section shows the Past Sponsors heading", async ({ page }) => {
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Past Sponsors" }),
+    ).toBeVisible();
+  });
+
+  test("sponsors section CTA links to the sponsor page", async ({ page }) => {
+    const cta = page.getByRole("link", { name: "Sponsor Our Event" });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/2026/sponsor");
+  });
 });
