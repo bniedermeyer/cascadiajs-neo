@@ -1,0 +1,641 @@
+[
+  {
+    "id": "temporal",
+    "logo": "temporal.png",
+    "logoSquare": "temporal-square.jpg",
+    "name": "Temporal",
+    "url": "https://temporal.io/",
+    "video": "3c35df76a866b30cd714e87c82508815",
+    "description": "Temporal is an open source durable execution platform that abstracts away the complexity of building scalable, distributed applications and lets developers focus on what matters – delivering reliable applications, faster. It improves meaningful engineering metrics that are directly tied to revenue, like development velocity and system reliability, and allows you to track every step of every application execution, so you gain valuable insight into your business. Temporal Cloud provides a managed service backed by the originators of the project. It has been adopted by thousands for mission-critical applications, including Stripe, Netflix, AlaskaAir, Snap, Datadog, and Hashicorp. Learn more at temporal.io.",
+    "events": ["previous"]
+  },
+  {
+    "id": "stytch",
+    "logo": "stytch.png",
+    "logoSquare": "stytch-square.jpg",
+    "name": "Stytch",
+    "url": "https://stytch.com/",
+    "description": "All-in-one authentication, authorization, and fraud prevention infrastructure with powerful APIs and SDKs. Stytch is the fastest way to build secure user authentication and authorization into your app. With Stytch, you can build a custom login experience in minutes, not months. Stytch is trusted by thousands of developers and businesses, including Webflow, Notion, and Figma.",
+    "events": ["previous"]
+  },
+  {
+    "id": "datastax",
+    "logo": "datastax.png",
+    "logoSquare": "datastax-square.jpg",
+    "name": "DataStax",
+    "url": "https://www.datastax.com",
+    "description": "DataStax is a GenAI data company that provides tools for developers to building amazing AI applications, including:\n- Astra DB - a serverless NoSQL and Vector database.\n- RAGStack - a framework for building enterprise-grade RAG applications.\n - Langflow - a visual editor and workflow engine for building AI flows.",
+    "events": ["previous"]
+  },
+  {
+    "id": "codingscape",
+    "logo": "codingscape.png",
+    "logoSquare": "codingscape-square.jpg",
+    "name": "Codingscape",
+    "url": "https://codingscape.com",
+    "description": "Codingscape is a modern consultancy solving global technology problems while putting people first. The world's leading companies trust our expertise when they need a reliable partner to develop scalable software and systems. Our senior teams work across US time zones to build digital solutions faster and more efficiently than organizations can through internal hiring.",
+    "events": ["previous"]
+  },
+  {
+    "id": "infobip",
+    "logo": "infobip.png",
+    "logoSquare": "infobip-square.jpg",
+    "name": "Infobip",
+    "url": "http://infobip.com/developers",
+    "video": "501085031dc9b27bcc6936548aa0fefa",
+    "description": "Infobip is a global leader in the field of omnichannel communication powering a broad range of messaging channels, tools and solutions for advanced customer engagement, authentication, and security. We help our clients and partners overcome the complexity of consumer communications, grow their business, and enhance the customer experience quickly, securely, and reliably.",
+    "events": ["previous"]
+  },
+  {
+    "id": "tbd",
+    "logo": "tbd.png",
+    "name": "TBD",
+    "url": "https://tbd.website",
+    "events": ["previous"]
+  },
+  {
+    "id": "sentry",
+    "logo": "sentry.png",
+    "name": "Sentry",
+    "url": "https://sentry.io",
+    "events": ["previous"]
+  },
+  {
+    "id": "hookdeck",
+    "logo": "hookdeck.png",
+    "name": "HookDeck",
+    "url": "https://hookdeck.com?ref=cascadiajs-2024",
+    "events": ["previous"]
+  },
+  {
+    "id": "langchain",
+    "logo": "langchain.png",
+    "name": "LangChain",
+    "url": "https://langchain.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "google",
+    "logo": "google.png",
+    "name": "Google",
+    "url": "https://google.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "cloudinary",
+    "logo": "cloudinary.png",
+    "name": "Cloudinary",
+    "url": "https://cloudinary.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "codecrafters",
+    "logo": "codecrafters.png",
+    "name": "CodeCrafters",
+    "url": "https://app.codecrafters.io/join?via=cascadiajs",
+    "events": ["previous"]
+  },
+  {
+    "id": "appwrite",
+    "logo": "appwrite.png",
+    "name": "appwrite",
+    "url": "https://appwrite.io",
+    "events": ["previous"]
+  },
+  {
+    "id": "circle",
+    "logo": "circle.png",
+    "name": "Circle",
+    "url": "https://www.circle.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "circleci",
+    "logo": "circleci.png",
+    "name": "CircleCI",
+    "url": "https://circleci.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "courier.png",
+    "logo": "courier.png",
+    "name": "Courier",
+    "url": "https://courier.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "datadog",
+    "logo": "datadog.png",
+    "name": "Datadog",
+    "url": "https://www.datadoghq.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "dolbyio",
+    "logo": "dolby.png",
+    "name": "Dolby.io",
+    "url": "https://dolby.io/",
+    "events": ["previous"]
+  },
+  {
+    "id": "hasura",
+    "logo": "hasura.png",
+    "name": "Hasura",
+    "url": "https://hasura.io",
+    "events": ["previous"]
+  },
+  {
+    "id": "lacework",
+    "logo": "lacework.png",
+    "name": "Lacework",
+    "url": "https://lacework.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "netlify",
+    "tier": "community",
+    "logo": "netlify.png",
+    "name": "Netlify",
+    "url": "https://www.netlify.com",
+    "events": ["previous", "2025"]
+  },
+  {
+    "id": "new-relic",
+    "logo": "new-relic.png",
+    "name": "New Relic",
+    "url": "https://newrelic.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "nx",
+    "logo": "nx.png",
+    "name": "Nx",
+    "url": "https://nx.dev",
+    "events": ["previous"]
+  },
+  {
+    "id": "openjs",
+    "logo": "openjs.png",
+    "name": "OpenJS Foundation",
+    "url": "https://openjsf.org",
+    "events": ["previous"]
+  },
+  {
+    "id": "postman",
+    "logo": "postman.png",
+    "name": "Postman",
+    "url": "https://www.postman.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "retool",
+    "logo": "retool.png",
+    "name": "Retool",
+    "url": "https://retool.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "salesforce-devs",
+    "logo": "salesforcedevs.png",
+    "name": "Salesforce Developers",
+    "url": "https://developer.salesforce.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "saucelabs",
+    "logo": "saucelabs.png",
+    "name": "Sauce Labs",
+    "url": "https://saucelabs.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "stateful",
+    "logo": "stateful.png",
+    "name": "Stateful",
+    "url": "https://stateful.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "tmobile",
+    "logo": "tmobile.png",
+    "name": "T-Mobile",
+    "url": "https://www.t-mobile.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "twilio",
+    "logo": "twilio.png",
+    "name": "Twilio",
+    "url": "https://www.twilio.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "unbounce",
+    "logo": "unbounce.png",
+    "name": "Unbounce",
+    "url": "https://unbounce.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "vonage",
+    "logo": "vonage.png",
+    "name": "Vonage",
+    "url": "https://www.vonage.com",
+    "events": ["previous"]
+  },
+  {
+    "id": "xata",
+    "logo": "xata.png",
+    "name": "Xata",
+    "url": "https://xata.io",
+    "events": ["previous"]
+  },
+  {
+    "id": "webai",
+    "tier": "platinum",
+    "logo": "google-webai.png",
+    "logoSquare": "google-webai.png",
+    "name": "#WebAI",
+    "url": "https://www.linkedin.com/in/webai/",
+    "description": "# Web AI\n## What is Web AI?\nWeb AI is the art of running machine learning models entirely client side within a web browser via JavaScript. From Agents powered by generative AI to traditional ML models for things like object detection, pose estimation, or segmentation - it's likely you can run many of the popular models you already use in this form. \n## Benefits of Web AI\nBut why use Web AI? By running models on the client side it gives you total privacy, zero inference costs, and low latency results - great for real time applications. We are already seeing particular interest from folk working in healthcare, finance, and legal industries to name a few. Join the wave of >1 billion yearly downloads of Web AI models and libraries and see how you can level up your company's web applications to gain client side superpowers for your customers.\n## Tell me more\nCome along to our keynote talk at Cascadia.js 2025 to hear the latest updates and then head on over to the following links to learn more:\n* [Coffee break sized videos on YouTube](https://goo.gle/WebAIVideos)\n* [Web AI Agents](https://www.youtube.com/watch?v=IC256KyITLw)\n* [Get inspired by the wider community](http://goo.gle/made-with-tfjs)\n* [Free zero to hero course](http://goo.gle/Learn-WebAI)\n* [Web AI Discord server](https://discord.gg/C2kjJn2uzw)\n### Connect with humans\nReach out to [Jason Mayes (Web AI Lead at Google)](https://www.linkedin.com/in/webai/) if any specific questions.",
+    "events": ["2025"]
+  },
+  {
+    "id": "cloudflare",
+    "tier": "community",
+    "logo": "cloudflare.png",
+    "name": "Cloudflare",
+    "url": "https://www.cloudflare.com",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "elastic",
+    "tier": "gold",
+    "logo": "elastic.png",
+    "name": "Elastic",
+    "url": "https://www.elastic.co",
+    "description": "Elastic, the Search AI Company, enables everyone to find the answers they need in real time, using all their data, at scale. Elastic's solutions for search, observability, and security are built on the Elastic Search AI Platform — the development platform used by thousands of companies, including more than 50% of the Fortune 500.\n\nLearn more about working at Elastic at [elastic.co/careers](https://www.elastic.co/careers)",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "arcjet",
+    "tier": "gold",
+    "logo": "arcjet.png",
+    "name": "Arcjet",
+    "url": "https://www.arcjet.com",
+    "description": "AI features are shipping fast. Security reviews are not. As agents gain the ability to call tools, access data, and trigger real-world side effects, the risk is no longer just unsafe text. It is unauthorized actions, data leakage, and runaway AI spend. Arcjet is the enforcement layer for AI features in production.\n\nInstead of filtering prompts at the edge, Arcjet enforces policy at the moment your application executes tools or releases data. Decisions are bound to real application context such as identity, route, session, permissions, and cost budgets.\n\nWith Arcjet you can:\n* Protect AI endpoints from automation and cost attacks with bot detection and per-user rate limits\n* Prevent sensitive data from leaking into model context, logs, or third-party tools with built-in detection and redaction\n* Allow or deny tool execution based on user roles, routes, and approval flows\n* Constrain tool arguments and enforce spend limits before high-risk actions execute\n\nArcjet runs directly inside your environment as an SDK, giving you inline enforcement with full visibility into why a decision was made. Guardrails classify text. Arcjet enforces policy on AI actions in production.\n\nIf you are shipping customer-facing AI features, Arcjet helps you do it safely without slowing down development.",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "ilf",
+    "tier": "silver",
+    "logo": "ilf.png",
+    "logoSquare": "ilf.png",
+    "name": "Inter Ledger Foundation",
+    "url": "https://interledger.org/",
+    "description": "The Interledger Foundation is a non-profit organization that supports the development of the Interledger Protocol and its ecosystem. The Interledger Protocol is a protocol for sending payments across different payment networks.",
+    "events": ["2025"]
+  },
+  {
+    "id": "signalfire",
+    "tier": "silver",
+    "logo": "signalfire.png",
+    "logoSquare": "signalfire.png",
+    "name": "SignalFire",
+    "url": "https://signalfire.com/",
+    "description": "SignalFire is a venture capital firm that invests in early stage technology companies. SignalFire is a remote-first company that uses AI to help its portfolio companies grow.",
+    "events": ["2025"]
+  },
+  {
+    "id": "atono",
+    "tier": "silver",
+    "logo": "atono.png",
+    "logoSquare": "atono.png",
+    "name": "Atono",
+    "url": "https://atono.io/",
+    "description": "Atono is an all-in-one platform designed to help autonomous, cross-functional teams build better software together.\n\nPlan, build, run, and improve your product with timelines, user stories, feature flags, usage tracking, and in-browser bug reporting – bringing your team together in one place.",
+    "events": ["2025"]
+  },
+  {
+    "id": "mastra",
+    "tier": "bronze",
+    "logo": "mastra.png",
+    "name": "Mastra",
+    "url": "https://www.mastra.ai/",
+    "description": "The TypeScript Agent Framework. From the team that brought you Gatsby: prototype and productionize AI features with a modern Javascript stack.",
+    "events": ["2025"]
+  },
+  {
+    "id": "seattlejs",
+    "tier": "community",
+    "logo": "seattlejs.png",
+    "name": "SeattleJS",
+    "url": "https://www.seattlejs.com",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "vanjs",
+    "tier": "community",
+    "logo": "vanjs.png",
+    "name": "VanJS",
+    "url": "https://www.luma.com/vanjs",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "ai-portland",
+    "tier": "community",
+    "logo": "ai-portland.png",
+    "name": "AI Portland",
+    "url": "https://www.meetup.com/ai-portland/",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "bellingham-codes",
+    "tier": "community",
+    "logo": "bellingham-codes.png",
+    "logoSquare": "bellingham-codes.png",
+    "name": "Bellingham Codes",
+    "url": "https://www.meetup.com/bellingham-codes/",
+    "description": "Bellingham Codes is a community of developers in Bellingham. We meet monthly to share knowledge and learn from each other.",
+    "events": ["2025"]
+  },
+  {
+    "id": "codeandcoffee",
+    "tier": "community",
+    "logo": "codeandcoffee.png",
+    "name": "Seattle Code and Coffee",
+    "url": "https://www.meetup.com/seattle-code-and-coffee/",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "oss4ai",
+    "tier": "community",
+    "logo": "oss4ai.png",
+    "logoSquare": "oss4ai.png",
+    "name": "OSS4AI",
+    "url": "https://lu.ma/oss4ai",
+    "description": "OSS4AI is a community of developers who are interested in open source AI. We meet monthly to share knowledge and learn from each other.",
+    "events": ["2025"]
+  },
+  {
+    "id": "viata",
+    "tier": "community",
+    "logo": "viata.png",
+    "logoSquare": "viata.png",
+    "name": "Viata",
+    "url": "https://viata.ai",
+    "description": "Viata lets event organizers build beautiful, customized travel maps for their attendees.",
+    "events": ["2025"]
+  },
+  {
+    "id": "codeday",
+    "tier": "community",
+    "logo": "codeday.png",
+    "logoSquare": "codeday.png",
+    "name": "CodeDay",
+    "url": "https://codeday.org",
+    "description": "CodeDay is a global movement of students who are passionate about technology and coding. We host events and workshops to help students learn and grow their skills.",
+    "events": ["2025"]
+  },
+  {
+    "id": "newtechnw",
+    "tier": "community",
+    "logo": "ntnw.png",
+    "logoSquare": "ntnw.png",
+    "name": "NewTech Northwest",
+    "url": "https://www.newtechnorthwest.com/",
+    "description": "NewTech Northwest is a community of tech enthusiasts in the Pacific Northwest. We meet monthly to share knowledge and learn from each other.",
+    "events": ["2025"]
+  },
+  {
+    "id": "infinite-red",
+    "tier": "community",
+    "logo": "infinitered.png",
+    "logoSquare": "infinitered.png",
+    "name": "Infinite Red",
+    "url": "https://infinite.red",
+    "description": "Infinite Red is a mobile app development company that specializes in React Native. We build beautiful, high-quality apps for iOS and Android.",
+    "events": ["2025"]
+  },
+  {
+    "id": "github",
+    "tier": "community",
+    "logo": "github.png",
+    "logoSquare": "github.png",
+    "name": "Github",
+    "url": "https://github.com",
+    "description": "",
+    "events": ["2025"]
+  },
+  {
+    "id": "mux",
+    "tier": "silver",
+    "logo": "mux.png",
+    "name": "Mux",
+    "url": "https://www.mux.com",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "langflow",
+    "tier": "gold",
+    "logo": "langflow.png",
+    "logoSquare": "langflow.png",
+    "name": "Langflow",
+    "url": "https://langflow.org",
+    "description": "",
+    "events": ["2025"]
+  },
+  {
+    "id": "geekwire",
+    "tier": "media",
+    "logo": "geekwire.png",
+    "logoSquare": "geekwire.png",
+    "name": "GeekWire",
+    "url": "https://www.geekwire.com",
+    "description": "",
+    "events": ["2025"]
+  },
+  {
+    "id": "onebrief",
+    "tier": "gold",
+    "logo": "onebrief.png",
+    "name": "OneBrief",
+    "url": "https://www.onebrief.com",
+    "description": "Onebrief is building collaboration and AI-powered workflow software for complex, real-world planning environments—where clarity, speed, and accuracy matter. Our platform helps teams operate more effectively in high-stakes, constrained settings by unifying information across systems, teams, and locations.\n\nWe're a remote-first team of builders from diverse backgrounds, focused on creating meaningful impact—alongside a strong culture of ownership and craft. Backed by leading investors including General Catalyst, Battery Ventures, and Insight Partners, and a Y Combinator alum, we're growing quickly and excited to connect with engineers who want to tackle hard problems and shape the world we live in.\n\nAt CascadiaJS, we'll have Booth #1 both days—come meet the team, learn what we're building, and explore open roles.\n\nDon't miss Jeff Otaño's (Senior Software Engineering Manager) lightning talk: [From Skeptics to Champions: Building an AI Platform Your Engineers Actually Trust](/2026/talks/building-an-ai-platform-your-engineers-actually-trust). He'll share how we moved from decentralized, individual AI tool usage to a governed, measurable, and scalable AI platform—turning experimentation into real organizational capability.\n\nWe're also a host of Cascadia's networking event on June 1—come hang out, meet fellow engineers, and connect with the Onebrief team.\n\n <h2>Open roles</h2> \n\n <h3>Senior Software Engineer, Full-stack - Remote (US)</h3>\n\nThis is a senior IC role with meaningful ownership inside a team’s scope. You’ll lead multi-sprint initiatives, contribute to architectural direction, and partner closely with Product, Design, and Engineering to ship resilient, thoughtful software. Learn more about this role: https://jobs.ashbyhq.com/onebrief/605a6856-fb5d-4d61-8d2f-64a2b1ce3f2c \n\n<h3>Staff Software Engineer, Full-stack - Remote (US)</h3>\n\nThis role sits at the intersection of architecture, product strategy, and distributed systems design. Current challenges include real-time collaboration infrastructure, complex planning interfaces, observability, AI-assisted workflows, and scalable platform foundations across React, TypeScript, Node.js, PostgreSQL, Redis, Kubernetes, and AWS. Learn more about this role: https://jobs.ashbyhq.com/onebrief/89a18894-2c21-4a9c-afb9-8521cc18675e\n\n<h3>Outcome Engineer (Early Career) - Remote (US)</h3>\n\n This role sits somewhere between software engineering, AI systems design, platform engineering, and product experimentation. You’ll help build the internal systems that support agentic workflows, automated governance, evaluation frameworks, observability loops, and AI-assisted software development. Learn more about this role: https://jobs.ashbyhq.com/onebrief/a88e10d4-66d8-4911-99e3-3d20351e73d9 \n\nLearn more: https://www.onebrief.com/life-at-onebrief",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "moment",
+    "tier": "gold",
+    "logo": "moment.png",
+    "logoSquare": "moment.png",
+    "name": "Moment",
+    "url": "https://moment.dev",
+    "description": "Docs, reimagined for developers. Fast. Collaborative. Programmable. A truly-offline offline mode. Moment is a powerful, modern docs platform based entirely on Markdown files that stored locally in git repositories, on your device.",
+    "events": ["2025"]
+  },
+  {
+    "id": "reboot",
+    "tier": "gold",
+    "logo": "reboot.png",
+    "logoSquare": "reboot.png",
+    "name": "Reboot.dev",
+    "url": "https://www.reboot.dev",
+    "description": "Your agents need a Reboot. Reboot brings time-tested software architecture principles to durable fullstack AI applications, making your agents reliable and maintainable.",
+    "events": ["2025"]
+  },
+  {
+    "id": "copilotkit",
+    "tier": "gold",
+    "logo": "copilotkit.png",
+    "name": "CopilotKit",
+    "url": "https://www.copilotkit.ai",
+    "description": "CopilotKit is the agentic frontend stack & the company behind the AG-UI protocol. This protocol has been adopted by Google, Microsoft, AWS, LangChain & more, making it the easiest path for bringing AI functionality (like Generative UI) to full stack applications.\n\nWe're hiring: https://www.copilotkit.ai/careers",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "render",
+    "tier": "gold",
+    "logo": "render.png",
+    "name": "Render",
+    "url": "https://www.render.com",
+    "events": ["2025", "2026"]
+  },
+  {
+    "id": "expo",
+    "tier": "gold",
+    "logo": "expo.png",
+    "name": "Expo",
+    "url": "https://www.expo.dev",
+    "description": "If you know JavaScript, you're already most of the way to building a mobile app with Expo.\n\nExpo helps teams build and ship native iOS and Android apps without getting dragged into a full-time infrastructure project. No fighting local build setup. No waiting around on app store reviews for every fix. No stitching together mobile CI/CD from scratch.\n\nWe'll be at CascadiaJS and would love to meet you at Booth #10.\n\nCome find us at the booth if you want to talk about things like:\n\n* Cloud builds for iOS and Android with Expo Build\n* Shipping updates and bug fixes instantly over the air with Expo OTA Updates\n* Automating mobile CI/CD with Expo Workflows\n* File-based routing for React apps with Expo Router\n* Or just the mobile problem that's been annoying you lately\n\nWhether you're a web developer exploring mobile or a team shipping a production app, we can help you move faster without wrestling native tooling.\n\nCome say hi! We like talking to developers :)",
+    "events": ["2026"]
+  },
+  {
+    "id": "grow-therapy",
+    "tier": "silver",
+    "logo": "grow-therapy.png",
+    "name": "Grow Therapy",
+    "url": "https://www.growtherapy.com",
+    "events": ["2026"]
+  },
+  {
+    "id": "apify",
+    "tier": "gold",
+    "logo": "apify.png",
+    "name": "Apify",
+    "url": "https://apify.com/?utm_source=cascadiajs&utm_medium=event&utm_campaign=events-cascadiajs26",
+    "description": "Apify is the largest marketplace of tools for AI. 29,000 Actors to automate your business. Get real-time web data, track competitors, generate leads, monitor social media, and integrate your apps and agents.\n\nCan’t find an Actor for your use case? Join a global community of builders who create and earn from Actors. Apify takes care of infrastructure, billing, and distribution.",
+    "events": ["2026"]
+  },
+  {
+    "id": "vapi",
+    "tier": "gold",
+    "logo": "vapi.png",
+    "name": "Vapi",
+    "url": "https://www.vapi.ai",
+    "description": "Vapi is a Voice AI platform that gives developers control over orchestrating and managing voice applications and models while connecting to the systems they already use for real-world action. This makes AI voice agents easy to build, safe to operate, and flexible to evolve.",
+    "events": ["2026"]
+  },
+  {
+    "id": "atlassian",
+    "tier": "community",
+    "logo": "atlassian.png",
+    "name": "Atlassian",
+    "url": "https://go.atlassian.com/cascadiaJS26",
+    "events": ["2026"]
+  },
+  {
+    "id": "pulumi",
+    "tier": "platinum",
+    "logo": "pulumi.png",
+    "name": "Pulumi",
+    "url": "https://www.pulumi.com",
+    "events": ["2026"]
+  },
+  {
+    "id": "chain-react",
+    "tier": "silver",
+    "logo": "chain-react.png",
+    "name": "Chain React",
+    "url": "https://ti.to/chainreact/chainreact2026/discount/CASCADIA26",
+    "events": ["2026"]
+  },
+  {
+    "id": "uber",
+    "tier": "bronze",
+    "logo": "uber.png",
+    "name": "Uber",
+    "url": "https://www.uber.com",
+    "events": ["2026"]
+  },
+  {
+    "id": "warp",
+    "tier": "bronze",
+    "logo": "warp.png",
+    "name": "Warp",
+    "url": "https://www.warp.dev",
+    "events": ["2026"]
+  },
+  {
+    "id": "wpengine",
+    "tier": "community",
+    "logo": "wpengine.png",
+    "name": "WP Engine",
+    "url": "https://www.wpengine.com",
+    "events": ["2026"]
+  },
+  {
+    "id": "aws",
+    "tier": "diamond",
+    "logo": "aws.png",
+    "name": "AWS",
+    "url": "https://aws.amazon.com",
+    "description": "Amazon Web Services (AWS) is guided by customer obsession, pace of innovation, commitment to operational excellence, and long-term thinking. By democratizing technology for nearly two decades and making cloud computing and generative AI accessible to organizations of every size and industry, AWS has built one of the fastest-growing enterprise technology businesses in history. Millions of customers trust AWS to accelerate innovation, transform their businesses, and shape the future. With the most comprehensive AI capabilities and global infrastructure footprint, AWS empowers builders to turn big ideas into reality. Learn more at [aws.amazon.com](https://aws.amazon.com) and follow [@AWSNewsroom](https://twitter.com/AWSNewsroom).",
+    "events": ["2026"]
+  },
+  {
+    "id": "works-real-estate",
+    "tier": "community",
+    "logo": "works-real-estate.png",
+    "name": "Works Real Estate",
+    "url": "",
+    "events": ["2026"]
+  },
+  {
+    "id": "auth0",
+    "tier": "gold",
+    "logo": "auth0.png",
+    "name": "Auth0",
+    "url": "https://auth0.com",
+    "events": ["2026"]
+  },
+  {
+    "id": "rent-spree",
+    "tier": "bronze",
+    "logo": "rentspree.png",
+    "name": "Rent Spree",
+    "url": "https://www.rentspree.com",
+    "events": ["2026"]
+  },
+  {
+    "id": "bluesky",
+    "tier": "community",
+    "logo": "bluesky.png",
+    "name": "Bluesky",
+    "events": ["2026"]
+  },
+  {
+    "id": "neo4j",
+    "tier": "community",
+    "logo": "neo4j.png",
+    "name": "Neo4j",
+    "events": ["2026"]
+  },
+  {
+    "id": "storyblok",
+    "tier": "community",
+    "logo": "storyblok.png",
+    "name": "Storyblok",
+    "events": ["2026"]
+  }
+]
