@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import SponsorsGrid from "../components/SponsorsGrid.astro";
 
 interface Props {
   title: string;
@@ -67,15 +68,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
       <slot />
     </main>
 
-    {
-      showSponsors && (
-        <section class="bg-cedar-cream px-6 py-8 text-center font-extralight">
-          <p class="text-sound-navy font-serif text-lg">
-            Sponsors — placeholder
-          </p>
-        </section>
-      )
-    }
+    {showSponsors && <SponsorsGrid event="2026" tiered />}
 
     <SiteFooter />
   </body>

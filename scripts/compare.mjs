@@ -123,6 +123,37 @@ const PAGES = {
         live: "footer a[href='/2025']",
         local: "footer a[href='/2025']",
       },
+      // Sponsors (SponsorsGrid, issue #17): the Layout drop-in renders the
+      // tiered 2026 grid (`event="2026" tiered`) in place of the placeholder.
+      // Selectors below target the Enhance `sponsors-grid-2026` element's
+      // class names (`.tier-label`, `.diamond`, `.gold`, `.community`), the
+      // legacy tiered grid's actual DOM. Today cascadiajs.com's homepage
+      // renders the flat "Past Sponsors" grid in this slot instead (its
+      // sponsors-grid CSS confirms the 50px->60px flat sizing this component
+      // also implements), so these three pairs currently report MISSING on
+      // `live` rather than a geometry diff — that's a live-page-mapping gap,
+      // not a component defect. Revisit once #18 settles which page/section
+      // actually shows the tiered grid live, and repoint `live` accordingly.
+      {
+        label: "sponsors tier label",
+        live: "div.tier-label",
+        local: "span:has-text('diamond')",
+      },
+      {
+        label: "sponsors diamond tier logo wrapper (200px md height)",
+        live: ".diamond div",
+        local: "div:has(> a[href='/sponsors/aws'])",
+      },
+      {
+        label: "sponsors gold tier logo wrapper (110px md height)",
+        live: ".gold div",
+        local: "div:has(> a[href='/sponsors/elastic'])",
+      },
+      {
+        label: "sponsors community tier logo (50px md height, unlinked)",
+        live: ".community div img",
+        local: "img[alt='Cloudflare logo']",
+      },
     ],
   },
 };
