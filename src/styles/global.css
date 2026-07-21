@@ -10,9 +10,12 @@
   --color-cedar-cream: #fff5cc;
   --color-overcast-gray: #cfd3e4;
 
-  --font-sans: freight-sans-pro, ui-sans-serif, system-ui, sans-serif;
-  --font-display: mono45-headline, ui-monospace, monospace;
-  --font-serif: freight-macro-pro, ui-serif, Georgia, serif;
+  /* Fallback stacks match the legacy stylesheet exactly: the fidelity
+     comparator (ADR-0004) reads computed font-family, so extra fallbacks
+     register as drift on every text element. */
+  --font-sans: freight-sans-pro, sans-serif;
+  --font-display: mono45-headline, sans-serif;
+  --font-serif: freight-macro-pro, sans-serif;
 }
 
 /* Match the reference's base typographic norms. Tailwind's preflight forces

@@ -12,17 +12,32 @@ interface Sponsor {
 }
 
 interface Props {
+  /** Event Key to include (e.g. "2026"). Omit to consider every Sponsor. */
   event?: string;
+  /**
+   * Event Key(s) to exclude. A Sponsor is hidden only when *every* one of its
+   * Events is excluded, so a Sponsor in both 2025 and 2026 still shows under
+   * exclude="2026". This is what reproduces the legacy "Past Sponsors" set;
+   * dropping every Sponsor that merely touches 2026 would lose returning
+   * Sponsors such as Cloudflare, Arcjet and Elastic.
+   */
+  exclude?: string | string[];
   tiered?: boolean;
 }
 
-const { event, tiered = false } = Astro.props;
+const { event, exclude, tiered = false } = Astro.props;
 
 const sponsors = sponsorsData as Sponsor[];
 
-const selected = event
-  ? sponsors.filter((sponsor) => sponsor.events.includes(event))
-  : sponsors;
+const excluded =
+  exclude === undefined ? [] : Array.isArray(exclude) ? exclude : [exclude];
+
+const selected = sponsors.filter((sponsor) => {
+  if (event && !sponsor.events.includes(event)) return false;
+  if (excluded.length > 0 && sponsor.events.every((e) => excluded.includes(e)))
+    return false;
+  return true;
+});
 
 // Fixed tier order (diamond -> media); only the top four tiers link out.
 const TIER_ORDER = [
