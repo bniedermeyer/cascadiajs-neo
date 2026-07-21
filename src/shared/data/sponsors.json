@@ -48,14 +48,14 @@
   },
   {
     "id": "tbd",
-    "logo": "tbd.png",
+    "logo": "tbd.svg",
     "name": "TBD",
     "url": "https://tbd.website",
     "events": ["previous"]
   },
   {
     "id": "sentry",
-    "logo": "sentry.png",
+    "logo": "sentry.svg",
     "name": "Sentry",
     "url": "https://sentry.io",
     "events": ["previous"]
@@ -111,7 +111,7 @@
   },
   {
     "id": "circleci",
-    "logo": "circleci.png",
+    "logo": "circleci.svg",
     "name": "CircleCI",
     "url": "https://circleci.com",
     "events": ["previous"]
@@ -132,7 +132,7 @@
   },
   {
     "id": "dolbyio",
-    "logo": "dolby.png",
+    "logo": "dolby.svg",
     "name": "Dolby.io",
     "url": "https://dolby.io/",
     "events": ["previous"]
@@ -154,14 +154,14 @@
   {
     "id": "netlify",
     "tier": "community",
-    "logo": "netlify.png",
+    "logo": "netlify.svg",
     "name": "Netlify",
     "url": "https://www.netlify.com",
     "events": ["previous", "2025"]
   },
   {
     "id": "new-relic",
-    "logo": "new-relic.png",
+    "logo": "new-relic.svg",
     "name": "New Relic",
     "url": "https://newrelic.com",
     "events": ["previous"]
@@ -175,14 +175,14 @@
   },
   {
     "id": "openjs",
-    "logo": "openjs.png",
+    "logo": "openjs.svg",
     "name": "OpenJS Foundation",
     "url": "https://openjsf.org",
     "events": ["previous"]
   },
   {
     "id": "postman",
-    "logo": "postman.png",
+    "logo": "postman.svg",
     "name": "Postman",
     "url": "https://www.postman.com",
     "events": ["previous"]
@@ -210,7 +210,7 @@
   },
   {
     "id": "stateful",
-    "logo": "stateful.png",
+    "logo": "stateful.svg",
     "name": "Stateful",
     "url": "https://stateful.com",
     "events": ["previous"]
@@ -224,7 +224,7 @@
   },
   {
     "id": "twilio",
-    "logo": "twilio.png",
+    "logo": "twilio.svg",
     "name": "Twilio",
     "url": "https://www.twilio.com",
     "events": ["previous"]
@@ -245,7 +245,7 @@
   },
   {
     "id": "xata",
-    "logo": "xata.png",
+    "logo": "xata.svg",
     "name": "Xata",
     "url": "https://xata.io",
     "events": ["previous"]
