@@ -114,29 +114,13 @@ test.describe("home page", () => {
     ).toBeVisible();
   });
 
-  test("sponsors grid links a described top-tier sponsor to its detail page", async ({
+  test("sponsors grid renders logos unlinked in the flat layout", async ({
     page,
   }) => {
-    const link = page.getByRole("link", { name: "AWS logo" });
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute("href", "/sponsors/aws");
-  });
-
-  test("sponsors grid links an undescribed top-tier sponsor to its external site", async ({
-    page,
-  }) => {
-    const link = page.getByRole("link", { name: "Pulumi logo" });
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute("href", "https://www.pulumi.com");
-    await expect(link).toHaveAttribute("target", "_blank");
-    await expect(link).toHaveAttribute("rel", "noopener");
-  });
-
-  test("sponsors grid leaves lower-tier sponsor logos unlinked", async ({
-    page,
-  }) => {
-    const logo = page.getByRole("img", { name: "Cloudflare logo" });
-    await expect(logo).toBeVisible();
+    // The home page passes no event and no tiered flag, so the grid renders
+    // the flat, all-sponsors layout: logos are shown but not wrapped in links.
+    await expect(page.getByRole("img", { name: "AWS logo" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "AWS logo" })).toHaveCount(0);
     await expect(
       page.getByRole("link", { name: "Cloudflare logo" }),
     ).toHaveCount(0);
