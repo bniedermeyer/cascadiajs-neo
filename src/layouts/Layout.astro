@@ -7,14 +7,12 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
-  showSponsors?: boolean;
 }
 
 const {
   title,
   description,
   ogImage = "/images/2026/social/social-sharing-general.png",
-  showSponsors = true,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
@@ -66,16 +64,6 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <main class="text-[18px] font-extralight">
       <slot />
     </main>
-
-    {
-      showSponsors && (
-        <section class="bg-cedar-cream px-6 py-8 text-center font-extralight">
-          <p class="text-sound-navy font-serif text-lg">
-            Sponsors — placeholder
-          </p>
-        </section>
-      )
-    }
 
     <SiteFooter />
   </body>

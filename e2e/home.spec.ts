@@ -103,4 +103,53 @@ test.describe("home page", () => {
       footer.getByRole("link", { name: "Privacy Policy" }),
     ).toBeVisible();
   });
+
+  test("sponsors grid shows representative logos with alt text", async ({
+    page,
+  }) => {
+    await expect(
+      page.getByRole("img", { name: "Cloudflare logo" }),
+    ).toBeVisible();
+    await expect(page.getByRole("img", { name: "Netlify logo" })).toBeVisible();
+    await expect(
+      page.getByRole("img", { name: "CircleCI logo" }),
+    ).toBeVisible();
+  });
+
+  test("sponsors grid renders logos unlinked in the flat layout", async ({
+    page,
+  }) => {
+    // The home page renders the flat layout, so logos are never linked.
+    await expect(
+      page.getByRole("link", { name: "Cloudflare logo" }),
+    ).toHaveCount(0);
+    await expect(page.getByRole("link", { name: "Netlify logo" })).toHaveCount(
+      0,
+    );
+  });
+
+  test("past sponsors grid drops 2026-only sponsors but keeps returning ones", async ({
+    page,
+  }) => {
+    // exclude="2026" hides a Sponsor only when *every* one of its Events is
+    // excluded: 2026-only Sponsors go, 2025+2026 Sponsors stay.
+    await expect(page.getByRole("img", { name: "AWS logo" })).toHaveCount(0);
+    await expect(page.getByRole("img", { name: "Apify logo" })).toHaveCount(0);
+    await expect(
+      page.getByRole("img", { name: "Cloudflare logo" }),
+    ).toBeVisible();
+    await expect(page.getByRole("img", { name: "Arcjet logo" })).toBeVisible();
+  });
+
+  test("sponsors section shows the Past Sponsors heading", async ({ page }) => {
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Past Sponsors" }),
+    ).toBeVisible();
+  });
+
+  test("sponsors section CTA links to the sponsor page", async ({ page }) => {
+    const cta = page.getByRole("link", { name: "Sponsor Our Event" });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/2026/sponsor");
+  });
 });

@@ -1,0 +1,132 @@
+---
+import sponsorsData from "../shared/data/sponsors.json";
+
+interface Sponsor {
+  id: string;
+  logo: string;
+  name: string;
+  url?: string;
+  description?: string;
+  tier?: string;
+  events: string[];
+}
+
+interface Props {
+  /** Event Key to include (e.g. "2026"). Omit to consider every Sponsor. */
+  event?: string;
+  /**
+   * Event Key(s) to exclude. A Sponsor is hidden only when *every* one of its
+   * Events is excluded, so a Sponsor in both 2025 and 2026 still shows under
+   * exclude="2026". This is what reproduces the legacy "Past Sponsors" set;
+   * dropping every Sponsor that merely touches 2026 would lose returning
+   * Sponsors such as Cloudflare, Arcjet and Elastic.
+   */
+  exclude?: string | string[];
+  tiered?: boolean;
+}
+
+const { event, exclude, tiered = false } = Astro.props;
+
+const sponsors = sponsorsData as Sponsor[];
+
+const excluded =
+  exclude === undefined ? [] : Array.isArray(exclude) ? exclude : [exclude];
+
+const selected = sponsors.filter((sponsor) => {
+  if (event && !sponsor.events.includes(event)) return false;
+  if (excluded.length > 0 && sponsor.events.every((e) => excluded.includes(e)))
+    return false;
+  return true;
+});
+
+// Fixed tier order (diamond -> media); only the top four tiers link out.
+const TIER_ORDER = [
+  "diamond",
+  "platinum",
+  "gold",
+  "silver",
+  "bronze",
+  "community",
+  "media",
+] as const;
+const LINKED_TIERS = new Set(["diamond", "platinum", "gold", "silver"]);
+
+// md-breakpoint logo heights, one per tier, in TIER_ORDER order.
+const TIER_HEIGHT: Record<(typeof TIER_ORDER)[number], string> = {
+  diamond: "md:h-[200px]",
+  platinum: "md:h-[142px]",
+  gold: "md:h-[110px]",
+  silver: "md:h-[84px]",
+  bronze: "md:h-[65px]",
+  community: "md:h-[50px]",
+  media: "md:h-[50px]",
+};
+
+const flatSponsors = tiered
+  ? []
+  : [...selected].sort((a, b) => a.name.localeCompare(b.name));
+
+const tierBands = tiered
+  ? TIER_ORDER.map((tier) => ({
+      tier,
+      sponsors: selected.filter((sponsor) => sponsor.tier === tier),
+    })).filter((band) => band.sponsors.length > 0)
+  : [];
+---
+
+{
+  tiered ? (
+    <div>
+      {tierBands.map(({ tier, sponsors: tierSponsors }) => (
+        <>
+          <div class="relative my-5 text-center">
+            <div class="border-sound-navy/20 absolute top-1/2 left-0 w-full border-t" />
+            <div class="relative inline-flex justify-center px-2.5">
+              <span class="text-sound-navy inline-block h-5 bg-[#d1f3e5] p-2">
+                {tier}
+              </span>
+            </div>
+          </div>
+          <div class="md:flex md:flex-wrap md:justify-center">
+            {tierSponsors.map((sponsor) => {
+              const logo = (
+                <img
+                  src={`/images/sponsors/${sponsor.logo}`}
+                  alt={`${sponsor.name} logo`}
+                  class="mx-auto my-8 block h-[50px] md:m-0 md:inline md:h-full"
+                />
+              );
+              return (
+                <div class={`text-center md:m-8 ${TIER_HEIGHT[tier]}`}>
+                  {LINKED_TIERS.has(tier) ? (
+                    sponsor.description ? (
+                      <a href={`/sponsors/${sponsor.id}`}>{logo}</a>
+                    ) : (
+                      <a href={sponsor.url} target="_blank" rel="noopener">
+                        {logo}
+                      </a>
+                    )
+                  ) : (
+                    logo
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ))}
+    </div>
+  ) : (
+    <div class="md:flex md:flex-wrap md:justify-center">
+      {flatSponsors.map((sponsor) => (
+        <div class="text-center md:m-8">
+          <img
+            src={`/images/sponsors/${sponsor.logo}`}
+            alt={`${sponsor.name} logo`}
+            class="mx-auto my-8 block h-[50px] md:m-0 md:inline md:h-[60px]"
+          />
+        </div>
+      ))}
+    </div>
+  )
+}

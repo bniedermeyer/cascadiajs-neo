@@ -123,6 +123,32 @@ const PAGES = {
         live: "footer a[href='/2025']",
         local: "footer a[href='/2025']",
       },
+      // Sponsors (issue #18): the home page renders the page-owned flat
+      // "Past Sponsors" section — `#sponsors` (.landing padding, centered),
+      // an <h1>, the flat SponsorsGrid, and the "Sponsor Our Event" CTA.
+      // These pairs map the legacy Enhance DOM to our Astro DOM for that
+      // section. The tiered grid is not shown on any page yet, so it is not
+      // compared here.
+      {
+        label: "sponsors section (.landing padding, centered)",
+        live: "#sponsors",
+        local: "#sponsors",
+      },
+      {
+        label: "sponsors heading (Past Sponsors, 48px)",
+        live: "#sponsors h1",
+        local: "#sponsors h1",
+      },
+      {
+        label: "sponsors flat logo (60px md height)",
+        live: "#sponsors .sponsors-grid div img",
+        local: "#sponsors img",
+      },
+      {
+        label: "sponsors CTA (Sponsor Our Event)",
+        live: "#sponsors .cta a",
+        local: "#sponsors a[href='/2026/sponsor']",
+      },
     ],
   },
 };
