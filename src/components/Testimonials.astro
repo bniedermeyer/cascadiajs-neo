@@ -1,0 +1,44 @@
+---
+import testimonialsData from "../shared/data/testimonials.json";
+
+interface Testimonial {
+  id: string;
+  permalink: string;
+  author: string;
+  handle: string;
+  date: string;
+  body: string;
+}
+
+const testimonials = testimonialsData as Testimonial[];
+---
+
+<section id="testimonials">
+  {
+    /*
+    Each card is a 300px flex column. The trailing arbitrary variant puts a
+    16px right margin on `.twitter-tweet-rendered` — the wrapper widgets.js
+    injects at runtime, which our own classes can't otherwise reach. Inside
+    the flex card that margin shrinks the embed to 284px, matching the live
+    site exactly; without it the iframe renders 16px too wide. See #23.
+  */
+  }
+  <div class="md:flex md:flex-wrap md:justify-center">
+    {
+      testimonials.map((testimonial) => (
+        <div class="md:mr-4 md:flex md:w-[300px] md:[&_.twitter-tweet-rendered]:mr-4">
+          <blockquote class="twitter-tweet [&_a]:text-cascade-blue [&_a:visited]:text-cascade-blue m-0 border-l-2 border-[#aaa] pl-[18px] [&_a]:underline">
+            <p lang="en" dir="ltr" set:html={testimonial.body} />
+            &mdash; {testimonial.author} ({testimonial.handle}){" "}
+            <a href={testimonial.permalink}>{testimonial.date}</a>
+          </blockquote>
+        </div>
+      ))
+    }
+  </div>
+  <script
+    is:inline
+    async
+    src="https://platform.twitter.com/widgets.js"
+    charset="utf-8"></script>
+</section>

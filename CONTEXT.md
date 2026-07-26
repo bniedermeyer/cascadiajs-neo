@@ -23,3 +23,7 @@ _Avoid_: Presenter
 **Sponsor**:
 A company or organization that financially supports an Event.
 _Avoid_: Partner
+
+**Testimonial**:
+A public endorsement of CascadiaJS by an attendee or Speaker, displayed on the site. Each Testimonial currently originates as an X post and carries that post's identifier and permalink, but the concept is independent of where it was published.
+_Avoid_: Tweet, Twitter Love
