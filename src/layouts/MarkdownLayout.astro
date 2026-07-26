@@ -5,23 +5,20 @@ import CtaButton from "../components/CtaButton.astro";
 import Testimonials from "../components/Testimonials.astro";
 
 interface Props {
-  frontmatter: {
-    title: string;
-    description?: string;
-    width?: "narrow" | "wide";
-    showSponsors?: boolean;
-    showTestimonials?: boolean;
-  };
+  title: string;
+  description?: string;
+  width?: "narrow" | "wide";
+  showSponsors?: boolean;
+  showTestimonials?: boolean;
 }
 
-const { frontmatter } = Astro.props;
 const {
   title,
   description,
   width = "narrow",
   showSponsors = true,
   showTestimonials = true,
-} = frontmatter;
+} = Astro.props;
 // Only "wide" needs its own class -- the default (narrow) width is the
 // unqualified rule below, exactly like the legacy simple-page source.
 const widthClass = width === "wide" ? "wide" : undefined;

@@ -1,5 +1,4 @@
 ---
-layout: ../layouts/MarkdownLayout.astro
 title: Thanks for signing up for our newletter
 ---
 

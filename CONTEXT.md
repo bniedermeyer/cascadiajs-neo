@@ -29,8 +29,14 @@ A public endorsement of CascadiaJS by an attendee or Speaker, displayed on the s
 _Avoid_: Tweet, Twitter Love
 
 **MarkdownLayout**:
-The Astro layout (`src/layouts/MarkdownLayout.astro`) that markdown pages opt into via `layout:` frontmatter. It wraps `Layout.astro` and adds the page chrome ported from the legacy `simple-page` element. See ADR-0007.
+The Astro layout (`src/layouts/MarkdownLayout.astro`) that wraps `Layout.astro` and adds the page chrome ported from the legacy `simple-page` element. It is invoked with direct props (`title`, `description`, `width`) by the `markdown` Collection's dynamic route, not opted into via frontmatter. See ADR-0007.
 _Avoid_: simple-page, page-layout (legacy Enhance names)
+
+**Collection**:
+An Astro content collection — a schema-validated set of content entries loaded from disk. The `markdown` collection holds standalone markdown pages (e.g. `welcome`), loaded by `glob` from the root-level `/markdown/` directory (a sibling of `src/`) and defined in `src/content.config.ts`.
+
+**Entry / id (slug)**:
+A single item in a Collection — for the `markdown` collection, one `.md` file. Its `id` (e.g. `welcome` for `/markdown/welcome.md`) becomes the route slug that `[...slug].astro` serves it at.
 
 **Page-title bar**:
 The overcast-gray banner at the top of a MarkdownLayout page holding the page's `<h1>` (rendered from frontmatter `title`), in sound-navy. Ported from `simple-page`'s `.page-title`.
