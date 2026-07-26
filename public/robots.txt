@@ -1,0 +1,32 @@
+# Note: Disabling all crawlers until we make the migration to avoid confusing with the live version of the site
+
+User-agent: *
+Disallow: /
+
+# Block common AI bots explicitly
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: pinterestbot
+Disallow: /
+
+User-agent: Msnbot
+Disallow: /
+
+User-agent: Sogou web spider
+Disallow: /

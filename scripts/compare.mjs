@@ -151,6 +151,41 @@ const PAGES = {
       },
     ],
   },
+  welcome: {
+    path: "/welcome",
+    pairs: [
+      {
+        label: "page-title bar",
+        live: "simple-page .page-title",
+        local: ".page-title",
+      },
+      {
+        label: "page-title heading",
+        live: "simple-page .page-title h1",
+        local: ".page-title h1",
+      },
+      {
+        label: "page body column",
+        live: "simple-page .page-body",
+        local: ".page-body",
+      },
+      {
+        label: "body heading: CascadiaJS",
+        live: "simple-page .page-body h2",
+        local: ".page-body h2",
+      },
+      {
+        label: "body list link: CascadiaJS Discord Community",
+        live: "simple-page .page-body a[href='https://discord.gg/kkYR86GM29']",
+        local: ".page-body a[href='https://discord.gg/kkYR86GM29']",
+      },
+      {
+        label: "body image",
+        live: "simple-page .page-body img",
+        local: ".page-body img",
+      },
+    ],
+  },
 };
 
 function usage() {
