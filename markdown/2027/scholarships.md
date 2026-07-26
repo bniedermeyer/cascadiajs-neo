@@ -12,7 +12,7 @@ description: Help us make this the most diverse and inclusive CascadiaJS yet!
     </ul>
 </div>
 
-![conference family photo](/_public/images/past/cjs19-family-photo.jpg)
+![conference family photo](/images/past/cjs19-family-photo.jpg)
 
 CascadiaJS exists to educate and grow the web and AI community in the Pacific Northwest, and we're constantly seeking new ways to make it broader and more inclusive. We're excited to work with our network and partners to fund this year's Opportunity Scholarship Program. **We offer at least partial funding to every qualified applicant who requests it so that ticket cost isn’t a barrier to attend.**
 

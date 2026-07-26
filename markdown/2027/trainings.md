@@ -3,7 +3,7 @@ title: Training Workshops
 description: Hands-on trainings from professionals in JS & AI development!
 ---
 
-![Alex and Eve](/_public/images/2026/moon-highway.jpg)
+![Alex and Eve](/images/past/cjs26-moon-highway.jpg)
 
 We are thrilled to offer post-conference hands-on trainings from Eve Porcello on JS & AI development!
 

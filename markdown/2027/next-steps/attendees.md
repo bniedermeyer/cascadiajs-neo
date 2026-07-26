@@ -52,4 +52,4 @@ You don't have to wait until the conference to start enjoying CascadiaJS! Here a
 1. Join our [Discord Community](https://discord.gg/kkYR86GM29)
 1. Follow us on [BlueSky](https://bsky.app/profile/cascadiajs.com), [LinkedIn](https://www.linkedin.com/showcase/cascadiajs), [Twitter](https://twitter.com/CascadiaJS), or [Threads](https://www.threads.net/@cascadia_js)
 
-![CascadiaJS 2019 family photo](/_public/images/past/cjs19-family-photo.jpg)
+![CascadiaJS 2019 family photo](/images/past/cjs19-family-photo.jpg)
