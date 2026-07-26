@@ -2,6 +2,14 @@ import { test, expect } from "@playwright/test";
 
 test.describe("home page", () => {
   test.beforeEach(async ({ page }) => {
+    // The Testimonials section loads X's widgets.js to upgrade blockquotes
+    // into embedded cards. Block it at the network layer so the fallback
+    // DOM stays deterministic and the suite doesn't depend on a third
+    // party's availability.
+    await page.route(
+      /^https:\/\/(platform\.twitter\.com|.*\.twimg\.com)\//,
+      (route) => route.abort(),
+    );
     await page.goto("/");
   });
 
@@ -320,5 +328,39 @@ test.describe("home page", () => {
       const link = blockquotes.nth(i).getByRole("link", { name: date });
       await expect(link).toHaveAttribute("href", permalink);
     }
+  });
+
+  test("exactly one X widget script tag is present on the page", async ({
+    page,
+  }) => {
+    const widgetScripts = page.locator(
+      'script[src="https://platform.twitter.com/widgets.js"]',
+    );
+    await expect(widgetScripts).toHaveCount(1);
+  });
+
+  test("with the widget script blocked, testimonial text and inline links remain readable", async ({
+    page,
+  }) => {
+    const blockquotes = page.locator("#testimonials blockquote.twitter-tweet");
+
+    for (let i = 0; i < testimonials.length; i++) {
+      const { author, handle } = testimonials[i];
+      const blockquote = blockquotes.nth(i);
+      await expect(blockquote).toBeVisible();
+      await expect(blockquote).toContainText(`${author} (${handle})`);
+    }
+
+    // Spot-check that inline links within the body text (e.g. @mentions,
+    // hashtags) survive as real anchors rather than being stripped, and
+    // that any embedded media in the fallback renders as a bare link
+    // rather than an inline image (the widget script owns image upgrade).
+    const firstBody = blockquotes.first().locator("p");
+    const mention = firstBody.getByRole("link", { name: "@CascadiaJS" });
+    await expect(mention).toBeVisible();
+    await expect(mention).toHaveAttribute(
+      "href",
+      "https://twitter.com/CascadiaJS?ref_src=twsrc%5Etfw",
+    );
   });
 });
