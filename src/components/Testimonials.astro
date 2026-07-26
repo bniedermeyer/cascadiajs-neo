@@ -14,10 +14,19 @@ const testimonials = testimonialsData as Testimonial[];
 ---
 
 <section id="testimonials">
+  {
+    /*
+    Each card is a 300px flex column. The trailing arbitrary variant puts a
+    16px right margin on `.twitter-tweet-rendered` — the wrapper widgets.js
+    injects at runtime, which our own classes can't otherwise reach. Inside
+    the flex card that margin shrinks the embed to 284px, matching the live
+    site exactly; without it the iframe renders 16px too wide. See #23.
+  */
+  }
   <div class="md:flex md:flex-wrap md:justify-center">
     {
       testimonials.map((testimonial) => (
-        <div class="md:mr-4 md:w-[300px]">
+        <div class="md:mr-4 md:flex md:w-[300px] md:[&_.twitter-tweet-rendered]:mr-4">
           <blockquote class="twitter-tweet">
             <p lang="en" dir="ltr" set:html={testimonial.body} />
             &mdash; {testimonial.author} ({testimonial.handle}){" "}
