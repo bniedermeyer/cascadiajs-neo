@@ -363,4 +363,34 @@ test.describe("home page", () => {
       "https://twitter.com/CascadiaJS?ref_src=twsrc%5Etfw",
     );
   });
+
+  test("fallback blockquotes and links match the reference styling", async ({
+    page,
+  }) => {
+    // The reference styles fallback blockquotes with a gray left rule and
+    // blue underlined links (legacy `blockquote` and `a` rules). These are
+    // only visible before widgets.js upgrades the blockquote, so the widget
+    // block in beforeEach is what makes them assertable.
+    const blockquote = page
+      .locator("#testimonials blockquote.twitter-tweet")
+      .first();
+    const bq = await blockquote.evaluate((el) => {
+      const cs = getComputedStyle(el);
+      return {
+        borderLeft: `${cs.borderLeftWidth} ${cs.borderLeftStyle} ${cs.borderLeftColor}`,
+        paddingLeft: cs.paddingLeft,
+      };
+    });
+    expect(bq.borderLeft).toBe("2px solid rgb(170, 170, 170)");
+    expect(bq.paddingLeft).toBe("18px");
+
+    const link = await blockquote
+      .getByRole("link", { name: "@CascadiaJS" })
+      .evaluate((el) => {
+        const cs = getComputedStyle(el);
+        return { color: cs.color, decoration: cs.textDecorationLine };
+      });
+    expect(link.color).toBe("rgb(0, 51, 255)");
+    expect(link.decoration).toBe("underline");
+  });
 });

@@ -13,21 +13,27 @@ interface Testimonial {
 const testimonials = testimonialsData as Testimonial[];
 ---
 
-<section id="testimonials">
+<section
+  id="testimonials"
+  class="md:[&_div]:flex md:[&_div]:flex-wrap md:[&_div]:justify-center md:[&_div_div]:mr-4 md:[&_div_div]:w-[300px]"
+>
   {
     /*
-    Each card is a 300px flex column. The trailing arbitrary variant puts a
-    16px right margin on `.twitter-tweet-rendered` — the wrapper widgets.js
-    injects at runtime, which our own classes can't otherwise reach. Inside
-    the flex card that margin shrinks the embed to 284px, matching the live
-    site exactly; without it the iframe renders 16px too wide. See #23.
+    Faithful port of the reference's two selectors (#testimonials div and
+    #testimonials div div), expressed as arbitrary variants so they also
+    reach the `.twitter-tweet-rendered` wrapper widgets.js injects at runtime
+    — which per-element classes can't. Making the whole subtree flex/300px
+    uniformly is what the reference does; it renders the embed at 284px. A
+    narrower version that only styled our own divs collapsed the embed once
+    the blockquote's fallback border/padding (below) was added — the reference
+    styling is a coherent whole, so it is reproduced as a whole. See #23.
   */
   }
-  <div class="md:flex md:flex-wrap md:justify-center">
+  <div>
     {
       testimonials.map((testimonial) => (
-        <div class="md:mr-4 md:flex md:w-[300px] md:[&_.twitter-tweet-rendered]:mr-4">
-          <blockquote class="twitter-tweet">
+        <div>
+          <blockquote class="twitter-tweet [&_a]:text-cascade-blue [&_a:visited]:text-cascade-blue m-0 border-l-2 border-[#aaa] pl-[18px] [&_a]:underline">
             <p lang="en" dir="ltr" set:html={testimonial.body} />
             &mdash; {testimonial.author} ({testimonial.handle}){" "}
             <a href={testimonial.permalink}>{testimonial.date}</a>
