@@ -27,3 +27,14 @@ _Avoid_: Partner
 **Testimonial**:
 A public endorsement of CascadiaJS by an attendee or Speaker, displayed on the site. Each Testimonial currently originates as an X post and carries that post's identifier and permalink, but the concept is independent of where it was published.
 _Avoid_: Tweet, Twitter Love
+
+**MarkdownLayout**:
+The Astro layout (`src/layouts/MarkdownLayout.astro`) that markdown pages opt into via `layout:` frontmatter. It wraps `Layout.astro` and adds the page chrome ported from the legacy `simple-page` element. See ADR-0007.
+_Avoid_: simple-page, page-layout (legacy Enhance names)
+
+**Page-title bar**:
+The overcast-gray banner at the top of a MarkdownLayout page holding the page's `<h1>` (rendered from frontmatter `title`), in sound-navy. Ported from `simple-page`'s `.page-title`.
+
+**Width (narrow/wide)**:
+A MarkdownLayout frontmatter value controlling the desktop body column width — `narrow` (50%, the default and the only value legacy markdown pages ever used) or `wide` (70%).
+_Avoid_: Column, Size
