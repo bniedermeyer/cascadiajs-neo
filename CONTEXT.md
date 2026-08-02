@@ -28,6 +28,14 @@ _Avoid_: Partner
 A public endorsement of CascadiaJS by an attendee or Speaker, displayed on the site. Each Testimonial currently originates as an X post and carries that post's identifier and permalink, but the concept is independent of where it was published.
 _Avoid_: Tweet, Twitter Love
 
+**Organizer**:
+A person who runs an Event, credited with a role (Lead Organizer, Sponsorships, Co-Emcee, Volunteer). Distinct from a Speaker, though one person may be both across different Events.
+_Avoid_: Staff, Team member
+
+**Frozen Snapshot**:
+The page for an Event that has already happened, captured once as a single self-contained Astro page: content inlined in the page's own frontmatter rather than loaded from a Collection or a shared dataset, assets copied to `public/images/past/<Event Key>/`, and links to unported routes collapsed to the Event root. It is never re-derived, and its inlined content is deliberately not extracted into components. See ADR-0008.
+_Avoid_: Archive page, Snapshot page, Past event page
+
 **MarkdownLayout**:
 The Astro layout (`src/layouts/MarkdownLayout.astro`) that wraps `Layout.astro` and adds the page chrome ported from the legacy `simple-page` element. It is invoked with direct props (`title`, `description`, `width`) by the `markdown` Collection's dynamic route, not opted into via frontmatter. See ADR-0007.
 _Avoid_: simple-page, page-layout (legacy Enhance names)
