@@ -22,9 +22,12 @@ const {
 // Only "wide" needs its own class -- the default (narrow) width is the
 // unqualified rule below, exactly like the legacy simple-page source.
 const widthClass = width === "wide" ? "wide" : undefined;
+const eventYear = Astro.url.pathname.split("/")[1]?.match(/^(\d{4})$/)?.[1];
+const titlePrefix = eventYear ? `CascadiaJS ${eventYear} | ` : "CascadiaJS | ";
+const metaTitle = title ? `${titlePrefix}${title}` : `CascadiaJS ${eventYear}`;
 ---
 
-<Layout title={title} description={description ?? title}>
+<Layout title={metaTitle} description={description ?? metaTitle}>
   <div id="page">
     <div class="page-title">
       <div class:list={[widthClass]}><h1>{title}</h1></div>

@@ -4,7 +4,7 @@ title: Sign-up for our mailing list
 
 Receive updates and information on all things CascadiaJS 🌲
 
-<script async data-uid="635889aa26" src="https://cascadiajs.kit.com/635889aa26/index.js"></script>
+<script async fetchpriority="high" data-uid="635889aa26" src="https://cascadiajs.kit.com/635889aa26/index.js"></script>
 
 ## FAQ
 
