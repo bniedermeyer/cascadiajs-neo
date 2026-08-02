@@ -7,12 +7,14 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  displayHeader?: boolean;
 }
 
 const {
-  title,
   description,
+  displayHeader = true,
   ogImage = "/images/2026/social/social-sharing-general.png",
+  title,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
@@ -59,7 +61,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
   <body
     class="bg-seafoam-cream md:grid md:min-h-screen md:grid-rows-[auto_1fr_auto]"
   >
-    <SiteHeader />
+    {displayHeader && <SiteHeader />}
 
     <main class="text-[18px] font-extralight">
       <slot />
