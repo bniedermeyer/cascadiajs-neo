@@ -7,12 +7,16 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  displayNav?: boolean;
+  displayAlert?: boolean;
 }
 
 const {
-  title,
   description,
+  displayNav = true,
+  displayAlert = true,
   ogImage = "/images/2026/social/social-sharing-general.png",
+  title,
 } = Astro.props;
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
@@ -56,10 +60,16 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
   </head>
+  <!--
+    grid-cols-[100%] matches the reference's `grid-template-columns: 100%`.
+    Without it the implicit column is `auto`, which sizes to max-content — so
+    any section wider than the viewport (the 2026 pricing row is) stretches
+    the column and drags every other section out with it.
+  -->
   <body
-    class="bg-seafoam-cream md:grid md:min-h-screen md:grid-rows-[auto_1fr_auto]"
+    class="bg-seafoam-cream md:grid md:min-h-screen md:grid-cols-[100%] md:grid-rows-[auto_1fr_auto]"
   >
-    <SiteHeader />
+    <SiteHeader displayNav={displayNav} displayAlert={displayAlert} />
 
     <main class="text-[18px] font-extralight">
       <slot />

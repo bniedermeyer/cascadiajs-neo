@@ -20,7 +20,7 @@
  */
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, URL } from "node:url";
 import { sponsors } from "../reference/cascadiajs/shared/data/sponsors.mjs";
 
 const OUTPUT_PATH = fileURLToPath(

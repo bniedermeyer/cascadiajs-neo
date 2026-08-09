@@ -3,7 +3,7 @@ title: 2026 Call for Presenters
 description: Every developer has a story, what's yours?
 ---
 
-![Aaron Turner CascadiaJS 2019 speaker](/images/past/cjs25-adam.jpg)
+![Aaron Turner CascadiaJS 2019 speaker](/images/cjs25-adam.jpg)
 
 ## tl;dr
 

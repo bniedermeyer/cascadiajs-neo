@@ -17,4 +17,4 @@ In the meantime, feel free to connect with our community!
 1. Follow us on [Bluesky](https://bsky.app/profile/cascadiajs.com), [LinkedIn](https://www.linkedin.com/showcase/cascadiajs/) or [Twitter](https://twitter.com/CascadiaJS)
 1. [Join our mailing list](https://cascadiajs.com/mailing-list) and get updates about future meetups, hack days and other events
 
-![CascadiaJS 2019 family photo](/images/past/cjs19-family-photo.jpg)
+![CascadiaJS 2019 family photo](/images/cjs19-family-photo.jpg)
