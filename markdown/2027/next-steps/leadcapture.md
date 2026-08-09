@@ -35,7 +35,7 @@ Follow these steps to make sure that you're set up up correctly:
 4. Select the "Save & Close" button.
 5. An attendee named Sasquatch Bigfoot should now be in your list of leads.
 
-![test QR code](/images/past/cjs25-test-qrcode.png)
+![test QR code](/images/cjs25-test-qrcode.png)
 
 <h2 id="add">Add an Attendee Manually</h2>
 

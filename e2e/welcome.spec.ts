@@ -58,7 +58,7 @@ test.describe("welcome page", () => {
     await expect(image).toBeVisible();
     await expect(image).toHaveAttribute(
       "src",
-      "https://2022.cascadiajs.com/images/past/cjs19-family.jpg",
+      "/images/cjs19-family-photo.jpg",
     );
   });
 

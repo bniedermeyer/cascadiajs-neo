@@ -319,7 +319,7 @@ test.describe("2026 event page", () => {
     });
     await expect(video.locator("source")).toHaveAttribute(
       "src",
-      "/images/past/2026/sizzle.mp4",
+      "/past/2026/video/sizzle.mp4",
     );
   });
 

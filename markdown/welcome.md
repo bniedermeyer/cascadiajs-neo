@@ -22,4 +22,4 @@ Here are some other ways you can connect with us:
 - Follow [@VanJS on Luma](https://lu.ma/vanjs)
 - Follow [VanJS on LinkedIn](https://www.linkedin.com/company/vancouverjs/)
 
-![CascadiaJS 2019 family photo](/images/past/cjs19-family-photo.jpg)
+![CascadiaJS 2019 family photo](/images/cjs19-family-photo.jpg)

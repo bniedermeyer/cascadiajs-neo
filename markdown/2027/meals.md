@@ -1,6 +1,6 @@
 ---
 title: Meals
-image: /images/past/cjs19-family-photo.jpg
+image: /images/cjs19-family-photo.jpg
 description: Menus and dietary info
 ---
 
