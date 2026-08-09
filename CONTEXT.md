@@ -33,7 +33,7 @@ A person who runs an Event, credited with a role (Lead Organizer, Sponsorships, 
 _Avoid_: Staff, Team member
 
 **Frozen Snapshot**:
-The page for an Event that has already happened, captured once as a single self-contained Astro page: content inlined in the page's own frontmatter rather than loaded from a Collection or a shared dataset, assets copied to `public/images/past/<Event Key>/`, and links to unported routes collapsed to the Event root. It is never re-derived, and its inlined content is deliberately not extracted into components. See ADR-0008.
+The page for an Event that has already happened, captured once as a single self-contained Astro page: content inlined in the page's own frontmatter rather than loaded from a Collection or a shared dataset, assets copied to `public/images/events/<Event Key>/`, and links to unported routes collapsed to the Event root. It is never re-derived, and its inlined content is deliberately not extracted into components. See ADR-0008.
 _Avoid_: Archive page, Snapshot page, Past event page
 
 **MarkdownLayout**:
