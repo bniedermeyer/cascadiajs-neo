@@ -1,13 +1,41 @@
 ---
+type AnchorTarget = "_self" | "_blank" | "_parent" | "_top" | (string & {});
+
 interface Props {
   href: string;
   variant?: "primary" | "secondary";
+  target?: AnchorTarget;
+  /** Geometry: padding/margin/flow (div vs span). */
+  display?: "inline" | "block";
+  /**
+   * Text size, independent of geometry. Defaults per display (24px block,
+   * 18px inline). Pass "lg" with display="inline" on the schedule page --
+   * its `.day .cta` rule beats `span.cta` by specificity, rendering
+   * inline CTAs at 24px there too.
+   */
+  size?: "sm" | "lg";
 }
 
-const { href, variant = "primary" } = Astro.props;
+const {
+  href,
+  variant = "primary",
+  target,
+  display = "block",
+  size = display === "inline" ? "sm" : "lg",
+} = Astro.props;
 
-const base =
-  "font-display my-4 inline-block border-4 px-4 py-2 text-[24px] font-medium";
+// Geometry only -- no font-size here, that comes from `sizes` below.
+const base = {
+  block: "font-display my-4 inline-block border-4 px-4 py-2 font-medium",
+  inline: "font-display border-4 p-2 font-medium",
+};
+
+const sizes = {
+  sm: "text-[18px]",
+  lg: "text-[24px]",
+};
+
+const Tag = display === "inline" ? "span" : "div";
 
 const variants = {
   primary:
@@ -22,8 +50,11 @@ const linkVariants = {
 };
 ---
 
-<div class={`group ${base} ${variants[variant]}`}>
-  <a href={href} class={linkVariants[variant]}>
-    <slot />
-  </a>
-</div>
+<Tag class={`group ${base[display]} ${sizes[size]} ${variants[variant]}`}>
+  {
+    /* No whitespace before <slot />: a literal newline renders as a real
+       space, visibly padding the label width (caught by the fidelity
+       compare, #35). */
+  }
+  <a href={href} target={target} class={linkVariants[variant]}><slot /></a>
+</Tag>

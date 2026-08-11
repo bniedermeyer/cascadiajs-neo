@@ -20,6 +20,14 @@ _Avoid_: Session, Presentation
 A person who delivers a Talk at an Event.
 _Avoid_: Presenter
 
+**Activity**:
+A non-Talk happening at an Event, occurring at a stated time. It has its own identity, a description, and usually a registration or detail page — the Cascadia AI Hackathon, the Hacker Trains, the Welcome Reception, Karaoke, the post-conference Trainings.
+_Avoid_: Session, Event (for a single happening — an Event is the whole conference)
+
+**Incidental Activity**:
+An Activity that needs no formalising: named by what it is rather than by a title, carrying no description or registration. Lunch, Breaks, Doors Open, Dinner, the Closing Ceremony, Day One Close. It still occupies a real time slot on the schedule.
+_Avoid_: Filler, Placeholder
+
 **Sponsor**:
 A company or organization that financially supports an Event.
 _Avoid_: Partner

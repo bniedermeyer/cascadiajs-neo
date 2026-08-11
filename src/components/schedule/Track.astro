@@ -1,0 +1,40 @@
+---
+/**
+ * One of the two `Track`-based columns (Main or Workshop) inside
+ * `DayContent`. (Hallway is a standalone component, `HallwayTrack`.)
+ * Heading text colour is left unset so it inherits the site-wide h1-h4
+ * colour rule. Two Tailwind arbitrary-variant selectors below reach into
+ * `ShowItem`/`TalkItem`'s and `LocationBand`'s rendered classes (time-cell
+ * width/margin, venue-band tint) rather than editing those components.
+ */
+interface Props {
+  kind: "main" | "workshop";
+  title: string;
+}
+
+const { kind, title } = Astro.props;
+
+const headingBackground = {
+  // #FFCF07 is the reference's literal value, not the madrona-yellow token
+  // (#ffd007) -- the reference is off by one in the green channel.
+  main: "bg-[#FFCF07]",
+  workshop: "bg-emerald-city-green",
+};
+
+const trackTint = {
+  main: "",
+  workshop:
+    "md:border-l-[3px] md:border-sound-navy [&_[class*=madrona-yellow]]:bg-[rgba(206,232,215,0.3)]",
+};
+---
+
+<div
+  class={`[&_.m-4.flex>div:first-child]:w-[70px] [&_.m-4.flex>div:first-child]:mr-0 md:flex-[33%] ${trackTint[kind]}`}
+>
+  <h3
+    class={`font-display m-0 p-4 text-[28px] font-medium ${headingBackground[kind]}`}
+  >
+    {title}
+  </h3>
+  <slot />
+</div>

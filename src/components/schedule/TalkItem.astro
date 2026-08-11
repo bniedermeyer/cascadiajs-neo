@@ -1,0 +1,53 @@
+---
+/**
+ * A Talk row within the Main Track, looked up by the Talk's own `id`.
+ * Renders the same time-cell + content shape as `ShowItem` (not built from
+ * it -- a Talk's content, keynote badge + Speaker name, doesn't fit
+ * ShowItem's schema), so Track's time-cell override reaches this row too.
+ * A Talk with no `slug` renders its title as plain text, not a dead link.
+ */
+import talksData from "../../shared/data/2026/talks.json";
+import type { Talk } from "../../shared/data/types";
+
+interface Props {
+  /** A Talk's `id` -- looked up from the roster, never passed literally. */
+  talk: string;
+  /** Omitted after the first Talk in a run -- row still reserves the time column. */
+  when?: string;
+}
+
+const { talk: talkId, when } = Astro.props;
+
+const talk = (talksData as Talk[]).find((t) => t.id === talkId);
+if (!talk) throw new Error(`No Talk found with id "${talkId}"`);
+---
+
+<div class="m-4 flex">
+  <div class="mr-4">{when}</div>
+  <div class="flex-1">
+    {
+      talk.type === "keynote" && (
+        <div class="bg-emerald-city-green text-sound-navy mb-2 inline-block rounded px-2 py-0.5 text-[14px]">
+          Keynote
+        </div>
+      )
+    }
+    <div
+      class="text-sound-navy font-serif text-[22px] leading-[1.25em] font-light"
+    >
+      {
+        talk.slug ? (
+          <a
+            href={`/2026/talks/${talk.slug}`}
+            class="text-sound-navy hover:text-cascade-blue no-underline hover:underline"
+          >
+            {talk.title}
+          </a>
+        ) : (
+          talk.title
+        )
+      }
+    </div>
+    <div class="leading-[1.5em]">{talk.speaker.name}</div>
+  </div>
+</div>

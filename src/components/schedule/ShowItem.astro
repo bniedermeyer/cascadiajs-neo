@@ -1,0 +1,122 @@
+---
+/**
+ * The schedule's atomic row: a time paired with content, driven either by
+ * an `entry` (Activity record) or literal props -- both normalize into one
+ * `data` object so there's a single render path, not two templates to
+ * keep in sync.
+ */
+import CtaButton from "../CtaButton.astro";
+import type { Activity } from "../../shared/data/types";
+
+type AnchorTarget = "_blank" | "_self" | "_parent" | "_top" | (string & {});
+
+interface Cta {
+  label: string;
+  href: string;
+  target?: "_blank" | "_discord";
+  display: "inline" | "block";
+  variant?: "secondary";
+}
+
+interface Props {
+  /** Overrides the literal props below when present. */
+  entry?: Activity;
+  /** Omitted -- the time column still renders empty, keeping rows aligned. */
+  when?: string;
+  icon?: string;
+  title?: string;
+  /** Renders as a link when present. */
+  url?: string;
+  target?: AnchorTarget;
+  titleSuffix?: string;
+  image?: { src: string; alt: string };
+  /** One string per paragraph. */
+  body?: string[];
+  cta?: Cta;
+}
+
+const { entry, when, icon, title, url, target, titleSuffix, image, body, cta } =
+  Astro.props;
+
+const data = entry ?? {
+  when,
+  icon,
+  title,
+  url,
+  target,
+  titleSuffix,
+  image,
+  body,
+  cta,
+};
+
+const isInlineCta = data.cta?.display === "inline";
+const CtaWrapper = isInlineCta ? "p" : "div";
+// mt-2 only applies to the <p> wrapper -- a block CTA's own my-4 margin
+// already supplies spacing, so a <div> wrapper skips it to avoid doubling.
+const ctaWrapperClasses = isInlineCta ? "mt-2" : "";
+---
+
+<div class="m-4 flex">
+  {/* Time column renders even when `when` is empty, to stay aligned. */}
+  <div class="mr-4">{data.when}</div>
+  <div class="flex-1">
+    <div
+      class="text-sound-navy font-serif text-[22px] leading-[1.25em] font-light"
+    >
+      {
+        /* Icon lives inside the title div, not before it: it inherits
+        text-sound-navy colour and stays inline with the title instead of
+        forcing a line break. The literal trailing space (not source
+        whitespace, which Astro collapses) reproduces the reference's own
+        `</i> ` before the title. */
+      }
+      {data.icon && <i class={`${data.icon} w-[30px]`} />}
+      {data.icon && " "}
+      {
+        data.url ? (
+          <a
+            href={data.url}
+            target={data.target}
+            class="text-sound-navy hover:text-cascade-blue no-underline hover:underline"
+          >
+            {data.title}
+          </a>
+        ) : (
+          data.title
+        )
+      }{data.titleSuffix}
+      {
+        data.image && (
+          <img
+            src={data.image.src}
+            alt={data.image.alt}
+            class="ml-1 inline h-5 align-middle"
+          />
+        )
+      }
+    </div>
+    {data.body?.map((paragraph: string) => <p class="mt-2">{paragraph}</p>)}
+    <slot />
+    {
+      data.cta && (
+        // <p>'s unitless line-height:1.5 cascades as a multiplier onto the
+        // CTA's 24px text (36px), not the fixed 20.25px line-height every
+        // other element inherits -- a <div> wouldn't reset it, and the row
+        // height would come out short. Block CTAs stay unwrapped since
+        // their own margin already positions them.
+        <CtaWrapper class={ctaWrapperClasses}>
+          <CtaButton
+            href={data.cta.href}
+            target={data.cta.target}
+            display={data.cta.display}
+            variant={data.cta.variant}
+            size={data.cta.display === "inline" ? "lg" : undefined}
+          >
+            {data.cta.label}
+          </CtaButton>
+        </CtaWrapper>
+      )
+    }
+  </div>
+</div>

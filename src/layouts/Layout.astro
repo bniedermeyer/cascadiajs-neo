@@ -59,13 +59,19 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     />
+    {
+      /* Paid-tier glyphs (fa-taco, etc.) not in the free CDN stylesheet
+         above. `is:inline` emits the tag verbatim instead of bundling it. */
+    }
+    <script
+      is:inline
+      src="https://kit.fontawesome.com/95fd764ad0.js"
+      crossorigin="anonymous"
+      async></script>
   </head>
-  <!--
-    grid-cols-[100%] matches the reference's `grid-template-columns: 100%`.
-    Without it the implicit column is `auto`, which sizes to max-content — so
-    any section wider than the viewport (the 2026 pricing row is) stretches
-    the column and drags every other section out with it.
-  -->
+  <!-- grid-cols-[100%] avoids the implicit `auto` column sizing to
+       max-content, which would let an overwide section (2026 pricing row)
+       stretch the whole grid. -->
   <body
     class="bg-seafoam-cream md:grid md:min-h-screen md:grid-cols-[100%] md:grid-rows-[auto_1fr_auto]"
   >

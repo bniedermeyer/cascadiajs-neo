@@ -1,0 +1,15 @@
+---
+/**
+ * A titled schedule block: date heading, timezone note, and a stable
+ * anchor id. Composed from `DayHeader`, `LocationBand`, `ShowItem`.
+ */
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div id={id} class="mb-4 text-left">
+  <slot />
+</div>

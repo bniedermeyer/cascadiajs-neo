@@ -1,0 +1,11 @@
+---
+/**
+ * Wraps a conference day's parallel Tracks (Main, Hallway, Workshop):
+ * stacked by default, a flex row at desktop width. Not used by days with
+ * no tracks -- those render ShowItems directly under Day.
+ */
+---
+
+<div class="md:flex">
+  <slot />
+</div>

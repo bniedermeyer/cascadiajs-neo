@@ -1,16 +1,10 @@
 /**
- * Live-site fidelity compare tool (ADR-0004).
+ * Live-site fidelity compare tool (ADR-0004): diffs computed styles and
+ * geometry between the live site and local dev server via a per-page
+ * selector-pair map (DOMs don't match 1:1). Diagnostic only, not a test --
+ * excluded from `npm test`, exits 0 regardless of drift found.
  *
- * Compares computed styles and element geometry between the live legacy site
- * (https://cascadiajs.com) and the local Astro dev server, using an explicit
- * per-page map of corresponding selector pairs (the Enhance DOM and the Astro
- * DOM do not match one-to-one).
- *
- * Usage: npm run compare -- <page>   (e.g. npm run compare -- home)
- *
- * This is an on-demand diagnostic report, not a test: it is network-dependent
- * and intentionally excluded from `npm test`. Exit code is 0 even when drift
- * is found.
+ * Usage: npm run compare -- <page>
  */
 import { chromium } from "@playwright/test";
 
@@ -19,9 +13,7 @@ const LOCAL_ORIGIN = "http://localhost:4321";
 const VIEWPORT = { width: 1280, height: 720 };
 const PX_TOLERANCE = 1;
 
-/**
- * Curated computed-style properties to compare (typography, color, spacing).
- */
+// Style properties compared: typography, color, spacing.
 const STYLE_PROPS = [
   "font-family",
   "font-size",
@@ -42,11 +34,8 @@ const STYLE_PROPS = [
   "text-align",
 ];
 
-/**
- * Page map: page key -> { path, pairs }.
- * Each pair names a live (Enhance DOM) selector and its local (Astro DOM)
- * counterpart. Add an entry per page as it gets ported.
- */
+// page key -> { path, pairs }; each pair maps a live selector to its local
+// counterpart.
 const PAGES = {
   home: {
     path: "/",
@@ -123,12 +112,8 @@ const PAGES = {
         live: "footer a[href='/2025']",
         local: "footer a[href='/2025']",
       },
-      // Sponsors (issue #18): the home page renders the page-owned flat
-      // "Past Sponsors" section — `#sponsors` (.landing padding, centered),
-      // an <h1>, the flat SponsorsGrid, and the "Sponsor Our Event" CTA.
-      // These pairs map the legacy Enhance DOM to our Astro DOM for that
-      // section. The tiered grid is not shown on any page yet, so it is not
-      // compared here.
+      // Home renders the flat "Past Sponsors" section; the tiered grid
+      // isn't shown on any page yet so it's not compared here.
       {
         label: "sponsors section (.landing padding, centered)",
         live: "#sponsors",
@@ -186,6 +171,121 @@ const PAGES = {
       },
     ],
   },
+  // Legacy uses hand-rolled classes with no Astro equivalent, so most local
+  // selectors below are structural (ids, text/href) rather than class-based.
+  //
+  // Known ~20px rect.y drift on most pairs: every live /2026/* page swaps
+  // in a taller Event-specific nav bar (`<nav-2026>`) that this port
+  // doesn't build (out of scope, shared chrome) -- confirmed the
+  // title-bar/body implementation itself is pixel-correct via /welcome's
+  // zero-drift pair.
+  schedule: {
+    path: "/2026/schedule",
+    pairs: [
+      {
+        label: "page-title bar",
+        live: "simple-page .page-title",
+        local: ".page-title",
+      },
+      {
+        label: "page-title heading",
+        live: "simple-page .page-title h1",
+        local: ".page-title h1",
+      },
+      {
+        // ~138px rect.height drift over ~8000px is accumulated sub-pixel/
+        // line-height rounding, not missing content -- element/text counts
+        // match exactly.
+        label: "page body column (wide, 70%)",
+        live: "simple-page .page-body",
+        local: ".page-body",
+      },
+      {
+        // rect.height drifts hugely by design: the reference leaves this
+        // Day's `<div>` unclosed, so later Days become its DOM children
+        // live. Our clean sibling structure doesn't replicate that
+        // (ADR-0001) -- visual order matches, only the broken nesting doesn't.
+        label: "a day block (May 29 / Cascadia AI Hackathon)",
+        live: "#cascadia-ai-hackathon",
+        local: "#cascadia-ai-hackathon",
+      },
+      {
+        label: "a day header (May 29)",
+        live: "#cascadia-ai-hackathon .day-header",
+        local: "#cascadia-ai-hackathon > div:first-child",
+      },
+      {
+        // font-family and background-color drift are tooling false
+        // positives: font-family differs only because the shared
+        // --font-display token picks one fallback for a legacy rule with
+        // none; background-color is the same colour reported in different
+        // colour spaces (Tailwind v4's OKLab color-mix vs. legacy rgba).
+        label: "a location band (May 29, TBD)",
+        live: "#cascadia-ai-hackathon .location",
+        local: "#cascadia-ai-hackathon > div:nth-child(2)",
+      },
+      {
+        label: "a show-item row (May 29, Cascadia AI Hackathon)",
+        live: "#cascadia-ai-hackathon .show-item",
+        local: "#cascadia-ai-hackathon .m-4.flex",
+      },
+      {
+        // ~2px width/x drift here and on Hallway below: sub-pixel
+        // flex-basis rounding dividing the row three ways, invisible in
+        // practice.
+        label: "track heading: Main Track (June 1)",
+        live: "#day-one .main.track h3",
+        local: '#day-one h3:has-text("Main Track")',
+      },
+      {
+        label: "track heading: Hallway Track (June 1)",
+        live: "#day-one .hallway.track h3",
+        local: '#day-one h3:has-text("Hallway Track")',
+      },
+      {
+        label: "track heading: Workshop Track (June 1)",
+        live: "#day-one .workshop.track h3",
+        local: '#day-one h3:has-text("Workshop Track")',
+      },
+      {
+        // Identical selector works: same href both sides.
+        label: "a talk row's title link (Practical Refactors...)",
+        live: "a[href='/2026/talks/practical-refactors-with-modern-css-colors']",
+        local:
+          "a[href='/2026/talks/practical-refactors-with-modern-css-colors']",
+      },
+      {
+        label: "a talk row's time cell (Practical Refactors..., 11:00am)",
+        live: ".show-item:has(a[href='/2026/talks/practical-refactors-with-modern-css-colors']) .when",
+        local:
+          ".m-4.flex:has(a[href='/2026/talks/practical-refactors-with-modern-css-colors']) .mr-4",
+      },
+      {
+        label: "keynote badge (Day One Opening Keynote)",
+        live: ".keynote-badge",
+        local: '[class*="emerald-city-green"][class*="rounded"]',
+      },
+      {
+        label: "a CTA (Hackathon Register)",
+        live: "text=Register",
+        local: "text=Register",
+      },
+      {
+        label: "Hallway sponsor logo wall image (width: 100%)",
+        live: "#day-one .hallway .sponsors img",
+        local: '#day-one h3:has-text("Hallway Track") ~ div img[alt$=" logo"]',
+      },
+      {
+        // ~4.5px height drift, despite matching width/margin -- the
+        // sponsor logo asset's own intrinsic aspect ratio. Assets out of
+        // scope; left as a documented sub-5px residual.
+        label: "Hallway sponsor logo wall wrapper (32px bottom margin)",
+        live: "#day-one .hallway .sponsors > div",
+        local:
+          '#day-one h3:has-text("Hallway Track") ~ div div:has(> a > img[alt$=" logo"])',
+      },
+    ],
+  },
 };
 
 function usage() {
@@ -205,10 +305,7 @@ async function assertLocalServerReachable() {
   }
 }
 
-/**
- * Extract computed styles + bounding box from the first element matching
- * `selector`, or null if no element matches.
- */
+/** Computed styles + bounding box for the first match, or null. */
 async function snapshot(page, selector) {
   const locator = page.locator(selector).first();
   if ((await locator.count()) === 0) return null;
