@@ -1,0 +1,133 @@
+[
+  {
+    "id": "cascadia-ai-hackathon",
+    "when": "5pm",
+    "title": "Cascadia AI Hackathon",
+    "url": "https://luma.com/cascadia-ai-hackathon-2026?coupon=F7S4JY",
+    "target": "_blank",
+    "body": [
+      "We're hosting an AI hackathon leading up to CascadiaJS 2026! Stay tuned for more details, but it will kick-off Friday evening and conclude Saturday afternoon, with the winning team being invited to demo what they built at CascadiaJS 2026!"
+    ],
+    "cta": {
+      "label": "Register",
+      "href": "https://luma.com/cascadia-ai-hackathon-2026?coupon=F7S4JY",
+      "target": "_blank",
+      "display": "inline"
+    }
+  },
+  {
+    "id": "vancouver-hacker-train",
+    "when": "11:30am",
+    "title": "Vancouver Hacker Train departs",
+    "url": "/2026/travel",
+    "body": ["Meet up with your fellow hackers for a ride down to Seattle!"]
+  },
+  {
+    "id": "portland-hacker-train",
+    "when": "2:10pm",
+    "title": "Portland Hacker Train departs",
+    "url": "/2026/travel",
+    "body": ["Meet up with your fellow hackers for a ride up to Seattle!"]
+  },
+  {
+    "id": "welcome-reception",
+    "when": "5:30pm - 8:30pm",
+    "title": "Welcome Reception",
+    "url": "https://luma.com/cascadiajs-2026-welcome-reception?coupon=UZHCP1",
+    "target": "_blank",
+    "titleSuffix": " & Pre-Registration by ",
+    "image": {
+      "src": "/images/sponsors/warp.png",
+      "alt": "Warp logo"
+    },
+    "body": [
+      "The Welcome Reception will be an opportunity for folks to pre-register, get their badge, pickup swag and have fun with our friends from Warp and Whiskey Web and Whatnot.",
+      "Want to play a survival game... entirely driven by GitHub issues? Come join Warp and Web Whiskey at the CascadiaJS Welcome Reception! You'll get to play a multiplayer game based on the popular party game Death by AI, backed by Warp's issue triage agents to decide your fate. Can you survive the longest?"
+    ],
+    "cta": {
+      "label": "RSVP",
+      "href": "https://luma.com/cascadiajs-2026-welcome-reception?coupon=UZHCP1",
+      "target": "_blank",
+      "display": "inline"
+    }
+  },
+  {
+    "id": "networking-mixer",
+    "when": "6:30pm",
+    "title": "Networking Mixer & Job Fair",
+    "body": [
+      "Looking for a new opportunity? Have high-quality conversations with companies that are hiring, like Grow Therapy, Onebrief, RentSpree, Render, Expo, CopilotKit, Warp and more."
+    ]
+  },
+  {
+    "id": "pog-tournament",
+    "when": "7:00pm",
+    "title": "Pog Tournament by",
+    "image": {
+      "src": "/images/sponsors/mux.svg",
+      "alt": "Mux logo"
+    },
+    "body": [
+      "Looking to grow your network? Make new friends during a Pog tournament hosted by Mux!"
+    ]
+  },
+  {
+    "id": "karaoke",
+    "when": "8:00pm",
+    "icon": "fas fa-microphone-stand",
+    "title": "Karaoke",
+    "url": "https://luma.com/cascadiajs-2026-karaoke?coupon=6KKM88",
+    "target": "_blank",
+    "cta": {
+      "label": "RSVP",
+      "href": "https://luma.com/cascadiajs-2026-karaoke?coupon=6KKM88",
+      "target": "_blank",
+      "display": "block"
+    }
+  },
+  {
+    "id": "coding-with-claude",
+    "when": "10am",
+    "title": "Coding with Claude",
+    "url": "/2026/trainings/coding-with-claude",
+    "body": [
+      "AI is changing how we write code, and you're about to become fluent in these new tools. We'll explore everything from basic AI integration to building sophisticated AI agents that can help with development tasks. Let’s explore everything from AI-assisted coding in your editor to autonomous development with Claude Code."
+    ],
+    "cta": {
+      "label": "Learn More",
+      "href": "/2026/trainings/coding-with-claude",
+      "target": "_blank",
+      "display": "block"
+    }
+  },
+  {
+    "id": "ai-for-typescript-developers",
+    "when": "10am",
+    "title": "AI for TypeScript Developers",
+    "url": "/2026/trainings/ai-for-typescript-developers",
+    "body": [
+      "Ready to build AI-powered applications? Let's dive into the Vercel AI SDK and modern AI patterns to create intelligent features your users will love. We'll start with the fundamentals and work our way up to building production-ready AI applications."
+    ],
+    "cta": {
+      "label": "Learn More",
+      "href": "/2026/trainings/ai-for-typescript-developers",
+      "target": "_blank",
+      "display": "block"
+    }
+  },
+  {
+    "id": "building-ai-agents",
+    "when": "10am",
+    "title": "Building AI Agents",
+    "url": "/2026/trainings/building-ai-agents",
+    "body": [
+      "Explore everything from basic tool calling to sophisticated multi-step agents that can reason and act autonomously. We'll build a simple agent that can search the web and answer questions, and then we'll add more complex agents that can reason and act autonomously."
+    ],
+    "cta": {
+      "label": "Learn More",
+      "href": "/2026/trainings/building-ai-agents",
+      "target": "_blank",
+      "display": "block"
+    }
+  }
+]

@@ -517,15 +517,15 @@ const photoImgClass = "h-[250px] w-[250px] max-w-[250px] object-cover";
 const overlayClass =
   "hidden md:block md:absolute md:inset-0 md:bg-cascade-blue md:opacity-0 md:[transition:opacity_0.5s_ease] md:group-hover:opacity-100";
 const overlayTextClass =
-  "m-4 text-left font-display text-[28px] leading-[1.125em] font-light text-white";
+  "m-4 text-left font-display text-28 leading-[1.125em] font-light text-white";
 const infoBlockClass = "flex flex-1 flex-col p-2 text-left text-sound-navy";
 const infoNameClass =
-  "m-0 flex-grow font-serif text-[24px] leading-[1em] font-bold";
+  "m-0 flex-grow font-serif text-2xl leading-[1em] font-bold";
 const gridClass =
   "flex overflow-x-auto min-[1200px]:flex-wrap min-[1200px]:items-start min-[1200px]:justify-center";
-const headingClass = "mt-0 mb-8 text-[48px]";
+const headingClass = "mt-0 mb-8 text-5xl";
 const paragraphClass =
-  "text-sound-navy font-serif text-[24px] leading-[1.5em] font-normal";
+  "text-sound-navy font-serif text-2xl leading-[1.5em] font-normal";
 ---
 
 <Layout
@@ -584,7 +584,7 @@ const paragraphClass =
         June 1-2, 2026<br />Town Hall Seattle<br />Seattle, WA, USA
       </p>
       <a
-        class="font-display border-cascade-blue bg-cascade-blue text-cedar-cream hover:border-sound-navy hover:bg-sound-navy my-4 inline-block border-4 px-4 py-2 text-[24px] font-medium no-underline"
+        class="font-display border-cascade-blue bg-cascade-blue text-cedar-cream hover:border-sound-navy hover:bg-sound-navy my-4 inline-block border-4 px-4 py-2 text-2xl font-medium no-underline"
       >
         SOLD OUT <i class="fa-solid fa-tree"></i>
       </a>
@@ -593,7 +593,7 @@ const paragraphClass =
 
   <section id="nav" class="md:sticky md:top-0 md:z-[1000]">
     <nav
-      class="bg-emerald-city-green font-display p-[10px] text-[21px] font-medium"
+      class="bg-emerald-city-green font-display text-21 p-[10px] font-medium"
     >
       <div class="md:mx-auto md:flex md:items-center md:justify-center">
         <div class="mb-2 md:mr-10 md:mb-0 md:pt-[2px]">
@@ -652,7 +652,7 @@ const paragraphClass =
         <div class="mb-2 md:mr-10">
           <a
             href="/2026/"
-            class="font-display bg-madrona-yellow text-sound-navy my-4 inline-block p-4 text-[24px] font-medium no-underline hover:bg-[#fff6cd] hover:underline"
+            class="font-display bg-madrona-yellow text-sound-navy my-4 inline-block p-4 text-2xl font-medium no-underline hover:bg-[#fff6cd] hover:underline"
           >
             Tickets
           </a>
@@ -748,12 +748,10 @@ const paragraphClass =
            that 300px outer, 28px narrow per card. */
         tickets.map((ticket) => (
           <div class="border-sound-navy m-2 box-content w-[300px] min-w-[300px] border-2 px-3 py-[22px]">
-            <div class="font-serif text-[30px] font-semibold">
-              {ticket.name}
-            </div>
+            <div class="font-serif text-3xl font-semibold">{ticket.name}</div>
             <div class="my-2 flex">
               {ticket.subLabel ? (
-                <div class="mr-2 font-serif text-[24px] font-thin italic">
+                <div class="mr-2 font-serif text-2xl font-thin italic">
                   {ticket.subLabel}
                 </div>
               ) : (
@@ -761,11 +759,9 @@ const paragraphClass =
               )}
               <div class="border-sound-navy flex-1 border-b-2" />
             </div>
-            <div class="my-8 font-sans text-[64px] font-medium">
-              {ticket.price}
-            </div>
-            <div class="text-[18px] font-semibold">{" "}</div>
-            <div class="mt-4 text-[18px]">
+            <div class="text-64 my-8 font-sans font-medium">{ticket.price}</div>
+            <div class="text-lg font-semibold">{" "}</div>
+            <div class="mt-4 text-lg">
               <strong>Includes:</strong>
               <ul class="mt-0 list-disc pl-4">
                 {ticket.includes.map((item) => (
@@ -874,7 +870,7 @@ const paragraphClass =
   </section>
 
   <section id="sponsors" class="p-8 text-center">
-    <h1 class="mt-0 mb-8 text-[48px]">Our Sponsors</h1>
+    <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
     <SponsorsGrid event="2026" tiered={true} />
     <CtaButton href="/2026/">Sponsor Our Event</CtaButton>
   </section>

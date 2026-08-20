@@ -1,0 +1,98 @@
+---
+/**
+ * The Hallway Track column, identical on both conference days. Hand-renders
+ * its own markup rather than composing `Track`/`ShowItem`: its first entry
+ * (two titles, two paragraphs, a sponsor wall) doesn't fit the per-row
+ * Activity/ShowItem shape. The Sponsor wall shows the top two paid tiers
+ * (platinum, gold) for this Event -- not `SponsorsGrid`, which sizes logos
+ * differently. The `LocationBand` tint override below follows the same
+ * arbitrary-variant technique as `Track.astro`.
+ */
+import CtaButton from "../CtaButton.astro";
+import LocationBand from "./LocationBand.astro";
+import sponsorsData from "../../shared/data/sponsors.json";
+
+interface Sponsor {
+  id: string;
+  logo: string;
+  name: string;
+  url?: string;
+  tier?: string;
+  events: string[];
+}
+
+// Platinum before gold, matching the reference's own iteration order.
+const HALLWAY_TIERS = ["platinum", "gold"] as const;
+const wallSponsors = HALLWAY_TIERS.flatMap((tier) =>
+  (sponsorsData as Sponsor[]).filter(
+    (sponsor) => sponsor.tier === tier && sponsor.events.includes("2026"),
+  ),
+);
+
+const titleClasses =
+  "text-sound-navy font-serif text-22 leading-[1.25em] font-light";
+---
+
+<div
+  class="md:border-sound-navy [&_[class*=madrona-yellow]]:bg-sound-navy/30 md:flex-[33%] md:border-l-[3px]"
+>
+  <h3
+    class="font-display bg-sound-navy text-cedar-cream text-28 m-0 p-4 font-medium"
+  >
+    Hallway Track
+  </h3>
+
+  <LocationBand>Main Lobby</LocationBand>
+  <div class="m-4 flex">
+    <div class="flex-1">
+      <div class={titleClasses}>Build your Network</div>
+      <p class="mt-2">
+        Back this year is <a
+          href="/2026/connect"
+          class="text-cascade-blue underline">Cascadia Connect</a
+        >, a set of low-pressure ways to meet cool humans at CascadiaJS. No
+        pressure, no awkwardness—just friendly ways to vibe, learn, and maybe
+        not eat lunch alone.
+      </p>
+      <div class={titleClasses}>Connect with Experts</div>
+      <p class="mt-2">Connect with folks at the top web + AI companies</p>
+      <div class="mt-2">
+        {
+          wallSponsors.map((sponsor) => (
+            <div class="mb-8 text-center">
+              {/* text-cascade-blue matches the live page's inherited
+                  prose-link colour here for computed-style parity (ADR-0004);
+                  visually inert since it sits behind the image. */}
+              <a target="_new" href={sponsor.url} class="text-cascade-blue">
+                <img
+                  src={`/images/sponsors/${sponsor.logo}`}
+                  alt={`${sponsor.name} logo`}
+                  class="w-full"
+                />
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <LocationBand>Discord</LocationBand>
+  <div class="m-4 flex">
+    <div class="flex-1">
+      <div class={titleClasses}>Join us on Discord</div>
+      <p class="mt-2">
+        Come hang out with us on the official CascadiaJS Discord server!
+        Introduce yourself, ask speakers questions and hopefully make some
+        friends!
+      </p>
+      <CtaButton
+        href="https://discord.gg/kkYR86GM29"
+        target="_discord"
+        variant="secondary"
+      >
+        Open Discord
+      </CtaButton>
+    </div>
+  </div>
+</div>

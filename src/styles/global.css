@@ -16,6 +16,18 @@
   --font-sans: freight-sans-pro, sans-serif;
   --font-display: mono45-headline, sans-serif;
   --font-serif: freight-macro-pro, sans-serif;
+
+  /* Off-scale font sizes lifted verbatim from the legacy reference
+     stylesheet. None has an exact Tailwind default equivalent, and the
+     fidelity comparator (ADR-0004) reads computed font sizes, so these
+     values must not be rounded or otherwise altered. Named as tokens
+     rather than left as arbitrary `text-[Npx]` values so the sanctioned
+     size vocabulary stays enumerable instead of drifting one-off per
+     usage site. */
+  --text-21: 21px;
+  --text-22: 22px;
+  --text-28: 28px;
+  --text-64: 64px;
 }
 
 /* Match the reference's base typographic norms. Tailwind's preflight forces
@@ -69,5 +81,37 @@
 
   h3 {
     font-size: 24px;
+  }
+}
+
+/* External-link indicator.
+
+   ADR-0003 permits a scoped <style> for exactly this
+   `a[target="_blank"]::after { content }` case (it is the ADR's own worked
+   example), but we keep it here as a Tailwind component-layer rule instead so
+   no Astro page carries a <style> block. It reproduces the glyph the legacy
+   site appends after any link that opens in a new tab
+   (reference/cascadiajs/public/styles/main.css, lines 132-140).
+
+   Scoped to a `.mark-external-links` container -- the Schedule page's body --
+   rather than applied globally, because the shared `SponsorsGrid` renders its
+   logo links with target="_blank", while the legacy Sponsor grids use
+   target="_new" precisely to dodge this selector (correcting the grid's
+   target is out of scope -- see issue #29). A global rule would stamp the
+   glyph on every Sponsor logo across the site that the live site never shows;
+   the Schedule's own `#sponsors` band sits outside its `.mark-external-links`
+   wrapper, so it is excluded the same way the former page-scoped rule was.
+
+   `--fa-font-solid` is defined at runtime by the Font Awesome kit (issue
+   #36); without it the glyph silently disappears. */
+@layer components {
+  .mark-external-links a[target="_blank"]::after {
+    content: "\f35d";
+    display: inline-block;
+    margin: 0 8px;
+    font: var(--fa-font-solid);
+    font-size: 10px;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
   }
 }

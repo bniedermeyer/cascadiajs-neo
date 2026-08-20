@@ -1,0 +1,35 @@
+---
+/**
+ * A Day's date heading plus its Pacific-time note. `date` accepts a string
+ * or string[] for hard line-broken labels (e.g. "Pre-Conf" / "May 29").
+ * `timezone` defaults to true; the one exception is June 1's "Conference"
+ * header, set false explicitly.
+ */
+interface Props {
+  date: string | string[];
+  timezone?: boolean;
+}
+
+const { date, timezone = true } = Astro.props;
+const lines = Array.isArray(date) ? date : [date];
+---
+
+<div class="border-sound-navy flex items-end border-b-[3px] pb-2">
+  <h2 class="text-28 m-0 mr-4 font-serif leading-[1.25em] font-bold">
+    {
+      lines.map((line, i) => (
+        <Fragment>
+          {i > 0 && <br />}
+          {line}
+        </Fragment>
+      ))
+    }
+  </h2>
+  {
+    timezone && (
+      <aside class="text-sound-navy flex-1 text-lg uppercase">
+        All times in PDT (UTC-7)
+      </aside>
+    )
+  }
+</div>
