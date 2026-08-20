@@ -15,7 +15,7 @@ const lines = Array.isArray(date) ? date : [date];
 ---
 
 <div class="border-sound-navy flex items-end border-b-[3px] pb-2">
-  <h2 class="m-0 mr-4 font-serif text-[28px] leading-[1.25em] font-bold">
+  <h2 class="text-28 m-0 mr-4 font-serif leading-[1.25em] font-bold">
     {
       lines.map((line, i) => (
         <Fragment>
@@ -27,7 +27,7 @@ const lines = Array.isArray(date) ? date : [date];
   </h2>
   {
     timezone && (
-      <aside class="text-sound-navy flex-1 text-[18px] uppercase">
+      <aside class="text-sound-navy flex-1 text-lg uppercase">
         All times in PDT (UTC-7)
       </aside>
     )

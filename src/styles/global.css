@@ -16,6 +16,18 @@
   --font-sans: freight-sans-pro, sans-serif;
   --font-display: mono45-headline, sans-serif;
   --font-serif: freight-macro-pro, sans-serif;
+
+  /* Off-scale font sizes lifted verbatim from the legacy reference
+     stylesheet. None has an exact Tailwind default equivalent, and the
+     fidelity comparator (ADR-0004) reads computed font sizes, so these
+     values must not be rounded or otherwise altered. Named as tokens
+     rather than left as arbitrary `text-[Npx]` values so the sanctioned
+     size vocabulary stays enumerable instead of drifting one-off per
+     usage site. */
+  --text-21: 21px;
+  --text-22: 22px;
+  --text-28: 28px;
+  --text-64: 64px;
 }
 
 /* Match the reference's base typographic norms. Tailwind's preflight forces

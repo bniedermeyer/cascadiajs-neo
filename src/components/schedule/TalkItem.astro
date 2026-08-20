@@ -27,14 +27,12 @@ if (!talk) throw new Error(`No Talk found with id "${talkId}"`);
   <div class="flex-1">
     {
       talk.type === "keynote" && (
-        <div class="bg-emerald-city-green text-sound-navy mb-2 inline-block rounded px-2 py-0.5 text-[14px]">
+        <div class="bg-emerald-city-green text-sound-navy mb-2 inline-block rounded px-2 py-0.5 text-sm">
           Keynote
         </div>
       )
     }
-    <div
-      class="text-sound-navy font-serif text-[22px] leading-[1.25em] font-light"
-    >
+    <div class="text-sound-navy text-22 font-serif leading-[1.25em] font-light">
       {
         talk.slug ? (
           <a
