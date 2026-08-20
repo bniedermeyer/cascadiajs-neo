@@ -1,3 +1,4 @@
 [submodule "reference/cascadiajs"]
 	path = reference/cascadiajs
 	url = git@github.com:cascadiajs/cascadiajs.git
+	update = none
