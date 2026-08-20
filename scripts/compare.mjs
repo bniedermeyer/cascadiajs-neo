@@ -180,7 +180,7 @@ const PAGES = {
   // title-bar/body implementation itself is pixel-correct via /welcome's
   // zero-drift pair.
   schedule: {
-    path: "/2026/schedule",
+    path: "/dev/schedule",
     pairs: [
       {
         label: "page-title bar",

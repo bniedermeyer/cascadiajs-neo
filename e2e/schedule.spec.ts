@@ -419,7 +419,7 @@ test.describe("schedule page", () => {
       /^https:\/\/(platform\.twitter\.com|.*\.twimg\.com)\//,
       (route) => route.abort(),
     );
-    await page.goto("/2026/schedule");
+    await page.goto("/dev/schedule");
   });
 
   test("renders", async ({ page }) => {
