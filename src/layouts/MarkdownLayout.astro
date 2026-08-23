@@ -37,7 +37,7 @@ const metaTitle = title ? `${titlePrefix}${title}` : `CascadiaJS ${eventYear}`;
     </div>
     {
       showSponsors && (
-        <section id="sponsors" class="p-8 text-center">
+        <section id="sponsors" class="box-content p-8 text-center">
           <h1 class="mt-0 mb-8 text-5xl">Past Sponsors</h1>
           <SponsorsGrid exclude="2026" />
           <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
@@ -81,10 +81,23 @@ const metaTitle = title ? `${titlePrefix}${title}` : `CascadiaJS ${eventYear}`;
   .page-title div h1 {
     color: var(--color-sound-navy, #112378);
     margin: 8px 0;
+    font-size: 40px;
   }
 
   .page-body {
     padding: 16px;
+  }
+
+  /* Markdown prose headings can't carry a Tailwind class, so their
+     font-sizes -- previously dead-code duplicates in the global @layer base
+     h1/h2/h3 rules -- are scoped here instead, alongside the rest of the
+     markdown-specific styling this block already owns (ADR-0007). */
+  .page-body :global(h2) {
+    font-size: 32px;
+  }
+
+  .page-body :global(h3) {
+    font-size: 24px;
   }
 
   /* Tailwind's preflight sets `box-sizing: border-box` globally, but the
