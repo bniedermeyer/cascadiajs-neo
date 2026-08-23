@@ -27,7 +27,35 @@
   --text-21: 21px;
   --text-22: 22px;
   --text-28: 28px;
+  --text-32: 32px;
+  --text-40: 40px;
   --text-64: 64px;
+
+  /* The reference's type scale has two line-height modes: body/UI chrome
+     inherits a fixed 20.25px from the body (see the `body` rule below),
+     while headings scale their line-height proportionally to their own
+     font-size (1.125em). Decouple Tailwind's built-in text-size utilities
+     from their default line-heights so each mode is explicit here instead
+     of silently overridden per utility.
+
+     UI sizes (≤20px, body/UI chrome) inherit the fixed 20.25px. */
+  --text-sm--line-height: inherit;
+  --text-base--line-height: inherit;
+  --text-lg--line-height: inherit;
+  --text-xl--line-height: inherit;
+
+  /* Heading sizes get line-height proportional to their own font-size,
+     matching the reference's heading rule, so `text-2xl`/`text-3xl`/`text-5xl`
+     render at the reference's line-heights instead of Tailwind's defaults. */
+  --text-2xl--line-height: 1.125em;
+  --text-3xl--line-height: 1.125em;
+  --text-5xl--line-height: 1.125em;
+
+  /* Named token for the body's fixed 20.25px line-height, for non-heading
+     elements (CTA buttons, links) that carry a heading-sized text utility
+     but should keep the body's line-height rather than the heading mode
+     above. Replaces the arbitrary `text-2xl/[20.25px]` pattern. */
+  --leading-body: 20.25px;
 }
 
 /* Match the reference's base typographic norms. Tailwind's preflight forces
@@ -66,21 +94,12 @@
 
   h1 {
     font-family: var(--font-display);
-    font-size: 40px;
   }
 
   h2,
   h3,
   h4 {
     font-family: var(--font-serif);
-  }
-
-  h2 {
-    font-size: 32px;
-  }
-
-  h3 {
-    font-size: 24px;
   }
 }
 
