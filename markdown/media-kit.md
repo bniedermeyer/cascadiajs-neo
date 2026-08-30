@@ -57,26 +57,26 @@ This is an event designed to help you level up your skills, build your network a
 
 ### Social Sharing Images
 
-<img src="../src/assets/images/media-kit/promo-carousel-01.png" alt="Social sharing image" style="border: 1px solid #112378">
-<div class="cta secondary"><a href="../src/assets/images/media-kit/promo-carousel-01.png" download>DOWNLOAD PNG</a></div><br/>
+<img src="/images/media-kit/promo-carousel-01.png" alt="Social sharing image" style="border: 1px solid #112378">
+<div class="cta secondary"><a href="/images/media-kit/promo-carousel-01.png" download>DOWNLOAD PNG</a></div><br/>
 
-<img src="../src/assets/images/media-kit/promo-carousel-02.png" alt="Social sharing image">
-<div class="cta secondary"><a href="../src/assets/images/media-kit/promo-carousel-02.png" download>DOWNLOAD PNG</a></div><br/>
+<img src="/images/media-kit/promo-carousel-02.png" alt="Social sharing image">
+<div class="cta secondary"><a href="/images/media-kit/promo-carousel-02.png" download>DOWNLOAD PNG</a></div><br/>
 
-<img src="../src/assets/images/media-kit/promo-carousel-03.png" alt="Social sharing image">
-<div class="cta secondary"><a href="../src/assets/images/media-kit/promo-carousel-03.png" download>DOWNLOAD PNG</a></div><br/>
+<img src="/images/media-kit/promo-carousel-03.png" alt="Social sharing image">
+<div class="cta secondary"><a href="/images/media-kit/promo-carousel-03.png" download>DOWNLOAD PNG</a></div><br/>
 
-<img src="../src/assets/images/media-kit/promo-carousel-04.png" alt="Social sharing image">
-<div class="cta secondary"><a href="../src/assets/images/media-kit/promo-carousel-04.png" download>DOWNLOAD PNG</a></div><br/>
+<img src="/images/media-kit/promo-carousel-04.png" alt="Social sharing image">
+<div class="cta secondary"><a href="/images/media-kit/promo-carousel-04.png" download>DOWNLOAD PNG</a></div><br/>
 
-<img src="../src/assets/images/media-kit/promo-carousel-05.png" alt="Social sharing image">
-<div class="cta secondary"><a href="../src/assets/images/media-kit/promo-carousel-05.png" download>DOWNLOAD PNG</a></div>
+<img src="/images/media-kit/promo-carousel-05.png" alt="Social sharing image">
+<div class="cta secondary"><a href="/images/media-kit/promo-carousel-05.png" download>DOWNLOAD PNG</a></div>
 
 <h2 id="logos">Logo</h2>
 
 <p>
-<img src="../src/assets/images/media-kit/mediakit-logos.png" alt="CascadiaJS logos" style="border: 1px solid #112378">
-<div class="cta secondary"><a href="/_public/files/media-kit/cascadiajs-logos.zip">DOWNLOAD Zip</a></div>
+<img src="/images/media-kit/mediakit-logos.png" alt="CascadiaJS logos" style="border: 1px solid #112378">
+<div class="cta secondary"><a href="/files/media-kit/cascadiajs-logos.zip">DOWNLOAD Zip</a></div>
 </p>
 
 <h2 id="contact">Contact</h2>

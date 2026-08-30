@@ -23,6 +23,7 @@ const { preHeader, heading, imageSrc, imageAlt } = Astro.props;
       src={imageSrc}
       alt={imageAlt}
       class="h-auto w-full"
+      fetchpriority="high"
       loading="eager"
       layout="full-width"
     />
