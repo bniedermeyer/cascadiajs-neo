@@ -29,9 +29,9 @@ Seattle, WA 98101
 
 <h3>Maps</h3>
 
-- <a href="/images/cjs26-map-forum.png">Forum (Floor 1)</a> - workshops/meals<br/>
-- <a href="/images/cjs26-map-lobby.png">Main Lobby (Floor 2)</a> - Expo Hall<br/>
-- <a href="/images/cjs26-map-great-hall.png">Great Hall (Floor 3)</a> - Main stage talks
+- <a href="../../src/assets/images/cjs26-map-forum.png">Forum (Floor 1)</a> - workshops/meals<br/>
+- <a href="../../src/assets/images/cjs26-map-lobby.png">Main Lobby (Floor 2)</a> - Expo Hall<br/>
+- <a href="../../src/assets/images/cjs26-map-great-hall.png">Great Hall (Floor 3)</a> - Main stage talks
 
 Please enter through the West Entrance, which is located off of Seneca street.
 

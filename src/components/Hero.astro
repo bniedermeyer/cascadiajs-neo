@@ -1,10 +1,12 @@
 ---
+import type { ImageMetadata } from "astro";
 interface Props {
   preHeader: string;
   heading: string;
-  imageSrc: string;
+  imageSrc: ImageMetadata;
   imageAlt: string;
 }
+import { Image } from "astro:assets";
 
 const { preHeader, heading, imageSrc, imageAlt } = Astro.props;
 ---
@@ -17,6 +19,12 @@ const { preHeader, heading, imageSrc, imageAlt } = Astro.props;
     <slot />
   </article>
   <article class="md:flex-1">
-    <img src={imageSrc} alt={imageAlt} class="h-auto w-full" />
+    <Image
+      src={imageSrc}
+      alt={imageAlt}
+      class="h-auto w-full"
+      loading="eager"
+      layout="full-width"
+    />
   </article>
 </section>

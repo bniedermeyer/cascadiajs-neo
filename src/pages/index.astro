@@ -5,13 +5,14 @@ import CtaButton from "../components/CtaButton.astro";
 import Trailer from "../components/Trailer.astro";
 import SponsorsGrid from "../components/SponsorsGrid.astro";
 import Testimonials from "../components/Testimonials.astro";
+import heroImage from "../assets/images/hero-camper.png";
 ---
 
 <Layout title="Home" description="Home">
   <Hero
     preHeader="Connecting devs since 2012"
     heading="We're a community for web + AI developers in the Pacific Northwest."
-    imageSrc="/images/hero-camper.png"
+    imageSrc={heroImage}
     imageAlt="Sasquatch driving a camper van"
   >
     <p>

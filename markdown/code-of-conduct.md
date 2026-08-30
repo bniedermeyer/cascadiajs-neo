@@ -1,10 +1,10 @@
 ---
 title: Code of Conduct
-image: /images/cjs18-pronoun-stickers.jpg
+image: ../src/assets/images/cjs18-pronoun-stickers.jpg
 description: CascadiaJS is a safe and inclusive event for everyone
 ---
 
-![pronoun stickers](/images/cjs18-pronoun-stickers.jpg)
+![pronoun stickers](../src/assets/images/cjs18-pronoun-stickers.jpg)
 
 CascadiaJS is dedicated to providing a harassment-free conference experience for everyone, regardless of gender, gender identity, gender expression, sexual orientation, disability, physical appearance, body size, race, ability, ethnicity, socioeconomic status, or religion (or lack thereof). CascadiaJS does not tolerate harassment of conference participants or staff at any time nor in any form.
 
