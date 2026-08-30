@@ -26,8 +26,8 @@ const testimonials = testimonialsData as Testimonial[];
   <div class="md:flex md:flex-wrap md:justify-center">
     {
       testimonials.map((testimonial) => (
-        <div class="md:mr-4 md:flex md:w-[300px] md:[&_.twitter-tweet-rendered]:mr-4">
-          <blockquote class="twitter-tweet [&_a]:text-cascade-blue [&_a:visited]:text-cascade-blue m-0 border-l-2 border-[#aaa] pl-[18px] [&_a]:underline">
+        <div class="md:mr-4 md:flex md:w-75 md:[&_.twitter-tweet-rendered]:mr-4">
+          <blockquote class="twitter-tweet [&_a]:text-cascade-blue [&_a:visited]:text-cascade-blue m-0 border-l-2 border-[#aaa] pl-4.5 [&_a]:underline">
             <p lang="en" dir="ltr" set:html={testimonial.body} />
             &mdash; {testimonial.author} ({testimonial.handle}){" "}
             <a href={testimonial.permalink}>{testimonial.date}</a>

@@ -533,7 +533,7 @@ const paragraphClass =
   description="CascadiaJS 2026 is coming up June 1 - 2 in Seattle, WA!"
   displayNav={false}
 >
-  <section id="hero" class="relative min-h-[100svh] overflow-hidden text-left">
+  <section id="hero" class="relative min-h-svh overflow-hidden text-left">
     <video
       class="h-[max(100svh,600px)] w-full scale-[1.2] object-cover object-center"
       preload="auto"
@@ -568,7 +568,7 @@ const paragraphClass =
         <img
           src="/events/2026/images/lockup-horizontal-webai-white.png"
           alt="CascadiaJS 2026 Web + AI conference"
-          class="inline w-[300px]"
+          class="inline w-75"
         />
       </div>
       <h2 class="my-10 font-serif text-[clamp(16px,8vw,60px)] text-white">
@@ -591,12 +591,10 @@ const paragraphClass =
     </div>
   </section>
 
-  <section id="nav" class="md:sticky md:top-0 md:z-[1000]">
-    <nav
-      class="bg-emerald-city-green font-display text-21 p-[10px] font-medium"
-    >
+  <section id="nav" class="md:sticky md:top-0 md:z-1000">
+    <nav class="bg-emerald-city-green font-display text-21 p-2.5 font-medium">
       <div class="md:mx-auto md:flex md:items-center md:justify-center">
-        <div class="mb-2 md:mr-10 md:mb-0 md:pt-[2px]">
+        <div class="mb-2 md:mr-10 md:mb-0 md:pt-0.5">
           <a href="/2026/">
             <img
               src="/events/2026/images/icon-dark-blue.png"
@@ -747,7 +745,7 @@ const paragraphClass =
            2px border are added. Tailwind's preflight would otherwise make
            that 300px outer, 28px narrow per card. */
         tickets.map((ticket) => (
-          <div class="border-sound-navy m-2 box-content w-[300px] min-w-[300px] border-2 px-3 py-[22px]">
+          <div class="border-sound-navy m-2 box-content w-75 min-w-75 border-2 px-3 py-5.5">
             <div class="leading-body font-serif text-3xl font-semibold">
               {ticket.name}
             </div>
@@ -849,7 +847,7 @@ const paragraphClass =
     <div class={gridClass}>
       {
         organizers.map((organizer) => (
-          <div class="mr-2 mb-4 flex w-[250px] flex-col">
+          <div class="mr-2 mb-4 flex w-62.5 flex-col">
             <div class={photoBoxClass}>
               <img
                 src={`/events/2026/images/${organizer.image}`}

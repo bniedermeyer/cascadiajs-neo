@@ -8,6 +8,9 @@
  * differently. The `LocationBand` tint override below follows the same
  * arbitrary-variant technique as `Track.astro`.
  */
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
 import CtaButton from "../CtaButton.astro";
 import LocationBand from "./LocationBand.astro";
 import sponsorsData from "../../shared/data/sponsors.json";
@@ -31,10 +34,15 @@ const wallSponsors = HALLWAY_TIERS.flatMap((tier) =>
 
 const titleClasses =
   "text-sound-navy font-serif text-22 leading-[1.25em] font-light";
+
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",
+  { eager: false },
+);
 ---
 
 <div
-  class="md:border-sound-navy [&_[class*=madrona-yellow]]:bg-sound-navy/30 md:flex-[33%] md:border-l-[3px]"
+  class="md:border-sound-navy **:[[class*=madrona-yellow]]:bg-sound-navy/30 md:flex-[33%] md:border-l-[3px]"
 >
   <h3
     class="font-display bg-sound-navy text-cedar-cream text-28 m-0 p-4 font-medium"
@@ -64,10 +72,12 @@ const titleClasses =
                   prose-link colour here for computed-style parity (ADR-0004);
                   visually inert since it sits behind the image. */}
               <a target="_new" href={sponsor.url} class="text-cascade-blue">
-                <img
-                  src={`/images/sponsors/${sponsor.logo}`}
+                <Image
+                  src={sponsorImages[
+                    `/src/assets/images/sponsors/${sponsor.logo}`
+                  ]()}
                   alt={`${sponsor.name} logo`}
-                  class="w-full"
+                  layout="full-width"
                 />
               </a>
             </div>

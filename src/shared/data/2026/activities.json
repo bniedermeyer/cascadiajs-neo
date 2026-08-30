@@ -37,7 +37,7 @@
     "target": "_blank",
     "titleSuffix": " & Pre-Registration by ",
     "image": {
-      "src": "/images/sponsors/warp.png",
+      "src": "/src/assets/images/sponsors/warp.png",
       "alt": "Warp logo"
     },
     "body": [
@@ -64,7 +64,7 @@
     "when": "7:00pm",
     "title": "Pog Tournament by",
     "image": {
-      "src": "/images/sponsors/mux.svg",
+      "src": "/src/assets/images/sponsors/mux.svg",
       "alt": "Mux logo"
     },
     "body": [
