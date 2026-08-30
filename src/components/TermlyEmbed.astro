@@ -1,0 +1,39 @@
+---
+interface Props {
+  policyId: string;
+}
+
+const { policyId } = Astro.props;
+
+const uuidPattern =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+if (!uuidPattern.test(policyId)) {
+  throw new Error(
+    `TermlyEmbed policyId must be a UUID, received "${policyId}"`,
+  );
+}
+
+// Termly's embed-policy script mounts on `div[name="termly-embed"]`.
+// `name` is not a valid attribute on `<div>` (Astro's HTML types correctly
+// reject it), but the third-party loader requires that exact selector.
+// Emit the mount as raw HTML so the DOM matches Termly's contract without
+// asserting a typed `<div name>` that isn't in the spec.
+const termlyMountHtml = `<div name="termly-embed" data-id="${policyId}"></div>`;
+---
+
+<Fragment set:html={termlyMountHtml} />
+{
+  /* `is:inline` keeps Termly's snippet as a classic script tag. Bundling
+     it would change `getElementsByTagName('script')[0]` insertion. */
+}
+<script is:inline>
+  (function (rootDocument, scriptTagName, scriptId) {
+    if (rootDocument.getElementById(scriptId)) return;
+    const firstScript = rootDocument.getElementsByTagName(scriptTagName)[0];
+    const termlyScript = rootDocument.createElement(scriptTagName);
+    termlyScript.id = scriptId;
+    termlyScript.src = "https://app.termly.io/embed-policy.min.js";
+    firstScript.parentNode.insertBefore(termlyScript, firstScript);
+  })(document, "script", "termly-jssdk");
+</script>

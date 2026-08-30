@@ -1,0 +1,19 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TermlyEmbed from "../components/TermlyEmbed.astro";
+import SponsorsGrid from "../components/SponsorsGrid.astro";
+import CtaButton from "../components/CtaButton.astro";
+import Testimonials from "../components/Testimonials.astro";
+---
+
+<Layout title="Privacy Policy" description="Privacy Policy">
+  <TermlyEmbed policyId="b7514956-3e05-45e8-a6fc-5714b3e584d4" />
+
+  <section id="sponsors" class="box-content p-8 text-center">
+    <h2 class="font-display mt-0 mb-8 text-5xl">Past Sponsors</h2>
+    <SponsorsGrid exclude="2026" />
+    <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
+  </section>
+
+  <Testimonials />
+</Layout>
