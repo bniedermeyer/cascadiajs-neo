@@ -1,4 +1,6 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import sponsorsData from "../shared/data/sponsors.json";
 
 interface Sponsor {
@@ -72,6 +74,11 @@ const tierBands = tiered
       sponsors: selected.filter((sponsor) => sponsor.tier === tier),
     })).filter((band) => band.sponsors.length > 0)
   : [];
+
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",
+  { eager: false },
+);
 ---
 
 {
@@ -90,10 +97,13 @@ const tierBands = tiered
           <div class="md:flex md:flex-wrap md:justify-center">
             {tierSponsors.map((sponsor) => {
               const logo = (
-                <img
-                  src={`/images/sponsors/${sponsor.logo}`}
+                <Image
+                  src={sponsorImages[
+                    `/src/assets/images/sponsors/${sponsor.logo}`
+                  ]()}
                   alt={`${sponsor.name} logo`}
-                  class="mx-auto my-8 block h-[50px] md:m-0 md:inline md:h-full"
+                  layout="none"
+                  class="mx-auto my-8 block h-[50px] w-auto md:m-0 md:inline md:h-full"
                 />
               );
               return (
@@ -120,8 +130,10 @@ const tierBands = tiered
     <div class="md:flex md:flex-wrap md:justify-center">
       {flatSponsors.map((sponsor) => (
         <div class="text-center md:m-8">
-          <img
-            src={`/images/sponsors/${sponsor.logo}`}
+          <Image
+            src={sponsorImages[`/src/assets/images/sponsors/${sponsor.logo}`]()}
+            alt={`${sponsor.name} logo`}
+            height={60}
             alt={`${sponsor.name} logo`}
             class="mx-auto my-8 block h-[50px] md:m-0 md:inline md:h-[60px]"
           />

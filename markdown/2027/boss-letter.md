@@ -3,7 +3,7 @@ title: Convincing Your Manager
 description: How to sell your manager on the value of attending CascadiaJS 2026
 ---
 
-![office space boss meme](/images/cjs24-boss-meme.jpg)
+![office space boss meme](../../src/assets/images/cjs24-boss-meme.jpg)
 
 Here are some tips that we hope help you explain the value to your company of attending CascadiaJS this year:
 

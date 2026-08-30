@@ -70,7 +70,7 @@ We've partnered with two hotels to secure discounts for your stay in Seattle dur
 
 ### Hotel Vintage Seattle
 
-![Hotel Vintage Seattle (Kimpton)](/images/cjs25-kimpton-seattle.jpg)
+![Hotel Vintage Seattle (Kimpton)](../../src/assets/images/cjs25-kimpton-seattle.jpg)
 
 A boutique hotel in downtown Seattle, very close to the conference venue. Amenities include free WiFi if you sign up for IHG One Rewards, complimentary coffee and tea service in the lobby each morning, and a complimentary hosted wine hour each day from 5-6pm.
 
@@ -84,7 +84,7 @@ A boutique hotel in downtown Seattle, very close to the conference venue. Amenit
 
 ### Hotel Monaco Seattle
 
-![Hotel Monaco Seattle (Kimpton)](/images/cjs24-kimpton-hotel-monaco.jpg)
+![Hotel Monaco Seattle (Kimpton)](../../src/assets/images/cjs24-kimpton-hotel-monaco.jpg)
 
 A stylish hotel with recently renovated rooms in downtown Seattle, very close to Town Hall. Amenities include free wifi throughout the hotel and a complimentary hosted wine hour each day from 5-6pm.
 
