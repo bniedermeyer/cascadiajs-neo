@@ -6,6 +6,7 @@
     "speaker": {
       "name": "Matt Biilmann",
       "image": "/events/2026/images/matt-biilmann.jpg",
+      "roles": ["speaker"],
       "company": "Netlify",
       "location": "San Francisco, CA USA",
       "social": [
@@ -29,6 +30,7 @@
     "speaker": {
       "name": "Joe Duffy",
       "image": "/events/2026/images/joe-duffy.jpg",
+      "roles": ["speaker"],
       "company": "Pulumi",
       "location": "Seattle, WA USA",
       "social": [
@@ -48,6 +50,7 @@
     "speaker": {
       "name": "Theo",
       "image": "/events/2026/images/theo.jpg",
+      "roles": ["speaker"],
       "company": "T3 Chat",
       "location": "San Francisco, CA USA",
       "social": [
@@ -71,6 +74,7 @@
     "speaker": {
       "name": "Francesco Ciulla",
       "image": "/events/2026/images/francesco-ciulla.jpg",
+      "roles": ["speaker"],
       "company": "Zerops",
       "location": "Rome, Italy",
       "social": [
@@ -94,6 +98,7 @@
     "speaker": {
       "name": "Erik Hanchett",
       "image": "/events/2026/images/erik-hanchett.jpg",
+      "roles": ["speaker"],
       "company": "AWS",
       "location": "Reno, NV, USA",
       "social": [
@@ -117,6 +122,7 @@
     "speaker": {
       "name": "Joel Hooks",
       "image": "/events/2026/images/joel-hooks.jpg",
+      "roles": ["speaker"],
       "company": "Badass Courses",
       "location": "Portland, OR USA",
       "social": [
@@ -136,6 +142,7 @@
     "speaker": {
       "name": "Nyah Macklin",
       "image": "/events/2026/images/nyah-macklin.jpg",
+      "roles": ["speaker"],
       "company": "Neo4j",
       "location": "San Francisco, CA USA",
       "social": [
@@ -159,6 +166,7 @@
     "speaker": {
       "name": "James Ide",
       "image": "/events/2026/images/james-ide.jpg",
+      "roles": ["speaker"],
       "company": "Expo",
       "location": "Palo Alto, CA USA",
       "social": [
@@ -182,6 +190,7 @@
     "speaker": {
       "name": "Marty Nelson",
       "image": "/events/2026/images/marty-nelson.jpg",
+      "roles": ["speaker"],
       "company": "Works Real Estate",
       "location": "Portland, OR USA",
       "social": [
@@ -201,10 +210,11 @@
     "slug": "building-apps-with-atproto",
     "title": "Building Apps With ATProto",
     "type": "main",
-    "abstract": "What if you owned your social media data and could move freely between apps? ATProto makes this possible. I'll teach the fundamentals—DIDs, data repos, why they're important, and how to build your first decentralized social platform.",
+    "abstract": "What if you owned your social media data and could move freely between apps? ATProto makes this possible. I'll teach the fundamentals\u2014DIDs, data repos, why they're important, and how to build your first decentralized social platform.",
     "speaker": {
       "name": "Brittany Ellich",
       "image": "/events/2026/images/brittany-ellich.jpg",
+      "roles": ["speaker"],
       "company": "Bluesky",
       "location": "Portland, OR USA",
       "social": [
@@ -224,6 +234,7 @@
     "speaker": {
       "name": "Darius Cepulis",
       "image": "/events/2026/images/darius-cepulis.jpg",
+      "roles": ["speaker"],
       "company": "Mux",
       "location": "Oak Park, IL USA",
       "url": "https://darius.cool"
@@ -238,6 +249,7 @@
     "speaker": {
       "name": "Courtney Yatteau",
       "image": "/events/2026/images/courtney-yatteau.jpg",
+      "roles": ["speaker"],
       "company": "esri",
       "location": "Alexandria, VA USA",
       "social": [
@@ -265,6 +277,7 @@
     "speaker": {
       "name": "Alex Hinson",
       "image": "/events/2026/images/alex-hinson.jpg",
+      "roles": ["speaker"],
       "company": "Fleetio",
       "location": "Chattanooga, TN USA",
       "social": [
@@ -282,8 +295,9 @@
     "type": "main",
     "abstract": "If \"English is the new programming language\" and \"an agent's output is just machine code,\" should you still care about picking TypeScript? Yes, you absolutely should! Let's dig into the reasons why.",
     "speaker": {
-      "name": "Filip Sodić",
+      "name": "Filip Sodi\u0107",
       "image": "/events/2026/images/filip-sodic.jpg",
+      "roles": ["speaker"],
       "company": "Wasp",
       "location": "Zagreb, Croatia",
       "social": [
@@ -303,10 +317,11 @@
     "slug": "beowulf-stroganoff-building-economically-useless-chatbots",
     "title": "Beowulf Stroganoff: Building Economically Useless Chatbots",
     "type": "lightning",
-    "abstract": "OpenAI says that AGI will perform “most economically valuable work,” but aren't the best things in life economically useless? I'll explore what we can learn, both technically and artistically, from fine-tuning models with public domain texts like Beowulf and old cookbooks.",
+    "abstract": "OpenAI says that AGI will perform \u201cmost economically valuable work,\u201d but aren't the best things in life economically useless? I'll explore what we can learn, both technically and artistically, from fine-tuning models with public domain texts like Beowulf and old cookbooks.",
     "speaker": {
       "name": "Molly Jean Bennett",
       "image": "/events/2026/images/molly-jean-bennett.jpg",
+      "roles": ["speaker"],
       "company": "Grow Therapy",
       "location": "Portland, OR, USA",
       "social": [
@@ -322,10 +337,11 @@
     "slug": "practical-refactors-with-modern-css-colors",
     "title": "Practical Refactors With Modern CSS Colors",
     "type": "main",
-    "abstract": "Practical refactors with modern CSS colors: a hands-on talk on simplifying color tokens, dark mode, and theming using modern CSS. Fewer variables, less duplication, clearer intent—using light-dark(), relative colors, and more.",
+    "abstract": "Practical refactors with modern CSS colors: a hands-on talk on simplifying color tokens, dark mode, and theming using modern CSS. Fewer variables, less duplication, clearer intent\u2014using light-dark(), relative colors, and more.",
     "speaker": {
       "name": "James Steinbach",
       "image": "/events/2026/images/james-steinbach.jpg",
+      "roles": ["speaker"],
       "company": "Delinea",
       "location": "Denver, CO, USA",
       "social": [
@@ -345,10 +361,11 @@
     "slug": "ai-helped-me-learn-vue-through-the-lens-of-a-react-developer",
     "title": "AI Helped Me Learn: Vue Through the Lens of a React Developer",
     "type": "lightning",
-    "abstract": "AI, React, Vue - what do all of these things have in common? They are tools meant to enhance the development experience - we must remember that. Join me in going over best practices on using AI to LEARN and not to do you your job for you “poorly I might add”. I'll take you through the steps of how I used AI as a React developer to learn Vue - did I actually learn? Join this talk to find out!",
+    "abstract": "AI, React, Vue - what do all of these things have in common? They are tools meant to enhance the development experience - we must remember that. Join me in going over best practices on using AI to LEARN and not to do you your job for you \u201cpoorly I might add\u201d. I'll take you through the steps of how I used AI as a React developer to learn Vue - did I actually learn? Join this talk to find out!",
     "speaker": {
       "name": "Daniel Mendoza",
       "image": "/events/2026/images/daniel-mendoza.jpg",
+      "roles": ["speaker"],
       "company": "Storyblok",
       "location": "Chicago, IL, USA",
       "url": "https://danieljmendoza.com/",
@@ -369,6 +386,7 @@
     "speaker": {
       "name": "Jonathan Keslin",
       "image": "/events/2026/images/jonathan-keslin.jpg",
+      "roles": ["speaker"],
       "company": "Atlassian",
       "location": "Kirkland, WA USA",
       "social": [
@@ -388,6 +406,7 @@
     "speaker": {
       "name": "Luis Montes",
       "image": "/events/2026/images/luis-montes.jpg",
+      "roles": ["speaker"],
       "company": "Iced Dev",
       "location": "Phoenix, AZ",
       "social": [
@@ -411,6 +430,7 @@
     "speaker": {
       "name": "Alex Moon",
       "image": "/events/2026/images/alex-moon.jpg",
+      "roles": ["speaker"],
       "company": "WP Engine",
       "location": "Bellingham, WA USA",
       "social": [
@@ -438,6 +458,7 @@
     "speaker": {
       "name": "Dylan Goings",
       "image": "/events/2026/images/dylan-goings.jpg",
+      "roles": ["speaker"],
       "company": "Atomic Object",
       "location": "Ann Arbor, MI USA",
       "social": [
@@ -455,8 +476,9 @@
     "type": "lightning",
     "abstract": "Every engineering org has the same problem: developers use AI tools individually, but the organization can't measure, govern, or scale the impact. We went from scattered copilot usage and zero metrics to governed agent environments, shared tooling, and a measurement pipeline that proves what actually works. This is the story of how we built the infrastructure that turned individual AI adoption into organizational capability, and what the data told us along the way.",
     "speaker": {
-      "name": "Jeff Otaño",
+      "name": "Jeff Ota\u00f1o",
       "image": "/events/2026/images/jeff-otano.jpg",
+      "roles": ["speaker"],
       "company": "Onebrief",
       "location": "Denver, CO USA",
       "social": [
@@ -476,6 +498,7 @@
     "speaker": {
       "name": "Ojus Save",
       "image": "/events/2026/images/ojus-save.jpg",
+      "roles": ["speaker"],
       "company": "Render",
       "location": "San Francisco, CA USA",
       "social": [
@@ -495,6 +518,7 @@
     "speaker": {
       "name": "Engin Diri",
       "image": "/events/2026/images/engin-diri.jpg",
+      "roles": ["speaker"],
       "company": "Pulumi",
       "location": "Seattle, WA USA",
       "social": [
@@ -518,6 +542,7 @@
     "speaker": {
       "name": "Michael Liendo",
       "image": "/events/2026/images/michael-liendo.jpg",
+      "roles": ["speaker"],
       "company": "Auth0",
       "location": "Davenport, IA USA",
       "social": [
@@ -541,6 +566,7 @@
     "speaker": {
       "name": "Kaelig Deloumeau-Prigent",
       "image": "/events/2026/images/kaelig-deloumeau-prigent.jpg",
+      "roles": ["speaker"],
       "company": "Design Tokens W3C CG",
       "location": "Seattle, WA USA",
       "social": [
@@ -560,10 +586,11 @@
     "slug": "build-better-agent-tools-with-apify",
     "title": "Build Better Agent Tools with Apify",
     "type": "workshop",
-    "abstract": "This workshop guides you through building a cloud-deployed web research tool for AI coding agents by wrapping Apify's RAG Web Browser with custom LLM-powered query generation and relevance filtering. The finished Actor runs on Apify's platform and gives agents like Claude Code or Cursor access to real-time web data. No Apify experience is needed — just a laptop with Node.js and a coding agent.\n\n[[More info and how to register]](/2026/workshops/recipe-better-agents)",
+    "abstract": "This workshop guides you through building a cloud-deployed web research tool for AI coding agents by wrapping Apify's RAG Web Browser with custom LLM-powered query generation and relevance filtering. The finished Actor runs on Apify's platform and gives agents like Claude Code or Cursor access to real-time web data. No Apify experience is needed \u2014 just a laptop with Node.js and a coding agent.\n\n[[More info and how to register]](/2026/workshops/recipe-better-agents)",
     "speaker": {
       "name": "Michael Daigler",
       "image": "/events/2026/images/michael-daigler.jpg",
+      "roles": ["speaker"],
       "company": "Apify",
       "location": "Austin, TX USA",
       "social": [
@@ -579,10 +606,11 @@
     "slug": "build-a-voice-agent-with-vapi",
     "title": "Build a Voice Agent with Vapi",
     "type": "workshop",
-    "abstract": "This workshop with Vapi walks through the real execution work behind building enterprise-grade voice agents – from conversation design fundamentals and persona calibration to prompt engineering patterns purpose-built for voice.\n\n[[More info and how to register]](/2026/workshops/scaling-voice-pipelines)",
+    "abstract": "This workshop with Vapi walks through the real execution work behind building enterprise-grade voice agents \u2013 from conversation design fundamentals and persona calibration to prompt engineering patterns purpose-built for voice.\n\n[[More info and how to register]](/2026/workshops/scaling-voice-pipelines)",
     "speaker": {
       "name": "Amanda Martin",
       "image": "/events/2026/images/amanda-martin.jpg",
+      "roles": ["speaker"],
       "company": "Vapi",
       "location": "San Francisco, CA USA",
       "social": [

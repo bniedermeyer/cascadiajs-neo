@@ -1,0 +1,37 @@
+---
+import type { Ticket } from "../shared/data/types";
+
+interface Props {
+  ticket: Ticket;
+}
+
+const { ticket } = Astro.props;
+---
+
+<div
+  class="border-sound-navy m-2 box-content w-75 min-w-75 border-2 px-3 py-5.5"
+>
+  <div class="leading-body font-serif text-3xl font-semibold">
+    {ticket.name}
+  </div>
+  <div class="my-2 flex">
+    {
+      ticket.subLabel ? (
+        <div class="leading-body mr-2 font-serif text-2xl font-thin italic">
+          {ticket.subLabel}
+        </div>
+      ) : (
+        " "
+      )
+    }
+    <div class="border-sound-navy flex-1 border-b-2"></div>
+  </div>
+  <div class="text-64 my-8 font-sans font-medium">{ticket.price}</div>
+  <div class="mt-4 text-lg">
+    <strong>Includes:</strong>
+    <ul class="mt-0 list-disc pl-4">
+      {ticket.includes.map((item) => <li>{item}</li>)}
+    </ul>
+    {ticket.footnotes.map((note) => <p>{note}</p>)}
+  </div>
+</div>

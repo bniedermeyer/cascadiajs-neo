@@ -1,0 +1,63 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import type { EventNavItem } from "../shared/data/types";
+
+interface Props {
+  year: string;
+  logo: string;
+  nav: EventNavItem[];
+  id?: string;
+}
+
+const { year, logo, nav, id = "nav" } = Astro.props;
+
+const eventImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false },
+);
+
+const logoKey = `/src/assets${logo}`;
+const logoModule = eventImages[logoKey];
+if (!logoModule) throw new Error(`EventNav: logo not found at ${logoKey}`);
+const logoSrc = (await logoModule()).default;
+---
+
+<section id={id} class="md:sticky md:top-0 md:z-1000">
+  <nav class="bg-emerald-city-green font-display text-21 p-2.5 font-medium">
+    <div class="md:mx-auto md:flex md:items-center md:justify-center">
+      <div class="mb-2 md:mr-10 md:mb-0 md:pt-0.5">
+        <a href={`/${year}/`}>
+          <Image
+            src={logoSrc}
+            alt="CascadiaJS logo"
+            class="inline h-14 w-auto align-baseline"
+          />
+        </a>
+      </div>
+      {
+        nav.map((item) =>
+          item.isCta ? (
+            <div class="mb-2 md:mr-10">
+              <a
+                href={item.href}
+                class="font-display bg-madrona-yellow text-sound-navy leading-body my-4 inline-block p-4 text-2xl font-medium no-underline hover:bg-[#fff6cd] hover:underline"
+              >
+                {item.label}
+              </a>
+            </div>
+          ) : (
+            <div class="mb-2 md:mr-10">
+              <a
+                href={item.href}
+                class="text-sound-navy no-underline hover:underline"
+              >
+                {item.label}
+              </a>
+            </div>
+          ),
+        )
+      }
+    </div>
+  </nav>
+</section>

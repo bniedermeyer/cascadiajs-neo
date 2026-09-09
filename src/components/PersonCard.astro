@@ -1,0 +1,43 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import type { Person } from "../shared/data/types";
+
+interface Props {
+  person: Person;
+}
+
+const { person } = Astro.props;
+
+const eventImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false },
+);
+
+const imageKey = `/src/assets${person.image}`;
+const imageModule = eventImages[imageKey];
+if (!imageModule) throw new Error(`PersonCard: image not found at ${imageKey}`);
+const imageSrc = (await imageModule()).default;
+---
+
+<div class="mr-2 mb-4 flex w-62.5 flex-col">
+  <div class="relative h-62.5 w-62.5 overflow-hidden">
+    <Image
+      src={imageSrc}
+      alt={`photo of ${person.name}`}
+      class="h-62.5 w-62.5 max-w-62.5 object-cover"
+      width={250}
+      height={250}
+    />
+  </div>
+  <div class="text-sound-navy flex flex-1 flex-col p-2 text-left">
+    <div class="m-0 grow font-serif text-2xl leading-[1em] font-bold">
+      {person.name}
+    </div>
+    <div>
+      {person.title}
+      <br />
+      {person.location}
+    </div>
+  </div>
+</div>

@@ -1,550 +1,37 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import EventLayout from "../../layouts/EventLayout.astro";
 import CtaButton from "../../components/CtaButton.astro";
 import SponsorsGrid from "../../components/SponsorsGrid.astro";
 import Testimonials from "../../components/Testimonials.astro";
+import VideoHero from "../../components/VideoHero.astro";
+import ImageMosaic from "../../components/ImageMosaic.astro";
+import PeopleGrid from "../../components/PeopleGrid.astro";
+import TalkCard from "../../components/TalkCard.astro";
+import PersonCard from "../../components/PersonCard.astro";
+import TicketCard from "../../components/TicketCard.astro";
+import { Image } from "astro:assets";
+import type { Talk, Person, Ticket } from "../../shared/data/types";
+import talksData from "../../shared/data/2026/talks.json";
+import organizersData from "../../shared/data/2026/organizers.json";
+import ticketsData from "../../shared/data/2026/tickets.json";
+import lockupImage from "../../assets/events/2026/images/lockup-horizontal-webai-white.png";
 
-// Frozen Snapshot (ADR-0008): the 2026 Event has already happened, so this
-// page captures it once. Roster content is inlined here rather than loaded
-// from a Collection or src/shared/data/ -- it appears on exactly one page
-// and will never change again. Transcribed from the authoritative JSON in
-// the reference submodule (not the rendered legacy HTML):
-//   reference/cascadiajs/shared/data/2026/talks.json
-//   reference/cascadiajs/shared/data/organizers.json (the "2026" key)
-// Every outbound link other than the three in-page anchors collapses to the
-// Event root, /2026/, since none of the sibling routes (schedule, attend,
-// sponsor, trainings, tickets, talk detail pages) are ported.
-
-interface TalkSpeaker {
-  name: string;
-  image: string;
-  company: string;
-  location: string;
-}
-
-interface Talk {
-  type: "keynote" | "main" | "lightning" | "workshop";
-  /** Absent when the Talk had no detail page in the source data. */
-  slug?: string;
-  title: string;
-  speaker: TalkSpeaker;
-}
-
-interface Organizer {
-  name: string;
-  image: string;
-  role: string;
-  location: string;
-}
-
-interface Ticket {
-  name: string;
-  subLabel?: string;
-  price: string;
-  includes: string[];
-  footnotes: string[];
-}
-
-const talks: Talk[] = [
-  {
-    type: "keynote",
-    title: "Day One Opening Keynote",
-    speaker: {
-      name: "Matt Biilmann",
-      image: "matt-biilmann.jpg",
-      company: "Netlify",
-      location: "San Francisco, CA USA",
-    },
-  },
-  {
-    type: "keynote",
-    slug: "the-last-mile-is-code",
-    title: "The Last Mile Is Code",
-    speaker: {
-      name: "Joe Duffy",
-      image: "joe-duffy.jpg",
-      company: "Pulumi",
-      location: "Seattle, WA USA",
-    },
-  },
-  {
-    type: "keynote",
-    slug: "its-time-to-rethink-everything",
-    title: "It's Time To Rethink Everything",
-    speaker: {
-      name: "Theo",
-      image: "theo.jpg",
-      company: "T3 Chat",
-      location: "San Francisco, CA USA",
-    },
-  },
-  {
-    type: "keynote",
-    slug: "javascript-won-the-web-rust-is-taking-the-critical-path",
-    title: "JavaScript Won the Web. Rust Is Taking the Critical Path.",
-    speaker: {
-      name: "Francesco Ciulla",
-      image: "francesco-ciulla.jpg",
-      company: "Zerops",
-      location: "Rome, Italy",
-    },
-  },
-  {
-    type: "keynote",
-    slug: "how-to-use-spec-driven-development-for-production-workflows",
-    title: "How To Use Spec-Driven Development for Production Workflows",
-    speaker: {
-      name: "Erik Hanchett",
-      image: "erik-hanchett.jpg",
-      company: "AWS",
-      location: "Reno, NV, USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "ai-agent-swarms-are-amazing",
-    title: "AI Agent Swarms Are Amazing",
-    speaker: {
-      name: "Joel Hooks",
-      image: "joel-hooks.jpg",
-      company: "Badass Courses",
-      location: "Portland, OR USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "unlocking-ais-hidden-connections-with-graphs",
-    title: "Unlocking AI's Hidden Connections With Graphs",
-    speaker: {
-      name: "Nyah Macklin",
-      image: "nyah-macklin.jpg",
-      company: "Neo4j",
-      location: "San Francisco, CA USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "implementing-the-web-on-native-with-linked-literate-programming",
-    title: "Implementing the Web on Native With Linked Literate Programming",
-    speaker: {
-      name: "James Ide",
-      image: "james-ide.jpg",
-      company: "Expo",
-      location: "Palo Alto, CA USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "teaching-llms-new-tricks",
-    title: "Teaching LLMs New Tricks",
-    speaker: {
-      name: "Marty Nelson",
-      image: "marty-nelson.jpg",
-      company: "Works Real Estate",
-      location: "Portland, OR USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "building-apps-with-atproto",
-    title: "Building Apps With ATProto",
-    speaker: {
-      name: "Brittany Ellich",
-      image: "brittany-ellich.jpg",
-      company: "Bluesky",
-      location: "Portland, OR USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "choosing-the-wrong-abstraction-and-what-it-cost-us",
-    title: "Choosing the Wrong Abstraction (And What It Cost Us)",
-    speaker: {
-      name: "Darius Cepulis",
-      image: "darius-cepulis.jpg",
-      company: "Mux",
-      location: "Oak Park, IL USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "keep-the-main-thread-free-with-web-workers",
-    title: "Keep the Main Thread Free With Web Workers",
-    speaker: {
-      name: "Courtney Yatteau",
-      image: "courtney-yatteau.jpg",
-      company: "esri",
-      location: "Alexandria, VA USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "accelerating-musical-live-coding-with-on-device-ai",
-    title: "Accelerating Musical Live Coding With On-Device AI",
-    speaker: {
-      name: "Alex Hinson",
-      image: "alex-hinson.jpg",
-      company: "Fleetio",
-      location: "Chattanooga, TN USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "choosing-typescript-matters-more-than-ever",
-    title: "Choosing TypeScript Matters More Than Ever",
-    speaker: {
-      name: "Filip Sodić",
-      image: "filip-sodic.jpg",
-      company: "Wasp",
-      location: "Zagreb, Croatia",
-    },
-  },
-  {
-    type: "lightning",
-    slug: "beowulf-stroganoff-building-economically-useless-chatbots",
-    title: "Beowulf Stroganoff: Building Economically Useless Chatbots",
-    speaker: {
-      name: "Molly Jean Bennett",
-      image: "molly-jean-bennett.jpg",
-      company: "Grow Therapy",
-      location: "Portland, OR, USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "practical-refactors-with-modern-css-colors",
-    title: "Practical Refactors With Modern CSS Colors",
-    speaker: {
-      name: "James Steinbach",
-      image: "james-steinbach.jpg",
-      company: "Delinea",
-      location: "Denver, CO, USA",
-    },
-  },
-  {
-    type: "lightning",
-    slug: "ai-helped-me-learn-vue-through-the-lens-of-a-react-developer",
-    title: "AI Helped Me Learn: Vue Through the Lens of a React Developer",
-    speaker: {
-      name: "Daniel Mendoza",
-      image: "daniel-mendoza.jpg",
-      company: "Storyblok",
-      location: "Chicago, IL, USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "shared-components-beyond-the-design-system",
-    title: "Shared Components Beyond the Design System",
-    speaker: {
-      name: "Jonathan Keslin",
-      image: "jonathan-keslin.jpg",
-      company: "Atlassian",
-      location: "Kirkland, WA USA",
-    },
-  },
-  {
-    type: "main",
-    slug: "hold-me-closer-tony-danza",
-    title: "Hold me closer, Tony Danza",
-    speaker: {
-      name: "Luis Montes",
-      image: "luis-montes.jpg",
-      company: "Iced Dev",
-      location: "Phoenix, AZ",
-    },
-  },
-  {
-    type: "lightning",
-    slug: "the-request-tax-re-evaluating-20-years-of-web-performance-dogma",
-    title: "The Request Tax: Re-evaluating 20+ Years of Web Performance Dogma",
-    speaker: {
-      name: "Alex Moon",
-      image: "alex-moon.jpg",
-      company: "WP Engine",
-      location: "Bellingham, WA USA",
-    },
-  },
-  {
-    type: "lightning",
-    slug: "how-to-successfully-build-a-junior-dev-team",
-    title: "How to Successfully Build a Junior Dev Team",
-    speaker: {
-      name: "Dylan Goings",
-      image: "dylan-goings.jpg",
-      company: "Atomic Object",
-      location: "Ann Arbor, MI USA",
-    },
-  },
-  {
-    type: "lightning",
-    slug: "building-an-ai-platform-your-engineers-actually-trust",
-    title: "Building an AI Platform Your Engineers Actually Trust",
-    speaker: {
-      name: "Jeff Otaño",
-      image: "jeff-otano.jpg",
-      company: "Onebrief",
-      location: "Denver, CO USA",
-    },
-  },
-  {
-    type: "workshop",
-    slug: "offloading-work-with-the-workers",
-    title: "Offloading Work, Without the Workers",
-    speaker: {
-      name: "Ojus Save",
-      image: "ojus-save.jpg",
-      company: "Render",
-      location: "San Francisco, CA USA",
-    },
-  },
-  {
-    type: "workshop",
-    slug: "deploying-ai-agents-on-aws-with-pulumi-and-amazon-bedrock-agentcore",
-    title:
-      "Deploying AI Agents on AWS With Pulumi and Amazon Bedrock AgentCore",
-    speaker: {
-      name: "Engin Diri",
-      image: "engin-diri.jpg",
-      company: "Pulumi",
-      location: "Seattle, WA USA",
-    },
-  },
-  {
-    type: "lightning",
-    slug: "trust-but-verify-human-in-the-loop-for-agents-that-actually-matter",
-    title:
-      "Trust, But Verify: Human-in-the-Loop for Agents That Actually Matter",
-    speaker: {
-      name: "Michael Liendo",
-      image: "michael-liendo.jpg",
-      company: "Auth0",
-      location: "Davenport, IA USA",
-    },
-  },
-  {
-    type: "lightning",
-    slug: "design-tokens-getting-agents-to-follow-brand-guidelines",
-    title: "Design Tokens: Getting Agents to Follow Brand Guidelines",
-    speaker: {
-      name: "Kaelig Deloumeau-Prigent",
-      image: "kaelig-deloumeau-prigent.jpg",
-      company: "Design Tokens W3C CG",
-      location: "Seattle, WA USA",
-    },
-  },
-  {
-    type: "workshop",
-    slug: "build-better-agent-tools-with-apify",
-    title: "Build Better Agent Tools with Apify",
-    speaker: {
-      name: "Michael Daigler",
-      image: "michael-daigler.jpg",
-      company: "Apify",
-      location: "Austin, TX USA",
-    },
-  },
-  {
-    type: "workshop",
-    slug: "build-a-voice-agent-with-vapi",
-    title: "Build a Voice Agent with Vapi",
-    speaker: {
-      name: "Amanda Martin",
-      image: "amanda-martin.jpg",
-      company: "Vapi",
-      location: "San Francisco, CA USA",
-    },
-  },
-];
-
-const organizers: Organizer[] = [
-  {
-    name: "Carter Rabasa",
-    image: "carter-rabasa.jpg",
-    role: "Lead Organizer",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Carrie Rabasa",
-    image: "carrie-rabasa.jpg",
-    role: "Co-Organizer",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Elise Worthy",
-    image: "elise-worthy.jpg",
-    role: "Sponsorships",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Adam Argyle",
-    image: "adam-argyle.jpg",
-    role: "Co-Emcee",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Robbie Wagner",
-    image: "robbie-wagner.jpg",
-    role: "Co-Emcee",
-    location: "Virginia, USA",
-  },
-  {
-    name: "Kate Pond",
-    image: "kate-pond.jpg",
-    role: "Networking Lead",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Cristina Rodriguez",
-    image: "cristina-rodriguez.jpg",
-    role: "Scholarships",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Andre Wiggins",
-    image: "andre-wiggins.jpg",
-    role: "Workshops",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Ryan Soeder",
-    image: "ryan-soeder.jpg",
-    role: "Speaker Wrangler",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Kelli Rockwell",
-    image: "kelli-rockwell.jpg",
-    role: "Party Coordinator",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Jim Liu",
-    image: "jim-liu.jpg",
-    role: "Volunteer",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Megan Speir",
-    image: "megan-speir.jpg",
-    role: "Volunteer",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Stella Marie",
-    image: "stella-marie.jpg",
-    role: "Volunteer",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Allan Deutsch",
-    image: "allan-deutsch.jpg",
-    role: "Volunteer",
-    location: "Seattle, WA USA",
-  },
-];
+const talks = talksData as Talk[];
+const organizers = organizersData as Person[];
+const tickets = ticketsData as Ticket[];
 
 const keynotes = talks.filter((t) => t.type === "keynote");
 const speakerTalks = talks.filter((t) =>
   ["main", "lightning", "workshop"].includes(t.type),
 );
 
-// Ticket-card copy, transcribed verbatim from the reference (typos and all
-// -- e.g. the stray space before the comma in the Indie Discount footnote --
-// per ADR-0001, the reference is a visual/content spec, not a style guide).
-const tickets: Ticket[] = [
-  {
-    name: "Conference Premium",
-    price: "$799",
-    includes: [
-      "Access to all talks",
-      "Priority access to free workshops",
-      "Conference hoodie *",
-      "Meals Pass",
-      "Priority access to all networking events & parties",
-      "+1 for the Closing Party",
-    ],
-    footnotes: ["* If registered by April 29, 2026"],
-  },
-  {
-    name: "Conference Premium",
-    subLabel: "Indie Discount",
-    price: "$599",
-    includes: [
-      "Access to all talks",
-      "Priority access to free workshops",
-      "Conference hoodie *",
-      "Meals Pass",
-      "Priority access to all networking events & parties",
-      "+1 for the Closing Party",
-    ],
-    footnotes: [
-      "Must be between jobs, self-employed, work for a educational institution , work for a non-profit organization or company with fewer than 10 employees",
-    ],
-  },
-  {
-    name: "General Admission",
-    price: "$299",
-    includes: [
-      "Access to all talks",
-      "Access to free workshops",
-      "Access to all networking events & parties",
-    ],
-    footnotes: ["Does not include conference hoodie, meals or drinks."],
-  },
-  {
-    name: "Student",
-    price: "$99",
-    includes: [
-      "Access to all talks",
-      "Access to free workshops",
-      "Access to all networking events & parties",
-    ],
-    footnotes: [
-      "Must be a student who is not working in tech full-time.",
-      "Must be 21 to attend Closing Party.",
-      "Does not include conference hoodie, meals or drinks.",
-    ],
-  },
-];
-
-// Shared classes for the Keynotes/Speakers talk-card and person-info block,
-// kept as constants (not components -- ADR-0008) so the two nearly-identical
-// grids below don't drift from each other on a copy/paste edit.
-const talkCardClass = "group mr-2 mb-4 flex w-[250px] flex-col no-underline";
-const photoBoxClass = "relative h-[250px] w-[250px] overflow-hidden";
-const photoImgClass = "h-[250px] w-[250px] max-w-[250px] object-cover";
-const overlayClass =
-  "hidden md:block md:absolute md:inset-0 md:bg-cascade-blue md:opacity-0 md:[transition:opacity_0.5s_ease] md:group-hover:opacity-100";
-const overlayTextClass =
-  "m-4 text-left font-display text-28 leading-[1.125em] font-light text-white";
-const infoBlockClass = "flex flex-1 flex-col p-2 text-left text-sound-navy";
-const infoNameClass =
-  "m-0 flex-grow font-serif text-2xl leading-[1em] font-bold";
-const gridClass =
-  "flex overflow-x-auto min-[1200px]:flex-wrap min-[1200px]:items-start min-[1200px]:justify-center";
 const headingClass = "mt-0 mb-8 text-5xl";
 const paragraphClass =
   "text-sound-navy font-serif text-2xl leading-[1.5em] font-normal";
 ---
 
-<Layout
-  title="CascadiaJS 2026 | June 1 - 2 | Seattle, WA"
-  description="CascadiaJS 2026 is coming up June 1 - 2 in Seattle, WA!"
-  displayNav={false}
->
-  <section id="hero" class="relative min-h-svh overflow-hidden text-left">
-    <video
-      class="h-[max(100svh,600px)] w-full scale-[1.2] object-cover object-center"
-      preload="auto"
-      muted
-      autoplay
-      loop
-      playsinline
-    >
-      <source src="/events/2026/video/sizzle.mp4" type="video/mp4" />
-    </video>
-    <div class="absolute inset-0 bg-black/40"></div>
+<EventLayout title="CascadiaJS 2026 | June 1 - 2 | Seattle, WA">
+  <VideoHero slot="hero" videoSrc="/events/2026/video/sizzle.mp4">
     {
       /*
         The overlay is shrink-to-fit, but the browser caps that at the width
@@ -561,138 +48,52 @@ const paragraphClass =
         of descender space below the baseline-aligned image.
       */
     }
-    <div
-      class="absolute top-[3vw] left-[3vw] max-w-[calc(100%-3vw)] text-white"
+    <div>
+      <Image
+        src={lockupImage}
+        alt="CascadiaJS 2026 Web + AI conference"
+        class="inline w-75"
+      />
+    </div>
+    <h2 class="my-10 font-serif text-[clamp(16px,8vw,60px)] text-white">
+      A Web + AI conference for the Pacific Northwest
+    </h2>
+    <p class="text-[clamp(18px,2vw,24px)] text-white md:w-1/2">
+      CascadiaJS is a community-driven conference for developers in the PNW and
+      beyond. You will hear from amazing speakers, connect with 500+ fellow
+      devs, and explore the latest in web and AI technologies with some of the
+      top companies in the industry.
+    </p>
+    <p class="w-1/2 font-serif text-[clamp(18px,2vw,24px)] leading-[1.125]">
+      June 1-2, 2026<br />Town Hall Seattle<br />Seattle, WA, USA
+    </p>
+    <a
+      class="font-display border-cascade-blue bg-cascade-blue text-cedar-cream hover:border-sound-navy hover:bg-sound-navy leading-body my-4 inline-block border-4 px-4 py-2 text-2xl font-medium no-underline"
     >
-      <div>
-        <img
-          src="/events/2026/images/lockup-horizontal-webai-white.png"
-          alt="CascadiaJS 2026 Web + AI conference"
-          class="inline w-75"
-        />
-      </div>
-      <h2 class="my-10 font-serif text-[clamp(16px,8vw,60px)] text-white">
-        A Web + AI conference for the Pacific Northwest
-      </h2>
-      <p class="text-[clamp(18px,2vw,24px)] text-white md:w-1/2">
-        CascadiaJS is a community-driven conference for developers in the PNW
-        and beyond. You will hear from amazing speakers, connect with 500+
-        fellow devs, and explore the latest in web and AI technologies with some
-        of the top companies in the industry.
-      </p>
-      <p class="w-1/2 font-serif text-[clamp(18px,2vw,24px)] leading-[1.125]">
-        June 1-2, 2026<br />Town Hall Seattle<br />Seattle, WA, USA
-      </p>
-      <a
-        class="font-display border-cascade-blue bg-cascade-blue text-cedar-cream hover:border-sound-navy hover:bg-sound-navy leading-body my-4 inline-block border-4 px-4 py-2 text-2xl font-medium no-underline"
-      >
-        SOLD OUT <i class="fa-solid fa-tree"></i>
-      </a>
-    </div>
-  </section>
+      SOLD OUT <i class="fa-solid fa-tree"></i>
+    </a>
+  </VideoHero>
 
-  <section id="nav" class="md:sticky md:top-0 md:z-1000">
-    <nav class="bg-emerald-city-green font-display text-21 p-2.5 font-medium">
-      <div class="md:mx-auto md:flex md:items-center md:justify-center">
-        <div class="mb-2 md:mr-10 md:mb-0 md:pt-0.5">
-          <a href="/2026/">
-            <img
-              src="/events/2026/images/icon-dark-blue.png"
-              alt="CascadiaJS logo"
-              class="inline h-14 w-auto align-baseline"
-            />
-          </a>
-        </div>
-        <div class="mb-2 md:mr-10">
-          <a
-            href="/2026/#networking"
-            class="text-sound-navy no-underline hover:underline"
-          >
-            Networking
-          </a>
-        </div>
-        <div class="mb-2 md:mr-10">
-          <a
-            href="/2026/#pricing"
-            class="text-sound-navy no-underline hover:underline"
-          >
-            Pricing
-          </a>
-        </div>
-        <div class="mb-2 md:mr-10">
-          <a
-            href="/2026/#speakers"
-            class="text-sound-navy no-underline hover:underline"
-          >
-            Speakers
-          </a>
-        </div>
-        <div class="mb-2 md:mr-10">
-          <a href="/2026/" class="text-sound-navy no-underline hover:underline">
-            Schedule
-          </a>
-        </div>
-        <div class="mb-2 md:mr-10">
-          <a href="/2026/" class="text-sound-navy no-underline hover:underline">
-            Attend
-          </a>
-        </div>
-        <div class="mb-2 md:mr-10">
-          <a href="/2026/" class="text-sound-navy no-underline hover:underline">
-            Sponsor
-          </a>
-        </div>
-        <div class="mb-2 md:mr-10">
-          <a href="/2026/" class="text-sound-navy no-underline hover:underline">
-            Trainings
-          </a>
-        </div>
-        <div class="mb-2 md:mr-10">
-          <a
-            href="/2026/"
-            class="font-display bg-madrona-yellow text-sound-navy leading-body my-4 inline-block p-4 text-2xl font-medium no-underline hover:bg-[#fff6cd] hover:underline"
-          >
-            Tickets
-          </a>
-        </div>
-      </div>
-    </nav>
-  </section>
-
-  <section id="features" class="bg-[#ccf1db]">
-    <div class="md:flex md:w-full">
-      <div class="pt-4 pr-4 pb-0 pl-4 md:min-w-0 md:flex-1 md:pr-0">
-        <img
-          src="/events/2026/images/feature-01.png"
-          alt="Feature: Amazing Speakers"
-          class="block h-auto w-full"
-        />
-      </div>
-      <div class="pt-4 pr-4 pb-0 pl-4 md:min-w-0 md:flex-1">
-        <img
-          src="/events/2026/images/feature-02.png"
-          alt="Feature: Cutting-Edge Content"
-          class="block h-auto w-full"
-        />
-      </div>
-    </div>
-    <div class="md:flex md:w-full">
-      <div class="pt-4 pr-4 pb-0 pl-4 md:min-w-0 md:flex-1 md:pr-0">
-        <img
-          src="/events/2026/images/feature-03.png"
-          alt="Feature: Incredible Community"
-          class="block h-auto w-full"
-        />
-      </div>
-      <div class="pt-4 pr-4 pb-0 pl-4 md:min-w-0 md:flex-1">
-        <img
-          src="/events/2026/images/feature-04.png"
-          alt="Feature: Beautiful Venue"
-          class="block h-auto w-full"
-        />
-      </div>
-    </div>
-  </section>
+  <ImageMosaic
+    images={[
+      {
+        src: "/events/2026/images/feature-01.png",
+        alt: "Feature: Amazing Speakers",
+      },
+      {
+        src: "/events/2026/images/feature-02.png",
+        alt: "Feature: Cutting-Edge Content",
+      },
+      {
+        src: "/events/2026/images/feature-03.png",
+        alt: "Feature: Incredible Community",
+      },
+      {
+        src: "/events/2026/images/feature-04.png",
+        alt: "Feature: Beautiful Venue",
+      },
+    ]}
+  />
 
   <section id="pitch" class="bg-[#ccf1db] p-16 text-center md:px-40">
     <p class={paragraphClass}>
@@ -739,134 +140,25 @@ const paragraphClass =
   <section id="pricing" class="text-sound-navy p-8 text-center">
     <h1 class={headingClass}>Pricing</h1>
     <div class="text-left md:mx-auto md:my-4 md:flex md:justify-center">
-      {
-        /* box-content: the reference has no box-sizing reset, so its 300px
-           .ticket is content-box -- 328px outer once its 12px padding and
-           2px border are added. Tailwind's preflight would otherwise make
-           that 300px outer, 28px narrow per card. */
-        tickets.map((ticket) => (
-          <div class="border-sound-navy m-2 box-content w-75 min-w-75 border-2 px-3 py-5.5">
-            <div class="leading-body font-serif text-3xl font-semibold">
-              {ticket.name}
-            </div>
-            <div class="my-2 flex">
-              {ticket.subLabel ? (
-                <div class="leading-body mr-2 font-serif text-2xl font-thin italic">
-                  {ticket.subLabel}
-                </div>
-              ) : (
-                " "
-              )}
-              <div class="border-sound-navy flex-1 border-b-2" />
-            </div>
-            <div class="text-64 my-8 font-sans font-medium">{ticket.price}</div>
-            <div class="text-lg font-semibold">{" "}</div>
-            <div class="mt-4 text-lg">
-              <strong>Includes:</strong>
-              <ul class="mt-0 list-disc pl-4">
-                {ticket.includes.map((item) => (
-                  <li>{item}</li>
-                ))}
-              </ul>
-              {ticket.footnotes.map((note) => (
-                <p>{note}</p>
-              ))}
-            </div>
-          </div>
-        ))
-      }
+      {tickets.map((ticket) => <TicketCard ticket={ticket} />)}
     </div>
   </section>
 
   <section id="speakers" class="p-8 text-center">
     <h1 class={headingClass}>Keynotes</h1>
-    <div class={gridClass}>
-      {
-        keynotes.map((talk) => (
-          <a href="/2026/" class={talkCardClass}>
-            <div class={photoBoxClass}>
-              <img
-                src={`/events/2026/images/${talk.speaker.image}`}
-                alt={`photo of ${talk.speaker.name}`}
-                class={photoImgClass}
-              />
-              <div class={overlayClass}>
-                <div class={overlayTextClass}>
-                  {talk.slug ? talk.title : "Talk Info Coming Soon"}
-                </div>
-              </div>
-            </div>
-            <div class={infoBlockClass}>
-              <div class={`${infoNameClass} group-hover:text-cascade-blue`}>
-                {talk.speaker.name}
-              </div>
-              <div class="group-hover:text-cascade-blue">
-                {talk.speaker.company}
-                <br />
-                {talk.speaker.location}
-              </div>
-            </div>
-          </a>
-        ))
-      }
-    </div>
+    <PeopleGrid>
+      {keynotes.map((talk) => <TalkCard talk={talk} href="/2026/" />)}
+    </PeopleGrid>
 
     <h1 class={headingClass}>Speakers</h1>
-    <div class={gridClass}>
-      {
-        speakerTalks.map((talk) => (
-          <a href="/2026/" class={talkCardClass}>
-            <div class={photoBoxClass}>
-              <img
-                src={`/events/2026/images/${talk.speaker.image}`}
-                alt={`photo of ${talk.speaker.name}`}
-                class={photoImgClass}
-              />
-              <div class={overlayClass}>
-                <div class={overlayTextClass}>
-                  {talk.slug ? talk.title : "Talk Info Coming Soon"}
-                </div>
-              </div>
-            </div>
-            <div class={infoBlockClass}>
-              <div class={`${infoNameClass} group-hover:text-cascade-blue`}>
-                {talk.speaker.name}
-              </div>
-              <div class="group-hover:text-cascade-blue">
-                {talk.speaker.company}
-                <br />
-                {talk.speaker.location}
-              </div>
-            </div>
-          </a>
-        ))
-      }
-    </div>
+    <PeopleGrid>
+      {speakerTalks.map((talk) => <TalkCard talk={talk} href="/2026/" />)}
+    </PeopleGrid>
 
     <h1 class={headingClass}>Organizers</h1>
-    <div class={gridClass}>
-      {
-        organizers.map((organizer) => (
-          <div class="mr-2 mb-4 flex w-62.5 flex-col">
-            <div class={photoBoxClass}>
-              <img
-                src={`/events/2026/images/${organizer.image}`}
-                alt={`photo of ${organizer.name}`}
-                class={photoImgClass}
-              />
-            </div>
-            <div class={infoBlockClass}>
-              <div class={infoNameClass}>{organizer.name}</div>
-              <div>
-                {organizer.role}
-                <br />
-                {organizer.location}
-              </div>
-            </div>
-          </div>
-        ))
-      }
-    </div>
+    <PeopleGrid>
+      {organizers.map((person) => <PersonCard person={person} />)}
+    </PeopleGrid>
   </section>
 
   <section id="sponsors" class="box-content p-8 text-center">
@@ -878,4 +170,4 @@ const paragraphClass =
   <section id="testimonials" class="text-center">
     <Testimonials />
   </section>
-</Layout>
+</EventLayout>

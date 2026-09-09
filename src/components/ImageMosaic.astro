@@ -1,0 +1,56 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  images: { src: string; alt: string }[];
+  id?: string;
+}
+
+const { images, id = "features" } = Astro.props;
+
+const eventImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false },
+);
+
+const rows = images.reduce<{ src: string; alt: string }[][]>((acc, image) => {
+  const lastRow = acc[acc.length - 1];
+  if (lastRow && lastRow.length < 2) {
+    lastRow.push(image);
+  } else {
+    acc.push([image]);
+  }
+  return acc;
+}, []);
+---
+
+<section id={id} class="bg-[#ccf1db]">
+  {
+    rows.map((row) => (
+      <div class="md:flex md:w-full">
+        {row.map(async (image, index) => {
+          const imageKey = `/src/assets${image.src}`;
+          const imageModule = eventImages[imageKey];
+          if (!imageModule)
+            throw new Error(`ImageMosaic: image not found at ${imageKey}`);
+          const imageSrc = (await imageModule()).default;
+          return (
+            <div
+              class:list={[
+                "pt-4 pr-4 pb-0 pl-4 md:min-w-0 md:flex-1",
+                index === 0 && "md:pr-0",
+              ]}
+            >
+              <Image
+                src={imageSrc}
+                alt={image.alt}
+                class="block h-auto w-full"
+              />
+            </div>
+          );
+        })}
+      </div>
+    ))
+  }
+</section>

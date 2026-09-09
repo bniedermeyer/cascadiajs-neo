@@ -1,0 +1,55 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import type { Talk } from "../shared/data/types";
+
+interface Props {
+  talk: Talk;
+  href: string;
+}
+
+const { talk, href } = Astro.props;
+
+const eventImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false },
+);
+
+const imageKey = `/src/assets${talk.speaker.image}`;
+const imageModule = eventImages[imageKey];
+if (!imageModule) throw new Error(`TalkCard: image not found at ${imageKey}`);
+const imageSrc = (await imageModule()).default;
+---
+
+<a href={href} class="group mr-2 mb-4 flex w-62.5 flex-col no-underline">
+  <div class="relative h-62.5 w-62.5 overflow-hidden">
+    <Image
+      src={imageSrc}
+      alt={`photo of ${talk.speaker.name}`}
+      class="h-62.5 w-62.5 max-w-62.5 object-cover"
+      width={250}
+      height={250}
+    />
+    <div
+      class="md:bg-cascade-blue hidden md:absolute md:inset-0 md:block md:opacity-0 md:[transition:opacity_0.5s_ease] md:group-hover:opacity-100"
+    >
+      <div
+        class="font-display text-28 m-4 text-left leading-[1.125em] font-light text-white"
+      >
+        {talk.slug ? talk.title : "Talk Info Coming Soon"}
+      </div>
+    </div>
+  </div>
+  <div class="text-sound-navy flex flex-1 flex-col p-2 text-left">
+    <div
+      class="group-hover:text-cascade-blue m-0 grow font-serif text-2xl leading-[1em] font-bold"
+    >
+      {talk.speaker.name}
+    </div>
+    <div class="group-hover:text-cascade-blue">
+      {talk.speaker.company}
+      <br />
+      {talk.speaker.location}
+    </div>
+  </div>
+</a>
