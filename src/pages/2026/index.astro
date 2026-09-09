@@ -25,6 +25,12 @@ const speakerTalks = talks.filter((t) =>
   ["main", "lightning", "workshop"].includes(t.type),
 );
 
+function talkHref(talk: Talk): string {
+  return talk.slug && talk.type !== "workshop"
+    ? `/2026/talks/${talk.slug}`
+    : "/2026/";
+}
+
 const headingClass = "mt-0 mb-8 text-5xl";
 const paragraphClass =
   "text-sound-navy font-serif text-2xl leading-[1.5em] font-normal";
@@ -147,12 +153,16 @@ const paragraphClass =
   <section id="speakers" class="p-8 text-center">
     <h1 class={headingClass}>Keynotes</h1>
     <PeopleGrid>
-      {keynotes.map((talk) => <TalkCard talk={talk} href="/2026/" />)}
+      {keynotes.map((talk) => <TalkCard talk={talk} href={talkHref(talk)} />)}
     </PeopleGrid>
 
     <h1 class={headingClass}>Speakers</h1>
     <PeopleGrid>
-      {speakerTalks.map((talk) => <TalkCard talk={talk} href="/2026/" />)}
+      {
+        speakerTalks.map((talk) => (
+          <TalkCard talk={talk} href={talkHref(talk)} />
+        ))
+      }
     </PeopleGrid>
 
     <h1 class={headingClass}>Organizers</h1>

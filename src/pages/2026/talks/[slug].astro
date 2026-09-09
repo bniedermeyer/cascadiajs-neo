@@ -1,0 +1,71 @@
+---
+import { getCollection } from "astro:content";
+import EventLayout from "../../../layouts/EventLayout.astro";
+import PersonDetail from "../../../components/PersonDetail.astro";
+import CtaButton from "../../../components/CtaButton.astro";
+
+export async function getStaticPaths() {
+  const talks = await getCollection("talks");
+  return talks
+    .filter((talk) => talk.data.slug && talk.data.type !== "workshop")
+    .map((talk) => ({
+      params: { slug: talk.data.slug! },
+      props: { talk: talk.data },
+    }));
+}
+
+const { talk } = Astro.props;
+const { title, abstract, tags, yt, speaker } = talk;
+
+const paragraphs = abstract?.split("\n\n").filter(Boolean) ?? [];
+---
+
+<EventLayout title={title}>
+  <div class="min-h-[400px] md:mb-16">
+    <div class="bg-overcast-gray">
+      <div class="box-content p-4 md:mx-auto md:w-1/2">
+        <h1 class="text-sound-navy text-40 my-2">{title}</h1>
+      </div>
+    </div>
+    <div class="box-content p-4 md:mx-auto md:w-1/2">
+      {
+        tags && (
+          <div class="mb-2 flex flex-wrap">
+            {tags.map((tag) => (
+              <div class="bg-overcast-gray m-0.75 p-2">{tag}</div>
+            ))}
+          </div>
+        )
+      }
+      {paragraphs.map((p) => <p>{p}</p>)}
+      {
+        yt && (
+          <div>
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${yt}`}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            />
+          </div>
+        )
+      }
+      <h2 class="text-32">About {speaker.name}</h2>
+      <PersonDetail
+        name={speaker.name}
+        image={speaker.image}
+        company={speaker.company}
+        location={speaker.location}
+        pronouns={speaker.pronouns}
+        social={speaker.social}
+        url={speaker.url}
+      />
+      <CtaButton href="/2026/tickets">
+        🎟️ Tickets to CascadiaJS 2026 on sale now!
+      </CtaButton>
+    </div>
+  </div>
+</EventLayout>

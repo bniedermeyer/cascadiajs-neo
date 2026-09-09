@@ -1,0 +1,77 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import type { Person } from "../shared/data/types";
+
+interface Props {
+  name: Person["name"];
+  image: Person["image"];
+  company?: Person["company"];
+  location?: Person["location"];
+  pronouns?: Person["pronouns"];
+  social?: Person["social"];
+  url?: Person["url"];
+}
+
+const { name, image, company, location, pronouns, social, url } = Astro.props;
+
+const eventImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false },
+);
+
+const imageKey = `/src/assets${image}`;
+const imageModule = eventImages[imageKey];
+if (!imageModule)
+  throw new Error(`PersonDetail: image not found at ${imageKey}`);
+const imageSrc = (await imageModule()).default;
+---
+
+<div class="md:flex">
+  <div class="h-75 w-75 shrink-0 overflow-hidden">
+    <Image
+      src={imageSrc}
+      alt={`photo of ${name}`}
+      class="h-75 w-75 max-w-75 object-cover"
+      width={300}
+      height={300}
+    />
+  </div>
+  <div class="mt-4 md:mt-0 md:ml-4 md:flex-1">
+    <h3>Location</h3>
+    <p>{location}</p>
+    <h3>Company</h3>
+    <p>{company}</p>
+    {
+      pronouns && (
+        <>
+          <h3>Pronouns</h3>
+          <p>{pronouns}</p>
+        </>
+      )
+    }
+    <h3>Links</h3>
+    <div>
+      {
+        url && (
+          <p>
+            <i class="fa fa-globe" />{" "}
+            <a target="_blank" href={url}>
+              {url.split("://")[1] ?? url}
+            </a>
+          </p>
+        )
+      }
+      {
+        social?.map((link) => (
+          <p>
+            <i class={`fa-brands fa-${link.type}`} />{" "}
+            <a target="_blank" href={link.url}>
+              {link.url}
+            </a>
+          </p>
+        ))
+      }
+    </div>
+  </div>
+</div>

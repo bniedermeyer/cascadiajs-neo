@@ -4,33 +4,20 @@
  * elsewhere (e.g. `SponsorsGrid.astro`).
  */
 
-/** A Speaker or Organizer profile, shared across Talks and roster pages. */
-export interface Person {
-  name: string;
-  image: string;
-  roles: ("speaker" | "organizer")[];
-  /** Descriptive position, e.g. "Lead Organizer", "Co-Emcee". */
-  title?: string;
-  company?: string;
-  location?: string;
-  url?: string;
-  social?: {
-    type: "linkedin" | "x-twitter" | "bluesky" | "github";
-    url: string;
-  }[];
-}
-
-/** A presentation delivered by a Speaker at an Event. */
-export type Talk = {
-  id: string;
-  /** Absent renders the title as plain text, not a link. */
-  slug?: string;
-  title: string;
-  type: "keynote" | "main" | "lightning" | "workshop";
-  abstract?: string;
-  /** No separate slug -- lookups key on the Talk's id instead. */
-  speaker: Person;
-};
+import z from "astro/zod";
+import { talkSchema, personSchema } from "../../content.config";
+/**
+ * A presentation delivered by a Speaker at an Event.
+ *
+ * Derived from the `talks` content collection's Zod schema, which is
+ * the single source of truth for this shape -- see `content.config.ts`.
+ */
+export type Talk = z.infer<typeof talkSchema>;
+/** A Speaker or Organizer profile, shared across Talks and roster pages.
+ * Derived from the `person` content collection's Zod schema, which is
+ * the single source of truth for this shape -- see `content.config.ts`.
+ */
+export type Person = z.infer<typeof personSchema>;
 
 /**
  * A non-Talk happening at an Event, occurring at a stated time -- see
