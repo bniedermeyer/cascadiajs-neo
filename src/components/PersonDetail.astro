@@ -1,19 +1,16 @@
 ---
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
-import type { Talk } from "../shared/data/types";
-
-/** The Speaker shape embedded in a Talk (see `content.config.ts`). */
-type Speaker = Talk["speaker"];
+import type { Person } from "../shared/data/types";
 
 interface Props {
-  name: Speaker["name"];
-  image: Speaker["image"];
-  company?: Speaker["company"];
-  location?: Speaker["location"];
-  pronouns?: Speaker["pronouns"];
-  social?: Speaker["social"];
-  url?: Speaker["url"];
+  name: Person["name"];
+  image: Person["image"];
+  company?: Person["company"];
+  location?: Person["location"];
+  pronouns?: Person["pronouns"];
+  social?: Person["social"];
+  url?: Person["url"];
 }
 
 const { name, image, company, location, pronouns, social, url } = Astro.props;
