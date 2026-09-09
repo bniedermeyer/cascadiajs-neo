@@ -1,236 +1,26 @@
 import { test, expect, type Page, type Locator } from "@playwright/test";
+import type { Talk, Person } from "../src/shared/data/types";
+import talksData from "../src/shared/data/2026/talks.json" with { type: "json" };
+import organizersData from "../src/shared/data/2026/organizers.json" with { type: "json" };
 
 /**
- * The 2026 Event page is a Frozen Snapshot (ADR-0008): a single
- * self-contained page with its roster inlined in the page's own
- * frontmatter. Per the testing decisions in that capture, this spec drives
- * the rendered page only -- there are no extracted components or data
- * modules beneath it to unit test -- and asserts what a visitor can
- * observe: section order, links, roster content, and a handful of
- * computed-style spot checks. Roster fixtures below are transcribed from
- * the same authoritative source the page itself was built from:
- *   reference/cascadiajs/shared/data/2026/talks.json
- *   reference/cascadiajs/shared/data/organizers.json (the "2026" key)
+ * The 2026 Event page spec drives the rendered page and asserts what a
+ * visitor can observe: section order, links, roster content, and a handful
+ * of computed-style spot checks. Data fixtures are imported from the
+ * authoritative source files the page itself is built from.
  */
 
-interface RosterEntry {
-  name: string;
-  /** Company (Talks) or role (Organizers). */
-  meta: string;
-  location: string;
-  /** Talk title, or the fallback -- undefined for Organizers (no overlay). */
-  overlay?: string;
+const allTalks = talksData as Talk[];
+const keynotes = allTalks.filter((t) => t.type === "keynote");
+const speakerTalks = allTalks.filter((t) =>
+  ["main", "lightning", "workshop"].includes(t.type),
+);
+const organizers = organizersData as Person[];
+
+function talkHref(talk: Talk): string {
+  if (talk.slug && talk.type !== "workshop") return `/2026/talks/${talk.slug}`;
+  return "/2026/";
 }
-
-const keynotes: RosterEntry[] = [
-  {
-    name: "Matt Biilmann",
-    meta: "Netlify",
-    location: "San Francisco, CA USA",
-    overlay: "Talk Info Coming Soon",
-  },
-  {
-    name: "Joe Duffy",
-    meta: "Pulumi",
-    location: "Seattle, WA USA",
-    overlay: "The Last Mile Is Code",
-  },
-  {
-    name: "Theo",
-    meta: "T3 Chat",
-    location: "San Francisco, CA USA",
-    overlay: "It's Time To Rethink Everything",
-  },
-  {
-    name: "Francesco Ciulla",
-    meta: "Zerops",
-    location: "Rome, Italy",
-    overlay: "JavaScript Won the Web. Rust Is Taking the Critical Path.",
-  },
-  {
-    name: "Erik Hanchett",
-    meta: "AWS",
-    location: "Reno, NV, USA",
-    overlay: "How To Use Spec-Driven Development for Production Workflows",
-  },
-];
-
-const speakers: RosterEntry[] = [
-  {
-    name: "Joel Hooks",
-    meta: "Badass Courses",
-    location: "Portland, OR USA",
-    overlay: "AI Agent Swarms Are Amazing",
-  },
-  {
-    name: "Nyah Macklin",
-    meta: "Neo4j",
-    location: "San Francisco, CA USA",
-    overlay: "Unlocking AI's Hidden Connections With Graphs",
-  },
-  {
-    name: "James Ide",
-    meta: "Expo",
-    location: "Palo Alto, CA USA",
-    overlay: "Implementing the Web on Native With Linked Literate Programming",
-  },
-  {
-    name: "Marty Nelson",
-    meta: "Works Real Estate",
-    location: "Portland, OR USA",
-    overlay: "Teaching LLMs New Tricks",
-  },
-  {
-    name: "Brittany Ellich",
-    meta: "Bluesky",
-    location: "Portland, OR USA",
-    overlay: "Building Apps With ATProto",
-  },
-  {
-    name: "Darius Cepulis",
-    meta: "Mux",
-    location: "Oak Park, IL USA",
-    overlay: "Choosing the Wrong Abstraction (And What It Cost Us)",
-  },
-  {
-    name: "Courtney Yatteau",
-    meta: "esri",
-    location: "Alexandria, VA USA",
-    overlay: "Keep the Main Thread Free With Web Workers",
-  },
-  {
-    name: "Alex Hinson",
-    meta: "Fleetio",
-    location: "Chattanooga, TN USA",
-    overlay: "Accelerating Musical Live Coding With On-Device AI",
-  },
-  {
-    name: "Filip Sodić",
-    meta: "Wasp",
-    location: "Zagreb, Croatia",
-    overlay: "Choosing TypeScript Matters More Than Ever",
-  },
-  {
-    name: "Molly Jean Bennett",
-    meta: "Grow Therapy",
-    location: "Portland, OR, USA",
-    overlay: "Beowulf Stroganoff: Building Economically Useless Chatbots",
-  },
-  {
-    name: "James Steinbach",
-    meta: "Delinea",
-    location: "Denver, CO, USA",
-    overlay: "Practical Refactors With Modern CSS Colors",
-  },
-  {
-    name: "Daniel Mendoza",
-    meta: "Storyblok",
-    location: "Chicago, IL, USA",
-    overlay: "AI Helped Me Learn: Vue Through the Lens of a React Developer",
-  },
-  {
-    name: "Jonathan Keslin",
-    meta: "Atlassian",
-    location: "Kirkland, WA USA",
-    overlay: "Shared Components Beyond the Design System",
-  },
-  {
-    name: "Luis Montes",
-    meta: "Iced Dev",
-    location: "Phoenix, AZ",
-    overlay: "Hold me closer, Tony Danza",
-  },
-  {
-    name: "Alex Moon",
-    meta: "WP Engine",
-    location: "Bellingham, WA USA",
-    overlay:
-      "The Request Tax: Re-evaluating 20+ Years of Web Performance Dogma",
-  },
-  {
-    name: "Dylan Goings",
-    meta: "Atomic Object",
-    location: "Ann Arbor, MI USA",
-    overlay: "How to Successfully Build a Junior Dev Team",
-  },
-  {
-    name: "Jeff Otaño",
-    meta: "Onebrief",
-    location: "Denver, CO USA",
-    overlay: "Building an AI Platform Your Engineers Actually Trust",
-  },
-  {
-    name: "Ojus Save",
-    meta: "Render",
-    location: "San Francisco, CA USA",
-    overlay: "Offloading Work, Without the Workers",
-  },
-  {
-    name: "Engin Diri",
-    meta: "Pulumi",
-    location: "Seattle, WA USA",
-    overlay:
-      "Deploying AI Agents on AWS With Pulumi and Amazon Bedrock AgentCore",
-  },
-  {
-    name: "Michael Liendo",
-    meta: "Auth0",
-    location: "Davenport, IA USA",
-    overlay:
-      "Trust, But Verify: Human-in-the-Loop for Agents That Actually Matter",
-  },
-  {
-    name: "Kaelig Deloumeau-Prigent",
-    meta: "Design Tokens W3C CG",
-    location: "Seattle, WA USA",
-    overlay: "Design Tokens: Getting Agents to Follow Brand Guidelines",
-  },
-  {
-    name: "Michael Daigler",
-    meta: "Apify",
-    location: "Austin, TX USA",
-    overlay: "Build Better Agent Tools with Apify",
-  },
-  {
-    name: "Amanda Martin",
-    meta: "Vapi",
-    location: "San Francisco, CA USA",
-    overlay: "Build a Voice Agent with Vapi",
-  },
-];
-
-const organizers: RosterEntry[] = [
-  {
-    name: "Carter Rabasa",
-    meta: "Lead Organizer",
-    location: "Seattle, WA USA",
-  },
-  { name: "Carrie Rabasa", meta: "Co-Organizer", location: "Seattle, WA USA" },
-  { name: "Elise Worthy", meta: "Sponsorships", location: "Seattle, WA USA" },
-  { name: "Adam Argyle", meta: "Co-Emcee", location: "Seattle, WA USA" },
-  { name: "Robbie Wagner", meta: "Co-Emcee", location: "Virginia, USA" },
-  { name: "Kate Pond", meta: "Networking Lead", location: "Seattle, WA USA" },
-  {
-    name: "Cristina Rodriguez",
-    meta: "Scholarships",
-    location: "Seattle, WA USA",
-  },
-  { name: "Andre Wiggins", meta: "Workshops", location: "Seattle, WA USA" },
-  {
-    name: "Ryan Soeder",
-    meta: "Speaker Wrangler",
-    location: "Seattle, WA USA",
-  },
-  {
-    name: "Kelli Rockwell",
-    meta: "Party Coordinator",
-    location: "Seattle, WA USA",
-  },
-  { name: "Jim Liu", meta: "Volunteer", location: "Seattle, WA USA" },
-  { name: "Megan Speir", meta: "Volunteer", location: "Seattle, WA USA" },
-  { name: "Stella Marie", meta: "Volunteer", location: "Seattle, WA USA" },
-  { name: "Allan Deutsch", meta: "Volunteer", location: "Seattle, WA USA" },
-];
 
 /**
  * Locate a roster card by its photo's accessible name and walk up to the
@@ -244,23 +34,29 @@ function cardFor(page: Page, name: string): Locator {
     .locator("xpath=ancestor::*[2]");
 }
 
-async function expectRosterEntry(
-  page: Page,
-  entry: RosterEntry,
-  { linksToRoot }: { linksToRoot: boolean },
-) {
-  const card = cardFor(page, entry.name);
-  await expect(card).toContainText(entry.meta);
-  await expect(card).toContainText(entry.location);
-  if (entry.overlay) {
-    await expect(card).toContainText(entry.overlay);
+async function expectTalkCard(page: Page, talk: Talk) {
+  const card = cardFor(page, talk.speaker.name);
+  if (talk.speaker.company) {
+    await expect(card).toContainText(talk.speaker.company);
   }
-  const href = await card.getAttribute("href");
-  if (linksToRoot) {
-    expect(href).toBe("/2026/");
-  } else {
-    expect(href).toBeNull();
+  if (talk.speaker.location) {
+    await expect(card).toContainText(talk.speaker.location);
   }
+  await expect(card).toContainText(
+    talk.slug ? talk.title : "Talk Info Coming Soon",
+  );
+  expect(await card.getAttribute("href")).toBe(talkHref(talk));
+}
+
+async function expectOrganizerCard(page: Page, person: Person) {
+  const card = cardFor(page, person.name);
+  if (person.title) {
+    await expect(card).toContainText(person.title);
+  }
+  if (person.location) {
+    await expect(card).toContainText(person.location);
+  }
+  expect(await card.getAttribute("href")).toBeNull();
 }
 
 test.describe("2026 event page", () => {
@@ -455,22 +251,30 @@ test.describe("2026 event page", () => {
 
   // -- Speakers: structure ------------------------------------------------
 
-  test("every Talk card (Keynotes + Speakers) links to the event root", async ({
+  test("Talk cards link to detail pages or the event root", async ({
     page,
   }) => {
+    const hrefs = allTalks.map(talkHref);
+    const rootCount = hrefs.filter((href) => href === "/2026/").length;
+    const detailCount = hrefs.filter((href) =>
+      href.startsWith("/2026/talks/"),
+    ).length;
     await expect(page.locator("#speakers a[href='/2026/']")).toHaveCount(
-      keynotes.length + speakers.length,
+      rootCount,
+    );
+    await expect(page.locator("#speakers a[href^='/2026/talks/']")).toHaveCount(
+      detailCount,
     );
   });
 
   test("Keynotes grid has exactly five cards", async ({ page }) => {
     const grid = page.locator("h1:text-is('Keynotes') + div");
-    await expect(grid.locator("a[href='/2026/']")).toHaveCount(5);
+    await expect(grid.locator("a")).toHaveCount(5);
   });
 
   test("Speakers grid has exactly twenty-three cards", async ({ page }) => {
     const grid = page.locator("h1:text-is('Speakers') + div");
-    await expect(grid.locator("a[href='/2026/']")).toHaveCount(23);
+    await expect(grid.locator("a")).toHaveCount(23);
   });
 
   test("Organizers grid has exactly fourteen cards, none of them links", async ({
@@ -493,40 +297,42 @@ test.describe("2026 event page", () => {
   test("all five Keynotes render with speaker, company, and location", async ({
     page,
   }) => {
-    for (const entry of keynotes) {
-      await expectRosterEntry(page, entry, { linksToRoot: true });
+    for (const talk of keynotes) {
+      await expectTalkCard(page, talk);
     }
   });
 
   test("all twenty-three Speakers render with speaker, company, and location", async ({
     page,
   }) => {
-    for (const entry of speakers) {
-      await expectRosterEntry(page, entry, { linksToRoot: true });
+    for (const talk of speakerTalks) {
+      await expectTalkCard(page, talk);
     }
   });
 
   test("all fourteen Organizers render with name, role, and location", async ({
     page,
   }) => {
-    for (const entry of organizers) {
-      await expectRosterEntry(page, entry, { linksToRoot: false });
+    for (const person of organizers) {
+      await expectOrganizerCard(page, person);
     }
   });
 
   test("a Talk with no detail page shows the Talk Info Coming Soon fallback", async ({
     page,
   }) => {
-    await expect(cardFor(page, "Matt Biilmann")).toContainText(
-      "Talk Info Coming Soon",
-    );
+    const card = cardFor(page, "Matt Biilmann");
+    await expect(card).toContainText("Talk Info Coming Soon");
+    expect(await card.getAttribute("href")).toBe("/2026/");
   });
 
   test("a Talk with a detail page shows its own title as the overlay", async ({
     page,
   }) => {
-    await expect(cardFor(page, "Joe Duffy")).toContainText(
-      "The Last Mile Is Code",
+    const card = cardFor(page, "Joe Duffy");
+    await expect(card).toContainText("The Last Mile Is Code");
+    expect(await card.getAttribute("href")).toBe(
+      "/2026/talks/the-last-mile-is-code",
     );
   });
 
