@@ -1,0 +1,188 @@
+---
+import { getCollection } from "astro:content";
+import { marked } from "marked";
+import EventLayout from "../../../layouts/EventLayout.astro";
+import PersonDetail from "../../../components/PersonDetail.astro";
+
+export async function getStaticPaths() {
+  const talks = await getCollection("talks");
+  return talks
+    .filter((talk) => talk.data.slug && talk.data.type !== "workshop")
+    .map((talk) => ({
+      // Non-null: the filter above guarantees `slug` is present here.
+      params: { slug: talk.data.slug! },
+      props: { talk: talk.data },
+    }));
+}
+
+const { talk } = Astro.props;
+const { title, abstract, tags, yt, speaker } = talk;
+
+const abstractHtml = abstract ? marked.parse(abstract) : "";
+---
+
+<EventLayout title={title}>
+  <div id="page">
+    <div class="page-title">
+      <div><h1>{title}</h1></div>
+    </div>
+    <div class="page-body">
+      {
+        tags && (
+          <div class="mb-2 flex flex-wrap">
+            {tags.map((tag) => (
+              <div class="bg-overcast-gray m-0.75 p-2">{tag}</div>
+            ))}
+          </div>
+        )
+      }
+      <div class="abstract" set:html={abstractHtml} />
+      {
+        yt && (
+          <div class="video">
+            <iframe
+              width="560"
+              height="315"
+              src={`https://www.youtube.com/embed/${yt}`}
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            />
+          </div>
+        )
+      }
+      <h2>About {speaker.name}</h2>
+      <PersonDetail
+        name={speaker.name}
+        image={speaker.image}
+        company={speaker.company}
+        location={speaker.location}
+        pronouns={speaker.pronouns}
+        social={speaker.social}
+        url={speaker.url}
+      />
+      <div class="cta">
+        <a href="/2026/tickets"> 🎟️ Tickets to CascadiaJS 2026 on sale now! </a>
+      </div>
+    </div>
+  </div>
+</EventLayout>
+
+<style>
+  /*
+   * Scoped <style> exception (ADR-0003 / ADR-0007).
+   *
+   * The page-title/page-body chrome below is the same simple-page pattern
+   * MarkdownLayout.astro uses, and the `.abstract` content is rendered from
+   * Markdown (via `marked`) -- the page author has no way to attach a
+   * Tailwind utility class to it. ADR-0003's exception clause reserves
+   * scoped <style> for exactly this case: a CSS construct that Tailwind
+   * utilities cannot reach. Do NOT use this as precedent for styling
+   * ordinary components whose markup you control -- see PersonDetail.astro
+   * for the Tailwind-utility default.
+   *
+   * Astro scoped styles do not pierce slotted/set:html content, so every
+   * rule below that targets a markdown-generated element inside .abstract
+   * uses :global(...) to actually reach it in the rendered DOM.
+   */
+
+  #page {
+    min-height: 400px;
+  }
+
+  .page-title {
+    background-color: var(--color-overcast-gray, #cfd3e4);
+  }
+
+  .page-title div {
+    padding: 16px;
+  }
+
+  .page-title div h1 {
+    color: var(--color-sound-navy, #112378);
+    margin: 8px 0;
+    font-size: 40px;
+  }
+
+  .page-body {
+    padding: 16px;
+  }
+
+  .page-body :global(h2) {
+    font-size: 32px;
+  }
+
+  .page-body :global(h3) {
+    font-size: 24px;
+  }
+
+  /* See MarkdownLayout.astro for the box-sizing rationale: the legacy
+     stylesheet has no CSS reset and relies on content-box, while Tailwind's
+     preflight forces border-box globally. */
+  .page-body,
+  .page-title div {
+    box-sizing: content-box;
+  }
+
+  .page-body :global(ul) {
+    list-style: revert;
+    margin: revert;
+    padding-inline-start: revert;
+  }
+
+  .page-body :global(li) {
+    padding: 4px;
+  }
+
+  .page-body :global(ul > li) {
+    line-height: 1.5em;
+  }
+
+  .page-body :global(a),
+  .page-body :global(a:visited) {
+    color: var(--color-cascade-blue, #0033ff);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    #page {
+      margin-bottom: 64px;
+    }
+
+    .page-body,
+    .page-title div {
+      width: 50%;
+      margin: 0 auto;
+    }
+  }
+
+  /* Buy Tickets CTA button, matching the reference `.cta` / `div.cta`
+     button style (reference/cascadiajs/public/styles/main.css). The
+     reference button is shrink-to-fit (`display: inline-block`); centered
+     here via `margin: auto` on a fit-content block, rather than stretched
+     full-width, so it still reads as a button rather than a bar. */
+  .cta {
+    display: block;
+    width: fit-content;
+    text-align: center;
+    font-family: var(--font-display, mono45-headline, sans-serif);
+    background-color: var(--color-cascade-blue, #0033ff);
+    border: 4px solid var(--color-cascade-blue, #0033ff);
+    font-weight: 500;
+    font-size: 24px;
+    padding: 8px 16px;
+    margin: 16px auto;
+  }
+
+  .cta a,
+  .cta a:visited {
+    color: var(--color-cedar-cream, #fff5cc);
+    text-decoration: none;
+  }
+
+  .cta:hover {
+    background-color: var(--color-sound-navy, #112378);
+    border: 4px solid var(--color-sound-navy, #112378);
+  }
+</style>
