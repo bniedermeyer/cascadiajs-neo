@@ -4,6 +4,22 @@
  * elsewhere (e.g. `SponsorsGrid.astro`).
  */
 
+/** A Speaker or Organizer profile, shared across Talks and roster pages. */
+export interface Person {
+  name: string;
+  image: string;
+  roles: ("speaker" | "organizer")[];
+  /** Descriptive position, e.g. "Lead Organizer", "Co-Emcee". */
+  title?: string;
+  company?: string;
+  location?: string;
+  url?: string;
+  social?: {
+    type: "linkedin" | "x-twitter" | "bluesky" | "github";
+    url: string;
+  }[];
+}
+
 /** A presentation delivered by a Speaker at an Event. */
 export type Talk = {
   id: string;
@@ -12,18 +28,8 @@ export type Talk = {
   title: string;
   type: "keynote" | "main" | "lightning" | "workshop";
   abstract?: string;
-  speaker: {
-    /** No separate slug -- lookups key on the Talk's id instead. */
-    name: string;
-    image: string;
-    company: string;
-    location: string;
-    url?: string;
-    social?: {
-      type: "linkedin" | "x-twitter" | "bluesky" | "github";
-      url: string;
-    }[];
-  };
+  /** No separate slug -- lookups key on the Talk's id instead. */
+  speaker: Person;
 };
 
 /**
@@ -52,3 +58,33 @@ export type Activity = {
     variant?: "secondary";
   };
 };
+
+/** A purchasable Ticket tier for an Event. */
+export interface Ticket {
+  name: string;
+  subLabel?: string;
+  price: string;
+  includes: string[];
+  footnotes: string[];
+}
+
+/** One entry in an Event's primary navigation. */
+export interface EventNavItem {
+  label: string;
+  href: string;
+  isCta?: boolean;
+}
+
+/** Per-Event site configuration (branding, dates, nav). */
+export interface EventConfig {
+  name: string;
+  year: string;
+  dates: string;
+  venue: string;
+  location: string;
+  logo: string;
+  ogImage: string;
+  ogDescription: string;
+  nav: EventNavItem[];
+  cta?: { label: string; href: string };
+}

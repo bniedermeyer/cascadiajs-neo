@@ -1,0 +1,43 @@
+---
+import type { EventConfig } from "../shared/data/types";
+import Layout from "./Layout.astro";
+import EventNav from "../components/EventNav.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const { title, description, ogImage } = Astro.props;
+
+const yearMatch = Astro.url.pathname.match(/\/(\d{4})(?:\/|$)/);
+const year = yearMatch?.[1];
+
+const configs = import.meta.glob<{ default: EventConfig }>(
+  "../shared/data/events/*.config.ts",
+  { eager: true },
+);
+
+const config = Object.values(configs).find(
+  (mod) => mod.default.year === year,
+)?.default;
+
+if (!config) {
+  throw new Error(
+    `EventLayout: no event config found for year "${year}" (path: ${Astro.url.pathname})`,
+  );
+}
+---
+
+<Layout
+  title={title}
+  description={description ?? config.ogDescription}
+  ogImage={ogImage ?? config.ogImage}
+  displayNav={false}
+  displayAlert={true}
+>
+  <slot name="hero" />
+  <EventNav year={config.year} logo={config.logo} nav={config.nav} />
+  <slot />
+</Layout>

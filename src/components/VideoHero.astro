@@ -1,0 +1,27 @@
+---
+interface Props {
+  videoSrc: string;
+  posterImage?: string;
+  id?: string;
+}
+
+const { videoSrc, posterImage, id = "hero" } = Astro.props;
+---
+
+<section id={id} class="relative min-h-svh overflow-hidden text-left">
+  <video
+    class="h-[max(100svh,600px)] w-full scale-[1.2] object-cover object-center"
+    preload="auto"
+    muted
+    autoplay
+    loop
+    playsinline
+    poster={posterImage}
+  >
+    <source src={videoSrc} type="video/mp4" />
+  </video>
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="absolute top-[3vw] left-[3vw] max-w-[calc(100%-3vw)] text-white">
+    <slot />
+  </div>
+</section>
