@@ -21,9 +21,8 @@ test.describe("Talk detail page", () => {
   });
 
   test("page-title bar shows the talk title", async ({ page }) => {
-    const titleBar = page.locator(".page-title");
     await expect(
-      titleBar.getByRole("heading", {
+      page.getByRole("heading", {
         level: 1,
         name: "The Last Mile Is Code",
       }),
@@ -70,10 +69,11 @@ test.describe("Talk detail page", () => {
   });
 
   test("Buy Tickets CTA links to /2026/tickets", async ({ page }) => {
-    const cta = page.locator(".cta a");
+    const cta = page.getByRole("link", {
+      name: /Tickets to CascadiaJS 2026 on sale now/,
+    });
     await expect(cta).toBeVisible();
     await expect(cta).toHaveAttribute("href", "/2026/tickets");
-    await expect(cta).toContainText("Tickets to CascadiaJS 2026 on sale now");
   });
 
   test("EventLayout nav is present", async ({ page }) => {
