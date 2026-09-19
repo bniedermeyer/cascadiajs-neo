@@ -1,6 +1,9 @@
 ---
 import Layout from "./Layout.astro";
 import MarkdownContent from "../components/MarkdownContent.astro";
+import SponsorsGrid from "../components/SponsorsGrid.astro";
+import CtaButton from "../components/CtaButton.astro";
+import Testimonials from "../components/Testimonials.astro";
 
 interface Props {
   title: string;
@@ -23,12 +26,19 @@ const metaTitle = title ? `${titlePrefix}${title}` : `CascadiaJS ${eventYear}`;
 ---
 
 <Layout title={metaTitle} description={description ?? metaTitle}>
-  <MarkdownContent
-    title={title}
-    width={width}
-    showSponsors={showSponsors}
-    showTestimonials={showTestimonials}
-  >
+  <MarkdownContent title={title} width={width}>
     <slot />
+    <Fragment slot="after-body">
+      {
+        showSponsors && (
+          <section id="sponsors" class="box-content p-8 text-center">
+            <h2 class="font-display mt-0 mb-8 text-5xl">Past Sponsors</h2>
+            <SponsorsGrid exclude="2026" />
+            <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
+          </section>
+        )
+      }
+      {showTestimonials && <Testimonials />}
+    </Fragment>
   </MarkdownContent>
 </Layout>

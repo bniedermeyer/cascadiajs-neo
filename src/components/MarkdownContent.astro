@@ -1,21 +1,10 @@
 ---
-import SponsorsGrid from "./SponsorsGrid.astro";
-import CtaButton from "./CtaButton.astro";
-import Testimonials from "./Testimonials.astro";
-
 interface Props {
   title: string;
   width?: "narrow" | "wide";
-  showSponsors?: boolean;
-  showTestimonials?: boolean;
 }
 
-const {
-  title,
-  width = "narrow",
-  showSponsors = true,
-  showTestimonials = true,
-} = Astro.props;
+const { title, width = "narrow" } = Astro.props;
 // Only "wide" needs its own class -- the default (narrow) width is the
 // unqualified rule below, exactly like the legacy simple-page source.
 const widthClass = width === "wide" ? "wide" : undefined;
@@ -28,16 +17,7 @@ const widthClass = width === "wide" ? "wide" : undefined;
   <div class:list={["page-body", widthClass]}>
     <slot />
   </div>
-  {
-    showSponsors && (
-      <section id="sponsors" class="box-content p-8 text-center">
-        <h2 class="font-display mt-0 mb-8 text-5xl">Past Sponsors</h2>
-        <SponsorsGrid exclude="2026" />
-        <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
-      </section>
-    )
-  }
-  {showTestimonials && <Testimonials />}
+  <slot name="after-body" />
 </div>
 
 <style>
