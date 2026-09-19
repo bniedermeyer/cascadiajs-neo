@@ -111,24 +111,73 @@ const widthClass = width === "wide" ? "wide" : undefined;
     text-decoration: underline;
   }
 
-  .page-body :global(.toc ul) {
-    list-style: none;
-    margin: 0;
-    padding-inline-start: 0;
+  .page-body :global(.styled-table) {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+
+    /* max-width: 343px; */
   }
 
-  .page-body :global(.toc li) {
-    list-style: none;
-    margin: 0;
+  .page-body :global(.styled-table thead tr) {
+    color: #112378;
+    text-align: left;
   }
 
-  .page-body :global(.toc a),
-  .page-body :global(.toc a:visited) {
+  .page-body :global(.styled-table th),
+  .page-body :global(.styled-table td) {
+    padding: 12px 15px;
+  }
+
+  .page-body :global(.styled-table thead tr),
+  .page-body :global(.styled-table tbody tr) {
+    border-bottom: #cfd3e4 1px solid;
+  }
+
+  .page-body :global(.styled-table th) {
+    font-family: freight-macro-pro, serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  .page-body :global(.styled-table tbody tr.passed) {
+    color: #ccc;
+  }
+
+  .page-body :global(.styled-table tbody tr.active-row) {
+    font-weight: bold;
+    color: #009879;
+  }
+
+  .page-body :global(#toc) {
+    margin-bottom: 16px;
+  }
+
+  .page-body :global(#toc h2) {
+    font-family: "mono45-headline", sans-serif;
+    font-weight: 200;
+    font-size: 18px;
+    text-decoration: underline;
+  }
+
+  .page-body :global(#toc a),
+  .page-body :global(#toc a:visited) {
+    font-weight: 700;
     text-decoration: none;
   }
 
-  .page-body :global(.toc a:hover) {
+  .page-body :global(#toc a:hover) {
     text-decoration: underline;
+  }
+
+  .page-body :global(#toc ul) {
+    padding-inline-start: 0;
+  }
+
+  .page-body :global(#toc li) {
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
 
   @media (min-width: 768px) {
