@@ -5,8 +5,15 @@
  * `data` object so there's a single render path, not two templates to
  * keep in sync.
  */
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
 import CtaButton from "../CtaButton.astro";
 import type { Activity } from "../../shared/data/types";
+
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",
+  { eager: false },
+);
 
 type AnchorTarget = "_blank" | "_self" | "_parent" | "_top" | (string & {});
 
@@ -85,14 +92,13 @@ const ctaWrapperClasses = isInlineCta ? "mt-2" : "";
         )
       }{data.titleSuffix}
       {
-        /* it's ok that these aren't optimized images. They're rarely used*/
-        data.image && (
-          <img
-            src={data.image.src}
+        data.image && sponsorImages[data.image.src] && (
+          <Image
+            src={sponsorImages[data.image.src]()}
             alt={data.image.alt}
-            class="ml-1 inline h-5 align-middle"
+            class="ml-1 inline h-5 w-auto align-middle"
+            height={20}
             loading="lazy"
-            fetchpriority="low"
           />
         )
       }

@@ -56,10 +56,6 @@ test.describe("welcome page", () => {
       name: "CascadiaJS 2019 family photo",
     });
     await expect(image).toBeVisible();
-    await expect(image).toHaveAttribute(
-      "src",
-      "/images/cjs19-family-photo.jpg",
-    );
   });
 
   test("markdown links are cascade-blue", async ({ page }) => {

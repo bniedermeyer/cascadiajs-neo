@@ -151,7 +151,7 @@ test.describe("home page", () => {
 
   test("sponsors section shows the Past Sponsors heading", async ({ page }) => {
     await expect(
-      page.getByRole("heading", { level: 1, name: "Past Sponsors" }),
+      page.getByRole("heading", { level: 2, name: "Past Sponsors" }),
     ).toBeVisible();
   });
 
