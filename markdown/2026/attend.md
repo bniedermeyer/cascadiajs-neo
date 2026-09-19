@@ -1,7 +1,6 @@
 ---
 title: Attending the Conference
 description: Lodging, Travel, Guest Passes and more!
-published: false
 ---
 
 <div id="toc">
