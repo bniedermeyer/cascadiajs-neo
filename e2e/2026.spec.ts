@@ -190,9 +190,9 @@ test.describe("2026 event page", () => {
       ["Pricing", "/2026/#pricing"],
       ["Speakers", "/2026/#speakers"],
       ["Schedule", "/2026/schedule"],
-      ["Attend", "/2026/"],
-      ["Sponsor", "/2026/"],
-      ["Trainings", "/2026/"],
+      ["Attend", "/2026/attend"],
+      ["Sponsor", "/2026/sponsor"],
+      ["Trainings", "/2026/trainings"],
       ["Tickets", "/2026/"],
     ];
     for (const [name, href] of links) {
