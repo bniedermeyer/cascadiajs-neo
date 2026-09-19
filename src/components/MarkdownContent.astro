@@ -1,0 +1,150 @@
+---
+interface Props {
+  title: string;
+  width?: "narrow" | "wide";
+}
+
+const { title, width = "narrow" } = Astro.props;
+// Only "wide" needs its own class -- the default (narrow) width is the
+// unqualified rule below, exactly like the legacy simple-page source.
+const widthClass = width === "wide" ? "wide" : undefined;
+---
+
+<div id="page">
+  <div class="page-title">
+    <div class:list={[widthClass]}><h1>{title}</h1></div>
+  </div>
+  <div class:list={["page-body", widthClass]}>
+    <slot />
+  </div>
+  <slot name="after-body" />
+</div>
+
+<style>
+  /*
+   * Scoped <style> exception (ADR-0003 / ADR-0007).
+   *
+   * Everything styled below (h1, a, li, ul, .toc) is either generated
+   * directly from markdown prose or lives inside slotted markdown content
+   * that the page author writes as plain Markdown -- they have no way to
+   * attach a Tailwind utility class to it. ADR-0003's exception clause
+   * reserves scoped <style> for exactly this case: a CSS construct that
+   * Tailwind utilities cannot reach. Do NOT use this as precedent for
+   * styling ordinary components whose markup you control -- use Tailwind
+   * utility classes there, per ADR-0003's default.
+   *
+   * Astro scoped styles do not pierce slotted content, so every rule below
+   * that targets a markdown-generated element inside .page-body uses
+   * :global(...) to actually reach it in the rendered DOM.
+   */
+
+  #page {
+    min-height: 400px;
+  }
+
+  .page-title {
+    background-color: var(--color-overcast-gray, #cfd3e4);
+  }
+
+  .page-title div {
+    padding: 16px;
+  }
+
+  .page-title div h1 {
+    color: var(--color-sound-navy, #112378);
+    margin: 8px 0;
+    font-size: 40px;
+  }
+
+  .page-body {
+    padding: 16px;
+  }
+
+  /* Markdown prose headings can't carry a Tailwind class, so their
+     font-sizes -- previously dead-code duplicates in the global @layer base
+     h1/h2/h3 rules -- are scoped here instead, alongside the rest of the
+     markdown-specific styling this block already owns (ADR-0007). */
+  .page-body :global(h2) {
+    font-size: 32px;
+  }
+
+  .page-body :global(h3) {
+    font-size: 24px;
+  }
+
+  /* Tailwind's preflight sets `box-sizing: border-box` globally, but the
+     legacy stylesheet has no CSS reset and relies on the browser default
+     `content-box`. With the desktop width below expressed as a percentage
+     plus a fixed padding, that difference changes the rendered box size
+     (border-box shrinks the content area by the padding; content-box does
+     not), so it's pinned back to content-box here to reproduce the
+     legacy column width and title-bar geometry exactly. */
+  .page-body,
+  .page-title div {
+    box-sizing: content-box;
+  }
+
+  /* Tailwind's preflight also zeroes all margin/padding via a universal
+     selector and strips list-style globally (`ol,ul,menu{list-style:none}`).
+     The legacy stylesheet has no such reset, so a plain markdown <ul> there
+     renders with full browser UA defaults (disc bullets, 40px indent,
+     block margins) -- only `.toc` lists are deliberately unstyled. `revert`
+     restores those UA defaults for ordinary lists; the more specific `.toc`
+     rules below still win over this lower-specificity selector. */
+  .page-body :global(ul) {
+    list-style: revert;
+    margin: revert;
+    padding-inline-start: revert;
+  }
+
+  .page-body :global(li) {
+    padding: 4px;
+  }
+
+  .page-body :global(ul > li) {
+    line-height: 1.5em;
+  }
+
+  .page-body :global(a),
+  .page-body :global(a:visited) {
+    color: var(--color-cascade-blue, #0033ff);
+    text-decoration: underline;
+  }
+
+  .page-body :global(.toc ul) {
+    list-style: none;
+    margin: 0;
+    padding-inline-start: 0;
+  }
+
+  .page-body :global(.toc li) {
+    list-style: none;
+    margin: 0;
+  }
+
+  .page-body :global(.toc a),
+  .page-body :global(.toc a:visited) {
+    text-decoration: none;
+  }
+
+  .page-body :global(.toc a:hover) {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    #page {
+      margin-bottom: 64px;
+    }
+
+    .page-body,
+    .page-title div {
+      width: 50%;
+      margin: 0 auto;
+    }
+
+    .page-body.wide,
+    .page-title div.wide {
+      width: 70%;
+    }
+  }
+</style>

@@ -1,0 +1,65 @@
+---
+import { getCollection, render } from "astro:content";
+import type { EventConfig } from "../../shared/data/types";
+import EventLayout from "../../layouts/EventLayout.astro";
+import MarkdownContent from "../../components/MarkdownContent.astro";
+import SponsorsGrid from "../../components/SponsorsGrid.astro";
+import CtaButton from "../../components/CtaButton.astro";
+import Testimonials from "../../components/Testimonials.astro";
+
+/**
+ * Year-scoped markdown pages (markdown/<year>/*.md) render through this page.
+ * This is a special case vs the catch-all slug page, which renders markdown pages
+ * that are not year-scoped (markdown/*.md).
+ */
+
+export async function getStaticPaths() {
+  const configs = import.meta.glob<{ default: EventConfig }>(
+    "../../shared/data/events/*.config.ts",
+    { eager: true },
+  );
+  const validYears = new Set(
+    Object.values(configs).map((mod) => mod.default.year),
+  );
+
+  const entries = await getCollection("markdown");
+  return entries
+    .filter((entry) => entry.data.published)
+    .map((entry) => {
+      const match = entry.id.match(/^(\d{4})\/(.+)$/);
+      return match ? { entry, year: match[1], slug: match[2] } : null;
+    })
+    .filter(
+      (candidate): candidate is NonNullable<typeof candidate> =>
+        candidate !== null && validYears.has(candidate.year),
+    )
+    .map(({ entry, year, slug }) => ({
+      params: { year, slug },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { year } = Astro.params;
+const { Content } = await render(entry);
+
+const metaTitle = `CascadiaJS ${year} | ${entry.data.title}`;
+---
+
+<EventLayout title={metaTitle} description={entry.data.description}>
+  <MarkdownContent title={entry.data.title} width={entry.data.width}>
+    <Content />
+    <Fragment slot="after-body">
+      {
+        entry.data.showSponsors && (
+          <section id="sponsors" class="box-content p-8 text-center">
+            <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
+            <SponsorsGrid event={year} tiered={true} />
+            <CtaButton href={`/${year}/sponsor`}>Sponsor Our Event</CtaButton>
+          </section>
+        )
+      }
+      {entry.data.showTestimonials && <Testimonials />}
+    </Fragment>
+  </MarkdownContent>
+</EventLayout>

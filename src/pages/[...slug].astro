@@ -6,6 +6,7 @@ export async function getStaticPaths() {
   const entries = await getCollection("markdown");
   return entries
     .filter((entry) => entry.data.published)
+    .filter((entry) => !/^\d{4}\//.test(entry.id))
     .map((entry) => ({
       params: { slug: entry.id },
       props: { entry },
