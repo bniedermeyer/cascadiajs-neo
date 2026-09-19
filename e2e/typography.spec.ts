@@ -31,11 +31,11 @@ test.describe("typography", () => {
     expect(fontSize).toBe("40px");
   });
 
-  test("sponsor section h1 (text-5xl) gets the proportional heading line-height", async ({
+  test("sponsor section h2 (text-5xl) gets the proportional heading line-height", async ({
     page,
   }) => {
     const heading = page.getByRole("heading", {
-      level: 1,
+      level: 2,
       name: "Past Sponsors",
     });
     const lineHeight = await heading.evaluate(

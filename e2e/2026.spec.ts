@@ -189,7 +189,7 @@ test.describe("2026 event page", () => {
       ["Networking", "/2026/#networking"],
       ["Pricing", "/2026/#pricing"],
       ["Speakers", "/2026/#speakers"],
-      ["Schedule", "/2026/"],
+      ["Schedule", "/2026/schedule"],
       ["Attend", "/2026/"],
       ["Sponsor", "/2026/"],
       ["Trainings", "/2026/"],
