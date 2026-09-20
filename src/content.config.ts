@@ -49,9 +49,34 @@ export const talkSchema = z.object({
   speaker: personSchema,
 });
 
+export const sponsorSchema = z.object({
+  id: z.string(),
+  tier: z
+    .enum([
+      "platinum",
+      "diamond",
+      "gold",
+      "silver",
+      "bronze",
+      "community",
+      "media",
+    ])
+    .optional(),
+  logo: z.string(),
+  name: z.string(),
+  url: z.string().optional(),
+  video: z.string().optional(),
+  description: z.string().optional(),
+  events: z.array(z.enum(["previous", "2025", "2026"])),
+});
+
 const talks = defineCollection({
   loader: file("./src/shared/data/2026/talks.json"),
   schema: talkSchema,
 });
+const sponsors = defineCollection({
+  loader: file("./src/shared/data/sponsors.json"),
+  schema: sponsorSchema,
+});
 
-export const collections = { markdown, talks };
+export const collections = { markdown, talks, sponsors };

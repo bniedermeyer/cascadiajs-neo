@@ -1,0 +1,38 @@
+---
+/**
+ * Structural "simple page" chrome (issue #63): the #page wrapper, the
+ * overcast-gray title bar, and the responsive page-body column, extracted
+ * out of MarkdownContent so that component can be a pure prose-styling
+ * wrapper. This is the same visual pattern as the Schedule page's
+ * hand-rolled chrome (src/pages/2026/schedule.astro) -- kept here so
+ * MarkdownLayout and the year-scoped markdown page don't each repeat it.
+ */
+interface Props {
+  title: string;
+  width?: "narrow" | "wide";
+}
+
+const { title, width = "narrow" } = Astro.props;
+// Narrow (default) is a straight 50% column; only "wide" needs its own
+// arbitrary-percentage utility, matching the legacy simple-page source.
+const widthClass = width === "wide" ? "md:w-[70%]" : "md:w-1/2";
+---
+
+<div id="page" class="min-h-100 md:mb-16">
+  <div class="page-title bg-overcast-gray">
+    {
+      /* box-content: reverts Tailwind's border-box preflight so the
+         percentage width + fixed padding matches the legacy content-box
+         geometry -- the same fix the Schedule page's chrome applies. */
+    }
+    <div class:list={["box-content", "p-4", "md:mx-auto", widthClass]}>
+      <h1 class="text-40 text-sound-navy my-2">{title}</h1>
+    </div>
+  </div>
+  <div
+    class:list={["page-body", "box-content", "p-4", "md:mx-auto", widthClass]}
+  >
+    <slot />
+  </div>
+</div>
+<slot name="after-body" />

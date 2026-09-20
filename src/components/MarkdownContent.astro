@@ -1,87 +1,39 @@
----
-interface Props {
-  title: string;
-  width?: "narrow" | "wide";
-}
-
-const { title, width = "narrow" } = Astro.props;
-// Only "wide" needs its own class -- the default (narrow) width is the
-// unqualified rule below, exactly like the legacy simple-page source.
-const widthClass = width === "wide" ? "wide" : undefined;
----
-
-<div id="page">
-  <div class="page-title">
-    <div class:list={[widthClass]}><h1>{title}</h1></div>
-  </div>
-  <div class:list={["page-body", widthClass]}>
-    <slot />
-  </div>
-  <slot name="after-body" />
+<div class="prose-content">
+  <slot />
 </div>
 
 <style>
   /*
    * Scoped <style> exception (ADR-0003 / ADR-0007).
    *
-   * Everything styled below (h1, a, li, ul, .toc) is either generated
-   * directly from markdown prose or lives inside slotted markdown content
-   * that the page author writes as plain Markdown -- they have no way to
-   * attach a Tailwind utility class to it. ADR-0003's exception clause
-   * reserves scoped <style> for exactly this case: a CSS construct that
-   * Tailwind utilities cannot reach. Do NOT use this as precedent for
-   * styling ordinary components whose markup you control -- use Tailwind
-   * utility classes there, per ADR-0003's default.
+   * Everything styled below (h2/h3, a, li, ul, .styled-table, #toc) is
+   * generated directly from markdown prose that the page author writes as
+   * plain Markdown -- they have no way to attach a Tailwind utility class to
+   * it. ADR-0003's exception clause reserves scoped <style> for exactly this
+   * case: a CSS construct that Tailwind utilities cannot reach. Do NOT use
+   * this as precedent for styling ordinary components whose markup you
+   * control -- use Tailwind utility classes there, per ADR-0003's default.
+   *
+   * MarkdownContent is a pure prose wrapper (issue #63): it no longer owns
+   * any page structure (that's SimplePage's job) and wraps its slot in its
+   * own `.prose-content` div so these rules are self-contained regardless of
+   * what parent structure the component is rendered inside.
    *
    * Astro scoped styles do not pierce slotted content, so every rule below
-   * that targets a markdown-generated element inside .page-body uses
+   * that targets a markdown-generated element inside .prose-content uses
    * :global(...) to actually reach it in the rendered DOM.
    */
-
-  #page {
-    min-height: 400px;
-  }
-
-  .page-title {
-    background-color: var(--color-overcast-gray, #cfd3e4);
-  }
-
-  .page-title div {
-    padding: 16px;
-  }
-
-  .page-title div h1 {
-    color: var(--color-sound-navy, #112378);
-    margin: 8px 0;
-    font-size: 40px;
-  }
-
-  .page-body {
-    padding: 16px;
-  }
 
   /* Markdown prose headings can't carry a Tailwind class, so their
      font-sizes -- previously dead-code duplicates in the global @layer base
      h1/h2/h3 rules -- are scoped here instead, alongside the rest of the
      markdown-specific styling this block already owns (ADR-0007). */
-  .page-body :global(h2) {
+  .prose-content :global(h2) {
     font-size: 32px;
   }
 
-  .page-body :global(h3) {
+  .prose-content :global(h3) {
     font-size: 24px;
-  }
-
-  /* Tailwind's preflight sets `box-sizing: border-box` globally, but the
-     legacy stylesheet has no CSS reset and relies on the browser default
-     `content-box`. With the desktop width below expressed as a percentage
-     plus a fixed padding, that difference changes the rendered box size
-     (border-box shrinks the content area by the padding; content-box does
-     not), so it's pinned back to content-box here to reproduce the
-     legacy column width and title-bar geometry exactly. */
-  .page-body,
-  .page-title div {
-    box-sizing: content-box;
   }
 
   /* Tailwind's preflight also zeroes all margin/padding via a universal
@@ -91,27 +43,27 @@ const widthClass = width === "wide" ? "wide" : undefined;
      block margins) -- only `.toc` lists are deliberately unstyled. `revert`
      restores those UA defaults for ordinary lists; the more specific `.toc`
      rules below still win over this lower-specificity selector. */
-  .page-body :global(ul) {
+  .prose-content :global(ul) {
     list-style: revert;
     margin: revert;
     padding-inline-start: revert;
   }
 
-  .page-body :global(li) {
+  .prose-content :global(li) {
     padding: 4px;
   }
 
-  .page-body :global(ul > li) {
+  .prose-content :global(ul > li) {
     line-height: 1.5em;
   }
 
-  .page-body :global(a),
-  .page-body :global(a:visited) {
+  .prose-content :global(a),
+  .prose-content :global(a:visited) {
     color: var(--color-cascade-blue, #0033ff);
     text-decoration: underline;
   }
 
-  .page-body :global(.styled-table) {
+  .prose-content :global(.styled-table) {
     border-collapse: collapse;
     margin: 25px 0;
     font-size: 18px;
@@ -119,81 +71,64 @@ const widthClass = width === "wide" ? "wide" : undefined;
     /* max-width: 343px; */
   }
 
-  .page-body :global(.styled-table thead tr) {
+  .prose-content :global(.styled-table thead tr) {
     color: #112378;
     text-align: left;
   }
 
-  .page-body :global(.styled-table th),
-  .page-body :global(.styled-table td) {
+  .prose-content :global(.styled-table th),
+  .prose-content :global(.styled-table td) {
     padding: 12px 15px;
   }
 
-  .page-body :global(.styled-table thead tr),
-  .page-body :global(.styled-table tbody tr) {
+  .prose-content :global(.styled-table thead tr),
+  .prose-content :global(.styled-table tbody tr) {
     border-bottom: #cfd3e4 1px solid;
   }
 
-  .page-body :global(.styled-table th) {
+  .prose-content :global(.styled-table th) {
     font-family: freight-macro-pro, serif;
     font-weight: 500;
     font-style: normal;
   }
 
-  .page-body :global(.styled-table tbody tr.passed) {
+  .prose-content :global(.styled-table tbody tr.passed) {
     color: #ccc;
   }
 
-  .page-body :global(.styled-table tbody tr.active-row) {
+  .prose-content :global(.styled-table tbody tr.active-row) {
     font-weight: bold;
     color: #009879;
   }
 
-  .page-body :global(#toc) {
+  .prose-content :global(#toc) {
     margin-bottom: 16px;
   }
 
-  .page-body :global(#toc h2) {
+  .prose-content :global(#toc h2) {
     font-family: "mono45-headline", sans-serif;
     font-weight: 200;
     font-size: 18px;
     text-decoration: underline;
   }
 
-  .page-body :global(#toc a),
-  .page-body :global(#toc a:visited) {
+  .prose-content :global(#toc a),
+  .prose-content :global(#toc a:visited) {
     font-weight: 700;
     text-decoration: none;
   }
 
-  .page-body :global(#toc a:hover) {
+  .prose-content :global(#toc a:hover) {
     text-decoration: underline;
   }
 
-  .page-body :global(#toc ul) {
+  .prose-content :global(#toc ul) {
     padding-inline-start: 0;
   }
 
-  .page-body :global(#toc li) {
+  .prose-content :global(#toc li) {
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  @media (min-width: 768px) {
-    #page {
-      margin-bottom: 64px;
-    }
-
-    .page-body,
-    .page-title div {
-      width: 50%;
-      margin: 0 auto;
-    }
-
-    .page-body.wide,
-    .page-title div.wide {
-      width: 70%;
-    }
   }
 </style>
