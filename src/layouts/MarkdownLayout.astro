@@ -1,5 +1,6 @@
 ---
 import Layout from "./Layout.astro";
+import SimplePage from "./SimplePage.astro";
 import MarkdownContent from "../components/MarkdownContent.astro";
 import SponsorsGrid from "../components/SponsorsGrid.astro";
 import CtaButton from "../components/CtaButton.astro";
@@ -26,8 +27,10 @@ const metaTitle = title ? `${titlePrefix}${title}` : `CascadiaJS ${eventYear}`;
 ---
 
 <Layout title={metaTitle} description={description ?? metaTitle}>
-  <MarkdownContent title={title} width={width}>
-    <slot />
+  <SimplePage title={title} width={width}>
+    <MarkdownContent>
+      <slot />
+    </MarkdownContent>
     <Fragment slot="after-body">
       {
         showSponsors && (
@@ -40,5 +43,5 @@ const metaTitle = title ? `${titlePrefix}${title}` : `CascadiaJS ${eventYear}`;
       }
       {showTestimonials && <Testimonials />}
     </Fragment>
-  </MarkdownContent>
+  </SimplePage>
 </Layout>

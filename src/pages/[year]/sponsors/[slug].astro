@@ -1,0 +1,110 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import { marked } from "marked";
+import type { EventConfig } from "../../../shared/data/types";
+import EventLayout from "../../../layouts/EventLayout.astro";
+import SimplePage from "../../../layouts/SimplePage.astro";
+import MarkdownContent from "../../../components/MarkdownContent.astro";
+import CtaButton from "../../../components/CtaButton.astro";
+import SponsorsGrid from "../../../components/SponsorsGrid.astro";
+import Testimonials from "../../../components/Testimonials.astro";
+
+export async function getStaticPaths() {
+  // Only Events with a config (currently just 2026 -- previous years' content
+  // is deferred per CLAUDE.md) get a page: EventLayout looks up nav/branding
+  // by year and throws when no config matches, which a bare "not previous"
+  // filter would hit for Sponsors whose `events` also include e.g. "2025".
+  // Same validYears pattern as [year]/[...slug].astro.
+  const configs = import.meta.glob<{ default: EventConfig }>(
+    "../../../shared/data/events/*.config.ts",
+    { eager: true },
+  );
+  const validYears = new Set(
+    Object.values(configs).map((mod) => mod.default.year),
+  );
+
+  const sponsors = await getCollection("sponsors");
+  return sponsors
+    .filter((sponsor) => sponsor.data.description)
+    .map((sponsor) => {
+      return sponsor.data.events
+        .filter((event) => validYears.has(event))
+        .map((event) => ({
+          params: { year: event, slug: sponsor.data.id },
+          props: { sponsor: sponsor.data },
+        }));
+    })
+    .flat();
+}
+
+const { sponsor } = Astro.props;
+const { year } = Astro.params;
+
+const metaTitle = `CascadiaJS ${year} | Sponsor | ${sponsor.name}`;
+const pageTitle = (
+  sponsor.tier
+    ? `${year} ${sponsor.tier} SPONSOR - ${sponsor.name}`
+    : `${year} SPONSOR - ${sponsor.name}`
+).toUpperCase();
+
+const descriptionHtml = marked.parse(sponsor.description ?? "") as string;
+
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",
+  { eager: false },
+);
+---
+
+<EventLayout title={metaTitle}>
+  <SimplePage title={pageTitle}>
+    <div class="mb-5 text-center">
+      <Image
+        src={sponsorImages[`/src/assets/images/sponsors/${sponsor.logo}`]()}
+        alt={`${sponsor.name} logo`}
+        layout="none"
+        class="inline w-1/2"
+      />
+    </div>
+    {
+      sponsor.video && (
+        <div class="relative aspect-video">
+          <iframe
+            src={`https://customer-err733fa36e0jnfx.cloudflarestream.com/${sponsor.video}/iframe?muted=true&autoplay=true&poster=https%3A%2F%2Fcustomer-err733fa36e0jnfx.cloudflarestream.com%2F${sponsor.video}%2Fthumbnails%2Fthumbnail.jpg%3Ftime%3D%26height%3D600&controls=true`}
+            loading="lazy"
+            class="absolute inset-0 h-full w-full border-none"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            allowfullscreen="true"
+          />
+        </div>
+      )
+    }
+    <MarkdownContent>
+      <div set:html={descriptionHtml} />
+    </MarkdownContent>
+    {
+      sponsor.url && (
+        // .mark-external-links (src/styles/global.css) appends the FA
+        // external-link glyph to target="_blank" links -- scoped to this
+        // wrapper (rather than applied to the whole .page-body) so it
+        // never reaches the after-body SponsorsGrid, whose logo links also
+        // open in a new tab but must not get the icon (see the Schedule
+        // page's identical exclusion, src/pages/2026/schedule.astro).
+        <div class="mark-external-links mt-4">
+          <CtaButton href={sponsor.url} target="_blank">
+            Learn More
+          </CtaButton>
+        </div>
+      )
+    }
+    <Fragment slot="after-body">
+      <section id="sponsors" class="box-content p-8 text-center">
+        <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
+        <SponsorsGrid event={year} tiered={true} />
+        <CtaButton href={`/${year}/sponsor`}>Sponsor Our Event</CtaButton>
+      </section>
+      <Testimonials />
+    </Fragment>
+  </SimplePage>
+</EventLayout>

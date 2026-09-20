@@ -1,7 +1,8 @@
 ---
 import { getCollection, render } from "astro:content";
-import type { EventConfig } from "../../shared/data/types";
+import type { EventConfig, Sponsor } from "../../shared/data/types";
 import EventLayout from "../../layouts/EventLayout.astro";
+import SimplePage from "../../layouts/SimplePage.astro";
 import MarkdownContent from "../../components/MarkdownContent.astro";
 import SponsorsGrid from "../../components/SponsorsGrid.astro";
 import CtaButton from "../../components/CtaButton.astro";
@@ -47,19 +48,24 @@ const metaTitle = `CascadiaJS ${year} | ${entry.data.title}`;
 ---
 
 <EventLayout title={metaTitle} description={entry.data.description}>
-  <MarkdownContent title={entry.data.title} width={entry.data.width}>
-    <Content />
+  <SimplePage title={entry.data.title} width={entry.data.width}>
+    <MarkdownContent>
+      <Content />
+    </MarkdownContent>
     <Fragment slot="after-body">
       {
         entry.data.showSponsors && (
           <section id="sponsors" class="box-content p-8 text-center">
             <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
-            <SponsorsGrid event={year} tiered={true} />
+            <SponsorsGrid
+              event={year as Sponsor["events"][number]}
+              tiered={true}
+            />
             <CtaButton href={`/${year}/sponsor`}>Sponsor Our Event</CtaButton>
           </section>
         )
       }
       {entry.data.showTestimonials && <Testimonials />}
     </Fragment>
-  </MarkdownContent>
+  </SimplePage>
 </EventLayout>

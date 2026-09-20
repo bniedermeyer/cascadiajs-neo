@@ -1,21 +1,12 @@
 ---
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
-import sponsorsData from "../shared/data/sponsors.json";
-
-interface Sponsor {
-  id: string;
-  logo: string;
-  name: string;
-  url?: string;
-  description?: string;
-  tier?: string;
-  events: string[];
-}
+import { getCollection } from "astro:content";
+import type { Sponsor } from "../shared/data/types";
 
 interface Props {
   /** Event Key to include (e.g. "2026"). Omit to consider every Sponsor. */
-  event?: string;
+  event?: Sponsor["events"][number];
   /**
    * Event Key(s) to exclude. A Sponsor is hidden only when *every* one of its
    * Events is excluded, so a Sponsor in both 2025 and 2026 still shows under
@@ -23,13 +14,14 @@ interface Props {
    * dropping every Sponsor that merely touches 2026 would lose returning
    * Sponsors such as Cloudflare, Arcjet and Elastic.
    */
-  exclude?: string | string[];
+  exclude?: Sponsor["events"][number] | Sponsor["events"][number][];
   tiered?: boolean;
 }
 
 const { event, exclude, tiered = false } = Astro.props;
 
-const sponsors = sponsorsData as Sponsor[];
+const sponsorsData = await getCollection("sponsors");
+const sponsors = sponsorsData.map((s) => s.data);
 
 const excluded =
   exclude === undefined ? [] : Array.isArray(exclude) ? exclude : [exclude];
@@ -110,7 +102,7 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
                 <div class={`text-center md:m-8 ${TIER_HEIGHT[tier]}`}>
                   {LINKED_TIERS.has(tier) ? (
                     sponsor.description ? (
-                      <a href={`/sponsors/${sponsor.id}`}>{logo}</a>
+                      <a href={`/${event}/sponsors/${sponsor.id}`}>{logo}</a>
                     ) : (
                       <a href={sponsor.url} target="_blank" rel="noopener">
                         {logo}
