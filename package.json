@@ -27,7 +27,6 @@
     "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.61.1",
-    "@types/marked": "^5.0.2",
     "eslint": "^10.5.0",
     "eslint-plugin-astro": "^1.7.0",
     "husky": "^9.1.7",
