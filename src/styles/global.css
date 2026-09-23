@@ -9,6 +9,7 @@
   --color-ink: #020800;
   --color-cedar-cream: #fff5cc;
   --color-overcast-gray: #cfd3e4;
+  --color-mint: #ccf1db;
 
   /* Fallback stacks match the legacy stylesheet exactly: the fidelity
      comparator (ADR-0004) reads computed font-family, so extra fallbacks
