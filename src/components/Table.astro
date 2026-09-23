@@ -1,0 +1,16 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<table
+  class:list={[
+    "mx-auto w-full max-w-[1200px] min-w-[800px] table-fixed border-collapse",
+    className,
+  ]}
+>
+  <slot />
+</table>

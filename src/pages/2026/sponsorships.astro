@@ -2,7 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import CtaButton from "../../components/CtaButton.astro";
 import SponsorsGrid from "../../components/SponsorsGrid.astro";
-import SponsorshipTiers from "../../components/SponsorshipTiers.astro";
+import Table from "../../components/Table.astro";
 import Testimonials from "../../components/Testimonials.astro";
 import { Image } from "astro:assets";
 import logoImage from "../../assets/events/2026/images/icon-dark-blue.png";
@@ -32,10 +32,10 @@ import heroImage from "../../assets/events/2026/images/sponsor-brochure/hero.jpg
       />
     </div>
     <h1 class="text-40 text-center">CascadiaJS 2026 Sponsorship Brochure</h1>
-    <h2 class="text-32 text-center">
+    <h2 class="text-32 mt-2 text-center">
       The Pacific Northwest&rsquo;s Web + AI Developer Conference
     </h2>
-    <article class="mx-auto w-[90%] leading-[1.4] md:w-1/2">
+    <article class="mx-auto w-[90%] py-2 leading-[1.4] md:w-1/2 md:py-6">
       Since 2012, we've been bringing together hundreds of developers to help
       them level up their skills, grow their network and have fun. We're excited
       to present our 13th annual conference, which will be held at Town Hall, a
@@ -60,35 +60,38 @@ import heroImage from "../../assets/events/2026/images/sponsor-brochure/hero.jpg
     </article>
 
     <article
-      class="mx-auto w-[90%] leading-[1.4] md:w-1/2"
+      class="mx-auto w-[90%] py-2 leading-[1.4] md:w-1/2 md:py-6"
       id="event-at-a-glance"
     >
       <h2 class="text-32 mt-2 text-center">What It Is</h2>
       <p>
-        <strong>CascadiaJS 2026</strong> is a two-day, <em
+        <strong class="font-bold">CascadiaJS 2026</strong> is a two-day, <em
           >highly technical conference</em
         > for web developers and engineers working with JavaScript, modern frontend
         frameworks, and AI-powered workflows. Held June 1&ndash;2 in Seattle, WA at
-        Town Hall, CascadiaJS brings together <strong>600+ developers</strong>,
-        many of whom influence tooling, platform, and product decisions at their
-        companies.
+        Town Hall, CascadiaJS brings together <strong class="font-bold"
+          >600+ developers</strong
+        >, many of whom influence tooling, platform, and product decisions at
+        their companies.
       </p>
 
       <p>
-        You'll see <strong>20 expert talks</strong> across two deep-dive tracks covering
-        web, JavaScript, and AI topics, plus structured, low-pressure networking opportunities
-        that help companies build relationships with engineers in a technically focused,
-        community-centric setting.
+        You'll see <strong class="font-bold">20 expert talks</strong> across two deep-dive
+        tracks covering web, JavaScript, and AI topics, plus structured, low-pressure
+        networking opportunities that help companies build relationships with engineers
+        in a technically focused, community-centric setting.
       </p>
 
       <p>
-        <strong>Past sponsors</strong> include top web and developer brands such as
-        Google, IBM, Elastic, Cloudflare, and many more &mdash; a testament to the
-        value of connecting with this audience.
+        <strong class="font-bold">Past sponsors</strong> include top web and developer
+        brands such as Google, IBM, Elastic, Cloudflare, and many more &mdash; a testament
+        to the value of connecting with this audience.
       </p>
     </article>
 
-    <article class="mx-auto w-[90%] text-center leading-[1.4] md:w-1/2">
+    <article
+      class="mx-auto w-[90%] py-2 text-center leading-[1.4] md:w-1/2 md:py-6"
+    >
       <h2 class="text-32 mt-2 text-center">Who Attends</h2>
       <p><i class="fa-solid fa-stars"></i> 600+ attendees.</p>
       <p>
@@ -109,7 +112,7 @@ import heroImage from "../../assets/events/2026/images/sponsor-brochure/hero.jpg
     </article>
 
     <h2 class="text-32 mt-2 text-center">Why Sponsor</h2>
-    <article class="mx-auto w-[90%] leading-[1.4] md:w-1/2">
+    <article class="mx-auto w-[90%] py-2 leading-[1.4] md:w-1/2 md:py-6">
       <p>
         CascadiaJS isn't just a gathering of developers &mdash; it's where
         technical minds and decision-makers come together each year. Sponsorship
@@ -169,7 +172,7 @@ import heroImage from "../../assets/events/2026/images/sponsor-brochure/hero.jpg
     </article>
 
     <h2 class="text-32 mt-2 text-center">Sponsorship Options</h2>
-    <article class="mx-auto w-[90%] leading-[1.4] md:w-1/2">
+    <article class="mx-auto w-[90%] py-2 leading-[1.4] md:w-1/2 md:py-6">
       <p>
         Our sponsorship tiers offer a range of visibility and engagement options
         to support different goals and budgets, with increasing benefits at each
@@ -185,7 +188,234 @@ import heroImage from "../../assets/events/2026/images/sponsor-brochure/hero.jpg
   </section>
 
   <section class="bg-mint overflow-x-auto py-4">
-    <SponsorshipTiers />
+    <Table>
+      <thead class="border-sound-navy border-b-2 bg-[#f0f0f0]">
+        <tr>
+          <th class="text-sound-navy p-2">&nbsp;</th>
+          <th class="font-display text-sound-navy p-2 text-2xl font-extralight"
+            >Diamond</th
+          >
+          <th class="font-display text-sound-navy p-2 text-2xl font-extralight"
+            >Platinum</th
+          >
+          <th class="font-display text-sound-navy p-2 text-2xl font-extralight"
+            >Gold</th
+          >
+          <th class="font-display text-sound-navy p-2 text-2xl font-extralight"
+            >Silver</th
+          >
+          <th class="font-display text-sound-navy p-2 text-2xl font-extralight"
+            >Bronze</th
+          >
+          <th class="font-display text-sound-navy p-2 text-2xl font-extralight"
+            >Community</th
+          >
+        </tr>
+      </thead>
+      <tbody class="bg-white">
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Quantity</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center">Sold out!</td>
+          <td class="text-sound-navy p-2 text-center">Sold out!</td>
+          <td class="text-sound-navy p-2 text-center">
+            <span class="line-through">12</span> 1 left!
+          </td>
+          <td class="text-sound-navy p-2 text-center">Multiple</td>
+          <td class="text-sound-navy p-2 text-center">Multiple</td>
+          <td class="text-sound-navy p-2 text-center">Unlimited</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Main Stage Branding</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center"
+            >Dedicated Main Stage Banner</td
+          >
+          <td class="text-sound-navy p-2 text-center" colspan="5">&nbsp;</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Main Stage Speaker Slot</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            Keynote <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center" colspan="4">&nbsp;</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Audience Address</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center"
+            >Live mainstage takeover for 5 minutes</td
+          >
+          <td class="text-sound-navy p-2 text-center">2 minute video clip</td>
+          <td class="text-sound-navy p-2 text-center">2 minute video clip</td>
+          <td class="text-sound-navy p-2 text-center" colspan="3">&nbsp;</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Custom Newsletter Message</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center"
+            >To our entire email list (5,200+ people)</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >To our entire email list (5,200+ people)</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >To 2026 attendee email list (600 people)</td
+          >
+          <td class="text-sound-navy p-2 text-center" colspan="3">&nbsp;</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Booth</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center"
+            >Extra-large, prime location, monitor</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >Extra-large, prime location, monitor</td
+          >
+          <td class="text-sound-navy p-2 text-center">6-foot with monitor</td>
+          <td class="text-sound-navy p-2 text-center" colspan="3">&nbsp;</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Website Blurb</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center"
+            >Dedicated Sponsor Webpage</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >Dedicated Sponsor Webpage</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >Dedicated Sponsor Webpage</td
+          >
+          <td class="text-sound-navy p-2 text-center" colspan="3">&nbsp;</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Lead Capture</b> for 2 members of your team
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center" colspan="3">&nbsp;</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Swag Item</b> to be placed in attendee bag
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center">
+            <i class="fa-solid fa-check"></i>
+          </td>
+          <td class="text-sound-navy p-2 text-center" colspan="2">&nbsp;</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Social Media Post</b> leading up to conference
+          </td>
+          <td class="text-sound-navy p-2 text-center">Dedicated</td>
+          <td class="text-sound-navy p-2 text-center">Dedicated</td>
+          <td class="text-sound-navy p-2 text-center">Dedicated</td>
+          <td class="text-sound-navy p-2 text-center">Grouped</td>
+          <td class="text-sound-navy p-2 text-center">Grouped</td>
+          <td class="text-sound-navy p-2 text-center">Grouped</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Branding</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center"
+            >Logo on banners and website</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >Logo on banners and website</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >Logo on banners and website</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >Logo on banners and website</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >Logo on banners and website</td
+          >
+          <td class="text-sound-navy p-2 text-center"
+            >Logo on banners and website</td
+          >
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Included Passes</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center">12</td>
+          <td class="text-sound-navy p-2 text-center">10</td>
+          <td class="text-sound-navy p-2 text-center">8</td>
+          <td class="text-sound-navy p-2 text-center">4</td>
+          <td class="text-sound-navy p-2 text-center">2</td>
+          <td class="text-sound-navy p-2 text-center">1</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Discount on Additional Passes</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center">50%</td>
+          <td class="text-sound-navy p-2 text-center">50%</td>
+          <td class="text-sound-navy p-2 text-center">50%</td>
+          <td class="text-sound-navy p-2 text-center">25%</td>
+          <td class="text-sound-navy p-2 text-center">25%</td>
+          <td class="text-sound-navy p-2 text-center">0%</td>
+        </tr>
+
+        <tr class="border-b border-dotted border-[#333]">
+          <td class="text-sound-navy w-37.5 bg-[#f0f0f0] p-2 text-center">
+            <b>Price</b>
+          </td>
+          <td class="text-sound-navy p-2 text-center">$40k</td>
+          <td class="text-sound-navy p-2 text-center">$30k</td>
+          <td class="text-sound-navy p-2 text-center">$20k</td>
+          <td class="text-sound-navy p-2 text-center">$8k</td>
+          <td class="text-sound-navy p-2 text-center">$5k</td>
+          <td class="text-sound-navy p-2 text-center">$2500</td>
+        </tr>
+      </tbody>
+    </Table>
   </section>
 
   <section class="bg-mint py-4">
@@ -312,7 +542,7 @@ import heroImage from "../../assets/events/2026/images/sponsor-brochure/hero.jpg
 
   <section id="sponsors" class="box-content p-8 text-center">
     <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
-    <SponsorsGrid event="2026" tiered={true} />
+    <SponsorsGrid exclude="2026" />
     <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
   </section>
 </Layout>

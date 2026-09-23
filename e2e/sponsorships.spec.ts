@@ -138,7 +138,7 @@ test.describe("Sponsorships brochure page", () => {
 
   test("pricing table shows all six prices", async ({ page }) => {
     const table = page.locator("table");
-    for (const price of ["$40k", "$30k", "$20k", "$8k", "$5k", "$2,500"]) {
+    for (const price of ["$40k", "$30k", "$20k", "$8k", "$5k", "$2500"]) {
       await expect(table.getByText(price, { exact: true })).toBeVisible();
     }
   });
