@@ -6,10 +6,6 @@ import Testimonials from "../../components/Testimonials.astro";
 import { Image } from "astro:assets";
 import logoImage from "../../assets/events/2026/images/icon-dark-blue.png";
 import heroImage from "../../assets/events/2026/images/sponsor-brochure/hero.jpg";
-
-const article = "p-2 leading-[1.4] md:mx-auto md:px-32 md:py-6";
-const narrow = `${article} w-[90%] md:w-1/2`;
-const h2Class = "mt-2 text-center";
 ---
 
 <Layout
@@ -34,17 +30,17 @@ const h2Class = "mt-2 text-center";
         class="mx-auto h-25 w-auto"
       />
     </div>
-    <h1 class="text-center">CascadiaJS 2026 Sponsorship Brochure</h1>
-    <h2 class="text-center">
+    <h1 class="text-40 text-center">CascadiaJS 2026 Sponsorship Brochure</h1>
+    <h2 class="text-32 text-center">
       The Pacific Northwest&rsquo;s Web + AI Developer Conference
     </h2>
-    <article class={narrow}>
+    <article class="mx-auto w-[90%] leading-[1.4] md:w-1/2">
       Since 2012, we've been bringing together hundreds of developers to help
       them level up their skills, grow their network and have fun. We're excited
       to present our 13th annual conference, which will be held at Town Hall, a
       vibrant gathering place in the heart of Seattle, WA.
     </article>
-    <article class={`${article} text-center`}>
+    <article class="p-2 text-center leading-[1.4] md:mx-auto md:px-32 md:py-6">
       <div class="flex flex-wrap justify-center gap-4">
         <CtaButton href="https://calendly.com/elise-worthy"
           >Book a time to talk</CtaButton
@@ -54,7 +50,7 @@ const h2Class = "mt-2 text-center";
         >
       </div>
     </article>
-    <article class={`${article} text-center`}>
+    <article class="p-2 text-center leading-[1.4] md:mx-auto md:px-32 md:py-6">
       <Image
         src={heroImage}
         alt="CascadiaJS 2026 sponsorship brochure"
@@ -62,8 +58,11 @@ const h2Class = "mt-2 text-center";
       />
     </article>
 
-    <article class={narrow} id="event-at-a-glance">
-      <h2 class={h2Class}>What It Is</h2>
+    <article
+      class="mx-auto w-[90%] leading-[1.4] md:w-1/2"
+      id="event-at-a-glance"
+    >
+      <h2 class="text-32 mt-2 text-center">What It Is</h2>
       <p>
         <strong>CascadiaJS 2026</strong> is a two-day, <em
           >highly technical conference</em
@@ -88,8 +87,8 @@ const h2Class = "mt-2 text-center";
       </p>
     </article>
 
-    <article class={`${narrow} text-center`}>
-      <h2 class={h2Class}>Who Attends</h2>
+    <article class="mx-auto w-[90%] text-center leading-[1.4] md:w-1/2">
+      <h2 class="text-32 mt-2 text-center">Who Attends</h2>
       <p><i class="fa-solid fa-stars"></i> 600+ attendees.</p>
       <p>
         <i class="fa-solid fa-stars"></i> Frontend, full-stack, and platform engineers
@@ -108,8 +107,8 @@ const h2Class = "mt-2 text-center";
       </p>
     </article>
 
-    <h2 class={h2Class}>Why Sponsor</h2>
-    <article class={narrow}>
+    <h2 class="text-32 mt-2 text-center">Why Sponsor</h2>
+    <article class="mx-auto w-[90%] leading-[1.4] md:w-1/2">
       <p>
         CascadiaJS isn't just a gathering of developers &mdash; it's where
         technical minds and decision-makers come together each year. Sponsorship
@@ -120,7 +119,7 @@ const h2Class = "mt-2 text-center";
         your goals.
       </p>
 
-      <h3>For Developer Tools & Platforms</h3>
+      <h3 class="text-2xl">For Developer Tools & Platforms</h3>
 
       <p>
         Reach developers who influence technical decisions and adopt new tools
@@ -131,7 +130,7 @@ const h2Class = "mt-2 text-center";
         software is built.
       </p>
 
-      <h3>For Recruiting & Employer Brand</h3>
+      <h3 class="text-2xl">For Recruiting & Employer Brand</h3>
 
       <p>
         Connect with JavaScript engineers at multiple stages of their career
@@ -142,7 +141,7 @@ const h2Class = "mt-2 text-center";
         current hiring needs and future opportunities.
       </p>
 
-      <h3>For AI, Cloud & Infrastructure</h3>
+      <h3 class="text-2xl">For AI, Cloud & Infrastructure</h3>
 
       <p>
         Engage developers building at the intersection of JavaScript, AI, and
@@ -152,7 +151,7 @@ const h2Class = "mt-2 text-center";
         future of the web.
       </p>
 
-      <h3>To Give Back</h3>
+      <h3 class="text-2xl">To Give Back</h3>
 
       <p>
         The Pacific Northwest JavaScript community is strong, collaborative, and
@@ -168,8 +167,8 @@ const h2Class = "mt-2 text-center";
       </p>
     </article>
 
-    <h2 class={h2Class}>Sponsorship Options</h2>
-    <article class={narrow}>
+    <h2 class="text-32 mt-2 text-center">Sponsorship Options</h2>
+    <article class="mx-auto w-[90%] leading-[1.4] md:w-1/2">
       <p>
         Our sponsorship tiers offer a range of visibility and engagement options
         to support different goals and budgets, with increasing benefits at each
@@ -418,8 +417,8 @@ const h2Class = "mt-2 text-center";
   </section>
 
   <section class="bg-mint py-4">
-    <div class={narrow}>
-      <h2 class={h2Class}>Sponsorship Add-Ons</h2>
+    <div class="mx-auto w-[90%] leading-[1.4] md:w-1/2">
+      <h2 class="text-32 mt-2 text-center">Sponsorship Add-Ons</h2>
       <p>
         In addition to our standard sponsorship tiers, CascadiaJS offers a set
         of optional add-ons that allow sponsors to increase visibility, create
@@ -428,7 +427,7 @@ const h2Class = "mt-2 text-center";
         first-come basis.
       </p>
 
-      <h3>
+      <h3 class="text-2xl">
         Workshop <span class="line-through">(1 left!)</span> Sold out!
       </h3>
       <p>
@@ -437,7 +436,7 @@ const h2Class = "mt-2 text-center";
         are well suited for developer tools, platforms, and technical training.
       </p>
 
-      <h3>
+      <h3 class="text-2xl">
         Welcome Reception on May 31 <span class="line-through"
           >(1 Available)</span
         > Sold out!
@@ -448,14 +447,14 @@ const h2Class = "mt-2 text-center";
         highest-energy, most well-attended moments of the event.
       </p>
 
-      <h3>Networking Mixer on June 1 (1 left!)</h3>
+      <h3 class="text-2xl">Networking Mixer on June 1 (1 left!)</h3>
       <p>
         Connect and have high quality conversations with some of the best talent
         in the Pacific Northwest. The mixer will take place right after the Day
         One talks conclude.
       </p>
 
-      <h3>
+      <h3 class="text-2xl">
         Private Karaoke Room at Closing Party on June 2 (Multiple available)
       </h3>
       <p>
@@ -465,7 +464,7 @@ const h2Class = "mt-2 text-center";
         conference's most talked-about social experiences.
       </p>
 
-      <h3>Coffee (1 Available)</h3>
+      <h3 class="text-2xl">Coffee (1 Available)</h3>
       <p>
         Branding at conference coffee stations throughout the day. Coffee
         sponsorships provide high-frequency visibility and consistent foot
@@ -473,7 +472,7 @@ const h2Class = "mt-2 text-center";
         event.
       </p>
 
-      <h3>
+      <h3 class="text-2xl">
         Lanyards <span class="line-through">(1 Available)</span> Sold out!
       </h3>
       <p>
@@ -482,7 +481,7 @@ const h2Class = "mt-2 text-center";
         and social events.
       </p>
 
-      <h3>
+      <h3 class="text-2xl">
         Tote Bags <span class="line-through">(1 Available)</span> Sold out!
       </h3>
       <p>
@@ -491,42 +490,42 @@ const h2Class = "mt-2 text-center";
         using them after the conference.
       </p>
 
-      <h3>Videos (1 Available)</h3>
+      <h3 class="text-2xl">Videos (1 Available)</h3>
       <p>
         Brand recognition in conference video recordings or video content
         distributed after the event. This option extends your reach beyond
         in-person attendees to the broader online audience.
       </p>
 
-      <h3>Photo Booth (1 Available)</h3>
+      <h3 class="text-2xl">Photo Booth (1 Available)</h3>
       <p>
         A branded photo booth experience for attendees, with photos available
         for sharing or download. This add-on encourages engagement and creates
         shareable moments associated with your brand.
       </p>
 
-      <h3>Child Care (1 Available)</h3>
+      <h3 class="text-2xl">Child Care (1 Available)</h3>
       <p>
         Recognition as the sponsor supporting on-site child care for attendees.
         This option demonstrates a commitment to accessibility and helps make
         the conference more inclusive for parents and caregivers.
       </p>
 
-      <h3>ASL Interpretation (1 Available)</h3>
+      <h3 class="text-2xl">ASL Interpretation (1 Available)</h3>
       <p>
         Recognition as the sponsor enabling ASL interpretation during conference
         sessions. This add-on directly supports accessibility and ensures more
         attendees can fully participate in the event.
       </p>
 
-      <h3>Scholarships</h3>
+      <h3 class="text-2xl">Scholarships</h3>
       <p>
         Support for conference scholarships that help expand access to
         CascadiaJS. Scholarship sponsors are recognized for their contribution
         to community growth and attendee inclusion.
       </p>
 
-      <h2 id="book-call" class={h2Class}>Let's Talk!</h2>
+      <h2 id="book-call" class="text-32 mt-2 text-center">Let's Talk!</h2>
       <p>
         Book a time to talk to us about your sponsorship goals, or reach out to
         us directly on email at elise@cascadiajs.com.
