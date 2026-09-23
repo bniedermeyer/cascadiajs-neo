@@ -1,0 +1,26 @@
+---
+title: Technical Workshop - Build a Voice Agent with Vapi
+excerpt: This workshop with Vapi walks through the real execution work behind building enterprise-grade voice agents – from conversation design fundamentals and persona calibration to prompt engineering patterns purpose-built for voice.
+---
+
+<div class="highlight info">This workshop is FREE for attendees of CascadiaJS 2026. Seats are LIMITED, attendees MUST register to reserve their seat for this workshop. Check your email for the registration link.</div>
+
+<div class="cta"><a href="/2026/tickets">🎟️ Get Your Conference Ticket Today!</a></div>
+
+- When: Monday, June 1 (10:45am - 12:40pm)
+- Where: Town Hall, Forum level
+- Instructor: [Amanda Martin, Head of Developer Relations at Vapi](https://www.linkedin.com/in/amandamartin-dev/) and [Veltson Bastien, Solutions Engineer at Vapi](https://www.linkedin.com/in/veltsonbastien/)
+
+Voice agents are increasingly being deployed in production for a wide range of use cases – customer support, sales outreach, scheduling, collections, fully automated phone operations, and many more. But shipping a voice agent that actually works on thousands of calls requires a different design discipline than building chatbots or text-based AI.
+
+Building for voice AI requires considerations that differ from those of text. Every word exists for exactly one moment. Turns need to be short. Information density per response matters. And the difference between an inbound support call and an outbound sales call changes everything about how the agent should open, pace, recover from errors, and measure success.
+
+This workshop with Vapi walks through the real execution work behind building enterprise-grade voice agents – from conversation design fundamentals and persona calibration to prompt engineering patterns purpose-built for voice. The session is grounded in frameworks and production examples – building a production-grade voice AI agent alongside a forward-deployed engineer
+
+## ​What you'll walk away with:
+
+Expect to leave with a clear understanding of how to select a use case that is right for voice AI and design, prompt, and stress-test voice agents that behave predictably across thousands of calls to achieve your desired outcome.
+
+## Prerequisites:
+
+- Laptop with internet access
