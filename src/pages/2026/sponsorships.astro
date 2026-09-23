@@ -7,17 +7,8 @@ import { Image } from "astro:assets";
 import logoImage from "../../assets/events/2026/images/icon-dark-blue.png";
 import heroImage from "../../assets/events/2026/images/sponsor-brochure/hero.jpg";
 
-// Every <article> on this page gets the reference stylesheet's base article
-// padding/line-height, plus its desktop (768px+) padding/centering -- see
-// reference/cascadiajs/app/pages/2026/sponsorships.mjs lines 34-37, 117-121.
 const article = "p-2 leading-[1.4] md:mx-auto md:px-32 md:py-6";
-// `.narrow` additionally constrains width: 90% on mobile, 50% from 768px up
-// (lines 29-32, 123-126).
 const narrow = `${article} w-[90%] md:w-1/2`;
-// This page's local `h2 { margin-top: 8px }` override (line 99-101), plus
-// `.hero h1, .hero h2, .center { text-align: center }` (lines 25-27) --
-// every h2 on this page ends up centered, either by living inside the
-// legacy `.hero` section or by carrying `class="center"` inside `.details`.
 const h2Class = "mt-2 text-center";
 ---
 
@@ -420,7 +411,7 @@ const h2Class = "mt-2 text-center";
           <td class="text-sound-navy p-2 text-center">$20k</td>
           <td class="text-sound-navy p-2 text-center">$8k</td>
           <td class="text-sound-navy p-2 text-center">$5k</td>
-          <td class="text-sound-navy p-2 text-center">$2500</td>
+          <td class="text-sound-navy p-2 text-center">$2,500</td>
         </tr>
       </tbody>
     </table>
