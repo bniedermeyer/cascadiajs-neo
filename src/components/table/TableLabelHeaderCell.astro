@@ -1,0 +1,10 @@
+---
+import type { HTMLAttributes } from "astro/types";
+type Props = HTMLAttributes<"th">;
+
+const { ...attrs } = Astro.props;
+---
+
+<th class="text-sound-navy p-2" {...attrs}>
+  <slot />
+</th>
