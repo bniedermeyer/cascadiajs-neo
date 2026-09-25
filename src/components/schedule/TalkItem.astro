@@ -32,7 +32,7 @@ if (!talk) throw new Error(`No Talk found with id "${talkId}"`);
         </div>
       )
     }
-    <div class="text-sound-navy text-22 font-serif leading-[1.25em] font-light">
+    <div class="text-sound-navy text-22 font-serif leading-tight font-light">
       {
         talk.slug ? (
           <a
@@ -46,6 +46,6 @@ if (!talk) throw new Error(`No Talk found with id "${talkId}"`);
         )
       }
     </div>
-    <div class="leading-[1.5em]">{talk.speaker.name}</div>
+    <div class="leading-normal">{talk.speaker.name}</div>
   </div>
 </div>
