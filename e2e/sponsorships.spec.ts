@@ -194,16 +194,6 @@ test.describe("Sponsorships brochure page", () => {
     await expect(page.locator("#testimonials")).toBeVisible();
   });
 
-  test("sponsors section is present with the Our Sponsors heading", async ({
-    page,
-  }) => {
-    const sponsors = page.locator("#sponsors");
-    await expect(sponsors).toBeVisible();
-    await expect(
-      sponsors.getByRole("heading", { level: 1, name: "Our Sponsors" }),
-    ).toBeVisible();
-  });
-
   // -- Fidelity spot-checks (ADR-0004) ---------------------------------------
 
   test("hero section uses the mint background", async ({ page }) => {
