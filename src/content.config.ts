@@ -3,7 +3,7 @@ import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 const markdown = defineCollection({
-  loader: glob({ base: "./markdown", pattern: "**/*.md" }),
+  loader: glob({ base: "./markdown", pattern: "**/*.{md,mdx}" }),
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
