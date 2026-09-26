@@ -168,3 +168,68 @@ test.describe("MDX page (/2026/attend)", () => {
     expect(styles.borderColor).toBe("rgb(0, 51, 255)");
   });
 });
+
+/**
+ * cfp.mdx (markdown/2026/cfp.mdx) is the batch of remaining CTA/highlight
+ * pages converted to MDX so the "please double-check your URL" block
+ * renders through the Callout component instead of the legacy
+ * `<div class="highlight warning">` markup (ticket #80).
+ */
+test.describe("MDX page (/2026/cfp)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/2026/cfp");
+  });
+
+  test("warning Callout is visible with the correct background color", async ({
+    page,
+  }) => {
+    const callout = page.locator(".rounded.font-medium.p-4");
+    await expect(callout).toBeVisible();
+    await expect(callout).toContainText(
+      "Please double-check your URL in Incoginto mode",
+    );
+
+    const backgroundColor = await callout.evaluate(
+      (el) => getComputedStyle(el).backgroundColor,
+    );
+    expect(backgroundColor).toBe("rgb(255, 207, 7)");
+  });
+});
+
+/**
+ * travel.mdx (markdown/2026/travel.mdx) swaps its legacy
+ * `<span class="highlight warning">` booking-deadline markup for Tailwind
+ * utility classes, and its "Buy Train or Bus Ticket" CTA for CtaButton
+ * (ticket #80).
+ */
+test.describe("MDX page (/2026/travel)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/2026/travel");
+  });
+
+  test("inline highlight span has the correct background color", async ({
+    page,
+  }) => {
+    const highlight = page.getByText("April 30, 2026", { exact: true });
+    await expect(highlight).toBeVisible();
+
+    const backgroundColor = await highlight.evaluate(
+      (el) => getComputedStyle(el).backgroundColor,
+    );
+    expect(backgroundColor).toBe("rgb(255, 207, 7)");
+  });
+
+  test("Buy Train or Bus Ticket CTA is visible with the correct href", async ({
+    page,
+  }) => {
+    const cta = page.getByRole("link", {
+      name: "Buy Train or Bus Ticket",
+      exact: true,
+    });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute(
+      "href",
+      "https://www.amtrak.com/home.html",
+    );
+  });
+});
