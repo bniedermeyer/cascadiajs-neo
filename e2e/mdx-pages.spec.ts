@@ -40,3 +40,41 @@ test.describe("MDX page (/2026/childcare)", () => {
     expect(styles.borderColor).toBe("rgb(0, 51, 255)");
   });
 });
+
+/**
+ * The three 2026 trainings (markdown/2026/trainings/*.mdx) were converted to
+ * MDX so their "Buy Ticket" CTA renders through CtaButton instead of the
+ * legacy `<div class="cta">` markup, and their speaker photo renders as a
+ * markdown image resolved through src/assets (ticket #78).
+ */
+
+test.describe("MDX page (/2026/trainings/ai-for-typescript-developers)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/2026/trainings/ai-for-typescript-developers");
+  });
+
+  test("renders", async ({ page }) => {
+    await expect(page.locator("body")).toBeVisible();
+  });
+
+  test("speaker image is visible and loaded", async ({ page }) => {
+    const image = page.getByRole("img", { name: "Eve Porcello" });
+    await expect(image).toBeVisible();
+
+    // The optimized <img> renders loading="lazy", so it only decodes once
+    // it's within (or near) the viewport -- scroll it there first.
+    await image.scrollIntoViewIfNeeded();
+    await expect(async () => {
+      const naturalWidth = await image.evaluate(
+        (img: HTMLImageElement) => img.naturalWidth,
+      );
+      expect(naturalWidth).toBeGreaterThan(0);
+    }).toPass();
+  });
+
+  test("CTA button is visible with the correct href", async ({ page }) => {
+    const cta = page.getByRole("link", { name: "Buy Ticket", exact: true });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/2026/tickets");
+  });
+});
