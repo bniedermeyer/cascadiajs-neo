@@ -3,13 +3,21 @@ title: Travel Info
 description: How to get to Cascadia and where to stay while you're here.
 ---
 
+import CtaButton from "../../src/components/CtaButton.astro";
+
 <div id="toc">
-<h2>On This Page</h2>
-    <ul>
-        <li><a href="#to-usa">Traveling to the USA</a></li>
-        <li><a href="#transportation">Getting to CascadiaJS</a></li>
-        <li><a href="#lodging">Lodging</a></li>
-    </ul>
+  <h2>On This Page</h2>
+  <ul>
+    <li>
+      <a href="#to-usa">Traveling to the USA</a>
+    </li>
+    <li>
+      <a href="#transportation">Getting to CascadiaJS</a>
+    </li>
+    <li>
+      <a href="#lodging">Lodging</a>
+    </li>
+  </ul>
 </div>
 
 <h2 id="to-usa">Traveling to the USA</h2>
@@ -50,7 +58,13 @@ Choo! Choo! All aboard the Hacker Train! If you live in Portland, OR or Vancouve
 
 After you purchase your tickets, please [RSVP here](https://airtable.com/app2IZDYtOGyzBQLZ/shrC56NRfLoBucsmK) so we know who's coming and can get you all connected!
 
-<div class="cta secondary"><a target="_blank" href="https://www.amtrak.com/home.html">Buy Train or Bus Ticket</a></div>
+<CtaButton
+  href="https://www.amtrak.com/home.html"
+  variant="secondary"
+  target="_blank"
+>
+  Buy Train or Bus Ticket
+</CtaButton>
 
 ### Fly in to Seatac
 
@@ -74,13 +88,19 @@ We've partnered with two hotels to secure discounts for your stay in Seattle dur
 
 A boutique hotel in downtown Seattle, very close to the conference venue. Amenities include free WiFi if you sign up for IHG One Rewards, complimentary coffee and tea service in the lobby each morning, and a complimentary hosted wine hour each day from 5-6pm.
 
-- Deadline to book: <span class="highlight warning">April 30, 2026</span>
+- Deadline to book: <span class="rounded bg-[#ffcf07] px-2 py-0.5 font-medium leading-[2em]">April 30, 2026</span>
 - $269 USD per night
 - 5 min walk to Town Hall
 - 5 min walk to Symphony Station (Link light rail)
 - Please book through the link below. The $26 per night guest amenity fee will be waived upon check-in. If you would like to reserve for dates that are outside of the booking link window, please book what is available and then email Jane.Glass@hotelvintage-seattle.com to extend your already existing reservation. She will do so if the rooms are available.
 
-<div class="cta secondary"><a href="https://www.ihg.com/redirect?path=asearch&brandCode=KI&localeCode=en&regionCode=1&hotelCode=SEAVP&checkInDate=31&checkInMonthYear=042026&checkOutDate=06&checkOutMonthYear=052026&rateCode=6CBARC&_PMID=99801505&GPC=CJS&cn=no&adjustMonth=false&showApp=true&monthIndex=00">BOOK</a></div>
+<CtaButton
+  href="https://www.ihg.com/redirect?path=asearch&brandCode=KI&localeCode=en&regionCode=1&hotelCode=SEAVP&checkInDate=31&checkInMonthYear=042026&checkOutDate=06&checkOutMonthYear=052026&rateCode=6CBARC&_PMID=99801505&GPC=CJS&cn=no&adjustMonth=false&showApp=true&monthIndex=00"
+  variant="secondary"
+  target="_blank"
+>
+  BOOK
+</CtaButton>
 
 ### Hotel Monaco Seattle
 
@@ -88,19 +108,31 @@ A boutique hotel in downtown Seattle, very close to the conference venue. Amenit
 
 A stylish hotel with recently renovated rooms in downtown Seattle, very close to Town Hall. Amenities include free wifi throughout the hotel and a complimentary hosted wine hour each day from 5-6pm.
 
-- Deadline to book: <span class="highlight warning">May 07, 2026</span>
+- Deadline to book: <span class="rounded bg-[#ffcf07] px-2 py-0.5 font-medium leading-[2em]">May 07, 2026</span>
 - $239 USD per night
 - 7 min walk to Town Hall
 - 3 min walk to Symphony Station (Link light rail)
 - Please book through the link below. The $25 per night guest amenity fee will be waived upon check-in. If you would like to reserve for dates that are outside of the booking link window, please book what is available and then email allyssia.avitia@monaco-seattle.com to extend your already existing reservation. She will do so if the rooms are available.
 
-<div class="cta secondary"><a href="https://www.ihg.com/redirect?path=asearch&brandCode=KI&localeCode=en&regionCode=1&hotelCode=seasm&checkInDate=31&checkInMonthYear=042026&checkOutDate=03&checkOutMonthYear=052026&rateCode=6CBARC&_PMID=99801505&GPC=CJ3&cn=no&adjustMonth=false&showApp=true&monthIndex=00">BOOK</a></div>
+<CtaButton
+  href="https://www.ihg.com/redirect?path=asearch&brandCode=KI&localeCode=en&regionCode=1&hotelCode=seasm&checkInDate=31&checkInMonthYear=042026&checkOutDate=03&checkOutMonthYear=052026&rateCode=6CBARC&_PMID=99801505&GPC=CJ3&cn=no&adjustMonth=false&showApp=true&monthIndex=00"
+  variant="secondary"
+  target="_blank"
+>
+  BOOK
+</CtaButton>
 
 ### Hotels Near Link Light Rail Stations
 
 You might also find hotels within your budget near these light rail stations:
 
-- <a href="https://maps.app.goo.gl/D9qDicWdB85CUdyk7">Northgate</a> (29 min trip to Town Hall)
-- <a href="https://maps.app.goo.gl/2JVNj7cRezShFE7a9">Tukwila International Blvd</a> (42 min trip to Town Hall)
-- <a href="https://maps.app.goo.gl/owvWeSKwKZmWiZDLA">Lynnwood</a> (47 min trip to Town Hall)
-- <a href="https://maps.app.goo.gl/wqCkznCYG9cnXWtU9">SeaTac/Airport</a> (48 min trip to Town Hall)
+- <a href="https://maps.app.goo.gl/D9qDicWdB85CUdyk7">Northgate</a> (29 min trip
+  to Town Hall)
+- <a href="https://maps.app.goo.gl/2JVNj7cRezShFE7a9">
+    Tukwila International Blvd
+  </a>
+  (42 min trip to Town Hall)
+- <a href="https://maps.app.goo.gl/owvWeSKwKZmWiZDLA">Lynnwood</a> (47 min trip
+  to Town Hall)
+- <a href="https://maps.app.goo.gl/wqCkznCYG9cnXWtU9">SeaTac/Airport</a> (48 min
+  trip to Town Hall)

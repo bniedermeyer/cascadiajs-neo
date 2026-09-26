@@ -57,10 +57,19 @@
     line-height: 1.5em;
   }
 
-  .prose-content :global(a),
-  .prose-content :global(a:visited) {
+  .prose-content :global(a:not(.no-underline)),
+  .prose-content :global(a:visited:not(.no-underline)) {
     color: var(--color-cascade-blue, #0033ff);
     text-decoration: underline;
+  }
+
+  /* .strike marks an outdated date/value inline within prose that flows
+     through this component's slot (e.g. a superseded deadline next to its
+     replacement). Scoped here alongside the rest of this block rather than
+     as a Tailwind utility in the markup, matching how the other inline
+     prose rules above (a, .styled-table, #toc) are handled. */
+  .prose-content :global(.strike) {
+    text-decoration: line-through;
   }
 
   .prose-content :global(.styled-table) {

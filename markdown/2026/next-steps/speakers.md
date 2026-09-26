@@ -22,7 +22,7 @@ Below is a checklist of items to take care of before the conference. Please don'
 
 Make sure to register for your Speaker Ticket, the link should have been provided in an email.
 
-PLEASE make sure you're registered by <span class="highlight warning">April 20th</span>, or we won't be able to order you your hoodie!
+PLEASE make sure you're registered by <span class="rounded bg-[#ffcf07] px-2 py-0.5 font-medium leading-[2em]">April 20th</span>, or we won't be able to order you your hoodie!
 
 ### Travel
 
