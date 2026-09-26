@@ -84,6 +84,42 @@ test.describe("MDX workshop page (/2026/workshops/deploying-ai-agents)", () => {
 });
 
 /**
+ * The three 2026 trainings (markdown/2026/trainings/*.mdx) were converted to
+ * MDX so their "Buy Ticket" CTA renders through CtaButton instead of the
+ * legacy `<div class="cta">` markup, and their speaker photo renders as a
+ * markdown image resolved through src/assets (ticket #78).
+ */
+
+test.describe("MDX page (/2026/trainings/ai-for-typescript-developers)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/2026/trainings/ai-for-typescript-developers");
+  });
+
+  test("renders", async ({ page }) => {
+    await expect(page.locator("body")).toBeVisible();
+  });
+
+  test("speaker image is visible and loaded", async ({ page }) => {
+    const image = page.getByRole("img", { name: "Eve Porcello" });
+    await expect(image).toBeVisible();
+
+    await image.scrollIntoViewIfNeeded();
+    await expect(async () => {
+      const naturalWidth = await image.evaluate(
+        (img: HTMLImageElement) => img.naturalWidth,
+      );
+      expect(naturalWidth).toBeGreaterThan(0);
+    }).toPass();
+  });
+
+  test("CTA button is visible with the correct href", async ({ page }) => {
+    const cta = page.getByRole("link", { name: "Buy Ticket", exact: true });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/2026/tickets");
+  });
+});
+
+/**
  * attend.mdx (markdown/2026/attend.mdx) converted from .md to .mdx so the
  * "Travel Guide" CTA can use the CtaButton component directly (ADR-0012).
  * See e2e/event-markdown.spec.ts for other /2026/attend coverage (nav,
