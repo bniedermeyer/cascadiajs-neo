@@ -40,3 +40,48 @@ test.describe("MDX page (/2026/childcare)", () => {
     expect(styles.borderColor).toBe("rgb(0, 51, 255)");
   });
 });
+
+/**
+ * Workshop pages (markdown/2026/workshops/*.mdx, ticket #77) are the second
+ * batch converted to MDX so they can render Callout and CtaButton directly
+ * instead of the legacy `<div class="highlight info">` / `<div class="cta">`
+ * markup.
+ */
+test.describe("MDX workshop page (/2026/workshops/deploying-ai-agents)", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/2026/workshops/deploying-ai-agents");
+  });
+
+  test("renders", async ({ page }) => {
+    await expect(page.locator("body")).toBeVisible();
+  });
+
+  test("Callout block is visible with the info variant text", async ({
+    page,
+  }) => {
+    // Scoped to Callout's own utility classes: the page-title bar also uses
+    // bg-overcast-gray, so a bare `.bg-overcast-gray` selector would match
+    // both elements.
+    const callout = page.locator(".rounded.font-medium.p-4.bg-overcast-gray");
+    await expect(callout).toBeVisible();
+    await expect(callout).toContainText("This workshop is FREE");
+  });
+
+  test("Callout renders the info variant background color", async ({
+    page,
+  }) => {
+    const callout = page.locator(".rounded.font-medium.p-4.bg-overcast-gray");
+    const backgroundColor = await callout.evaluate(
+      (el) => getComputedStyle(el).backgroundColor,
+    );
+    expect(backgroundColor).toBe("rgb(207, 211, 228)");
+  });
+
+  test("CTA button is visible with the correct href", async ({ page }) => {
+    const cta = page.getByRole("link", {
+      name: "Get Your Conference Ticket Today!",
+    });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/2026/tickets");
+  });
+});
