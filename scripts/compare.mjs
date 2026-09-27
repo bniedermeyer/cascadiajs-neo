@@ -2,9 +2,9 @@
  * Live-site fidelity compare tool (ADR-0004): diffs computed styles and
  * geometry between the live site and local dev server via a per-page
  * selector-pair map (DOMs don't match 1:1). Diagnostic only, not a test --
- * excluded from `npm test`, exits 0 regardless of drift found.
+ * excluded from `pnpm test`, exits 0 regardless of drift found.
  *
- * Usage: npm run compare -- <page>
+ * Usage: pnpm compare <page>
  */
 import { chromium } from "@playwright/test";
 
@@ -289,7 +289,7 @@ const PAGES = {
 };
 
 function usage() {
-  console.error("Usage: npm run compare -- <page>");
+  console.error("Usage: pnpm compare <page>");
   console.error(`Available pages: ${Object.keys(PAGES).join(", ")}`);
 }
 
@@ -300,7 +300,7 @@ async function assertLocalServerReachable() {
     console.error(
       `Error: local dev server is not reachable at ${LOCAL_ORIGIN}.`,
     );
-    console.error("Start it with `npm run dev` and re-run the compare.");
+    console.error("Start it with `pnpm dev` and re-run the compare.");
     process.exit(1);
   }
 }

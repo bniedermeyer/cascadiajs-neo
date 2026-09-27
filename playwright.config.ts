@@ -12,7 +12,7 @@ export default defineConfig({
     baseURL: "http://localhost:4321",
   },
   webServer: {
-    command: "npm run build && npm run preview",
+    command: "pnpm run build && pnpm run preview",
     port: 4321,
     reuseExistingServer: true,
   },
