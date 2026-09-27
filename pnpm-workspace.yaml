@@ -1,0 +1,6 @@
+# Not a workspace declaration (no `packages:` key) — this file exists because
+# pnpm reads build-script approval from here, not from .npmrc. Without it,
+# strictDepBuilds (default true) fails the install on unreviewed build scripts.
+allowBuilds:
+  esbuild: true
+  sharp: true

@@ -2,6 +2,8 @@
 
 **Stack:** Astro. All new work is Astro only.
 
+**Package manager:** pnpm. Use `pnpm`/`pnx exec`, not `npm`/`npx`.
+
 **Reference repo:** `reference/cascadiajs/` is a read-only, fixed-commit git submodule of the legacy Enhance implementation. Use it ONLY for visual fidelity, CSS, and design tokens. Never make any changes to files within `/reference/cascadiajs/
 
 - Never copy Enhance routing patterns, `$`/`$$` catch-all routes, or component patterns into Astro.
