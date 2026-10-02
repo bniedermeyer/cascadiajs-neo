@@ -20,6 +20,10 @@ _Avoid_: Session, Presentation
 A person who delivers a Talk at an Event.
 _Avoid_: Presenter
 
+**Workshop**:
+A hands-on, usually sponsor-led Talk at an Event. Like any Talk it has a Speaker and its own talk page, and it also has a separate registration/detail page of its own. Distinct from a Training, which is a paid post-conference Activity.
+_Avoid_: Session, Tutorial
+
 **Activity**:
 A non-Talk happening at an Event, occurring at a stated time. It has its own identity, a description, and usually a registration or detail page — the Cascadia AI Hackathon, the Hacker Trains, the Welcome Reception, Karaoke, the post-conference Trainings.
 _Avoid_: Session, Event (for a single happening — an Event is the whole conference)
