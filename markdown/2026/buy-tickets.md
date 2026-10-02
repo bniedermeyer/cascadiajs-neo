@@ -1,6 +1,5 @@
 ---
 title: Tickets to CascadiaJS 2026
-published: false
 ---
 
 ## General Admission Tickets
