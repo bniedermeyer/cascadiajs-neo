@@ -12,17 +12,6 @@ export default tseslint.config(
     files: ["**/*.mdx"],
   },
   {
-    // MDX is only linted for its import statements. Prose is not JS, and JSX
-    // usage of imports isn't visible to the scope analysis, so these
-    // JS-oriented rules produce false positives there.
-    files: ["**/*.mdx"],
-    rules: {
-      "@typescript-eslint/no-unused-vars": "off",
-      "no-unused-vars": "off",
-      "no-irregular-whitespace": "off",
-    },
-  },
-  {
     rules: {
       curly: ["error", "all"],
       "no-restricted-imports": [
