@@ -19,7 +19,9 @@ interface Props {
 const { talk: talkId, when } = Astro.props;
 
 const talk = (talksData as Talk[]).find((t) => t.id === talkId);
-if (!talk) throw new Error(`No Talk found with id "${talkId}"`);
+if (!talk) {
+  throw new Error(`No Talk found with id "${talkId}"`);
+}
 ---
 
 <div class="m-4 flex">

@@ -573,7 +573,9 @@ test.describe("schedule page", () => {
         return band.boundingBox();
       }),
     );
-    for (const box of boxes) expect(box).not.toBeNull();
+    for (const box of boxes) {
+      expect(box).not.toBeNull();
+    }
     // Each venue sits below the previous one, top to bottom.
     expect(boxes[0]!.y).toBeLessThan(boxes[1]!.y);
     expect(boxes[1]!.y).toBeLessThan(boxes[2]!.y);
@@ -1207,7 +1209,9 @@ test.describe("schedule page", () => {
     page,
   }) => {
     for (const talk of ALL_TALKS) {
-      if (!talk.linked || !talk.slug) continue;
+      if (!talk.linked || !talk.slug) {
+        continue;
+      }
       const link = page.getByRole("link", { name: talk.title });
       await expect(link).toHaveAttribute("href", `/2026/talks/${talk.slug}`);
     }
@@ -1262,7 +1266,9 @@ test.describe("schedule page", () => {
         const matches = Array.from(el.querySelectorAll("div")).filter((d) =>
           titleTexts.includes(d.textContent?.trim() ?? ""),
         );
-        if (matches.length !== 2) return false;
+        if (matches.length !== 2) {
+          return false;
+        }
         const [a, b] = matches.map((d) => d.closest(".m-4.flex"));
         return a !== null && a === b;
       });
@@ -1309,7 +1315,9 @@ test.describe("schedule page", () => {
     const targets = await links.evaluateAll((els) =>
       els.map((el) => el.getAttribute("target")),
     );
-    for (const target of targets) expect(target).toBe("_new");
+    for (const target of targets) {
+      expect(target).toBe("_new");
+    }
 
     expect(await hasExternalIndicator(links.first())).toBe(false);
   });

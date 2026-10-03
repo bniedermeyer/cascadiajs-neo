@@ -19,7 +19,9 @@ import type { Activity, Talk } from "../../shared/data/types";
 // Throws on a typo'd id rather than silently rendering a blank row.
 function activity(id: string): Activity {
   const found = (activities as Activity[]).find((a) => a.id === id);
-  if (!found) throw new Error(`No Activity found with id "${id}"`);
+  if (!found) {
+    throw new Error(`No Activity found with id "${id}"`);
+  }
   return found;
 }
 

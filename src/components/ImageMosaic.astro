@@ -32,8 +32,9 @@ const rows = images.reduce<{ src: string; alt: string }[][]>((acc, image) => {
         {row.map(async (image, index) => {
           const imageKey = `/src/assets${image.src}`;
           const imageModule = eventImages[imageKey];
-          if (!imageModule)
+          if (!imageModule) {
             throw new Error(`ImageMosaic: image not found at ${imageKey}`);
+          }
           const imageSrc = (await imageModule()).default;
           return (
             <div

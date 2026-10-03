@@ -27,9 +27,15 @@ const excluded =
   exclude === undefined ? [] : Array.isArray(exclude) ? exclude : [exclude];
 
 const selected = sponsors.filter((sponsor) => {
-  if (event && !sponsor.events.includes(event)) return false;
-  if (excluded.length > 0 && sponsor.events.every((e) => excluded.includes(e)))
+  if (event && !sponsor.events.includes(event)) {
     return false;
+  }
+  if (
+    excluded.length > 0 &&
+    sponsor.events.every((e) => excluded.includes(e))
+  ) {
+    return false;
+  }
   return true;
 });
 
