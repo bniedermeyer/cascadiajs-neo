@@ -57,6 +57,7 @@ const data = entry ?? {
   cta,
 };
 
+const sponsorLogoKey = data.image && `./${data.image.src}`;
 const isInlineCta = data.cta?.display === "inline";
 const CtaWrapper = isInlineCta ? "p" : "div";
 // mt-2 only applies to the <p> wrapper -- a block CTA's own my-4 margin
@@ -92,9 +93,9 @@ const ctaWrapperClasses = isInlineCta ? "mt-2" : "";
         )
       }{data.titleSuffix}
       {
-        data.image && sponsorImages[`./${data.image.src}`] && (
+        data.image && sponsorLogoKey && sponsorImages[sponsorLogoKey] && (
           <Image
-            src={sponsorImages[`./${data.image.src}`]()}
+            src={sponsorImages[sponsorLogoKey]()}
             alt={data.image.alt}
             class="ml-1 inline h-5 w-auto align-middle"
             height={20}
