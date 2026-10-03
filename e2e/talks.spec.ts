@@ -105,7 +105,7 @@ test.describe("Talk detail page", () => {
     await expect(nav).toBeVisible();
     await expect(
       nav.getByRole("link", { name: "CascadiaJS logo" }),
-    ).toHaveAttribute("href", "/2026/");
+    ).toHaveAttribute("href", "/2026");
   });
 });
 

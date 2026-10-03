@@ -1519,7 +1519,7 @@ test.describe("schedule page", () => {
     // The 2026 Event page renders the same tiered SponsorsGrid (ADR-0008),
     // so it's the page actually at risk of a leaked indicator rule --
     // unlike the home page's link-less flat grid.
-    await page.goto("/2026/");
+    await page.goto("/2026");
     const sponsorExternalLinks = page.locator('#sponsors a[target="_blank"]');
     const count = await sponsorExternalLinks.count();
     expect(count).toBeGreaterThan(0);

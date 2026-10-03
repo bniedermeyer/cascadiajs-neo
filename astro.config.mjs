@@ -20,6 +20,9 @@ export default defineConfig({
   // Canonical/OG URLs resolve against `site`, so previews share their own
   // images and production consolidates on its main address.
   site,
+  // Legacy URLs never end in a slash (the slashed form 404s), so routes and
+  // canonical URLs must match. The root stays "/". Leave `build.format` alone.
+  trailingSlash: "never",
   // Astro 7 defaults to JSX-style whitespace stripping ("jsx"), which drops
   // spaces between inline elements and breaks legacy fidelity. Keep v6 behavior.
   compressHTML: true,
