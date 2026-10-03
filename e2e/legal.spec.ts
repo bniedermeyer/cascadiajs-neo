@@ -25,8 +25,8 @@ for (const legalPage of legalPages) {
       await page.goto(legalPage.path);
     });
 
-    test("document title matches the policy", async ({ page }) => {
-      await expect(page).toHaveTitle(legalPage.title);
+    test("document title is the sitewide default", async ({ page }) => {
+      await expect(page).toHaveTitle("CascadiaJS - a JS conf for the PacNW");
     });
 
     test("Termly mount keeps name=termly-embed for the third-party loader", async ({

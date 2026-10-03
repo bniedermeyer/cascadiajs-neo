@@ -1,4 +1,5 @@
 import type { EventConfig } from "../types";
+import { DEFAULT_DESCRIPTION } from "../../site-defaults";
 
 const config: EventConfig = {
   name: "CascadiaJS 2026",
@@ -8,7 +9,7 @@ const config: EventConfig = {
   location: "Seattle, WA, USA",
   logo: "/events/2026/images/icon-dark-blue.png",
   ogImage: "/images/2026/share/social-sharing-general.png",
-  ogDescription: "CascadiaJS 2026 is coming up June 1 - 2 in Seattle, WA!",
+  ogDescription: DEFAULT_DESCRIPTION,
   nav: [
     { label: "Networking", href: "/2026#networking" },
     { label: "Pricing", href: "/2026#pricing" },
