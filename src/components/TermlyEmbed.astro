@@ -29,7 +29,9 @@ const termlyMountHtml = `<div name="termly-embed" data-id="${policyId}"></div>`;
 }
 <script is:inline>
   (function (rootDocument, scriptTagName, scriptId) {
-    if (rootDocument.getElementById(scriptId)) return;
+    if (rootDocument.getElementById(scriptId)) {
+      return;
+    }
     const firstScript = rootDocument.getElementsByTagName(scriptTagName)[0];
     const termlyScript = rootDocument.createElement(scriptTagName);
     termlyScript.id = scriptId;

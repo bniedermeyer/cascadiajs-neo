@@ -19,7 +19,9 @@ const eventImages = import.meta.glob<{ default: ImageMetadata }>(
 
 const logoKey = `/src/assets${logo}`;
 const logoModule = eventImages[logoKey];
-if (!logoModule) throw new Error(`EventNav: logo not found at ${logoKey}`);
+if (!logoModule) {
+  throw new Error(`EventNav: logo not found at ${logoKey}`);
+}
 const logoSrc = (await logoModule()).default;
 ---
 

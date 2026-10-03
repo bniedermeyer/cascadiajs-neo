@@ -308,11 +308,15 @@ async function assertLocalServerReachable() {
 /** Computed styles + bounding box for the first match, or null. */
 async function snapshot(page, selector) {
   const locator = page.locator(selector).first();
-  if ((await locator.count()) === 0) return null;
+  if ((await locator.count()) === 0) {
+    return null;
+  }
   return locator.evaluate((el, props) => {
     const computed = getComputedStyle(el);
     const styles = {};
-    for (const prop of props) styles[prop] = computed.getPropertyValue(prop);
+    for (const prop of props) {
+      styles[prop] = computed.getPropertyValue(prop);
+    }
     const rect = el.getBoundingClientRect();
     return {
       styles,
@@ -328,7 +332,9 @@ function asPx(value) {
 }
 
 function valuesDiffer(liveValue, localValue) {
-  if (liveValue === localValue) return false;
+  if (liveValue === localValue) {
+    return false;
+  }
   const livePx = asPx(liveValue);
   const localPx = asPx(localValue);
   if (!Number.isNaN(livePx) && !Number.isNaN(localPx)) {
@@ -364,7 +370,9 @@ function comparePair(label, live, local) {
     console.log(`  OK   ${label}`);
   } else {
     console.log(`  DRIFT ${label} (${lines.length} differences)`);
-    for (const line of lines) console.log(line);
+    for (const line of lines) {
+      console.log(line);
+    }
   }
   return lines.length;
 }

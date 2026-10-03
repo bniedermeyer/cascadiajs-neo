@@ -17,7 +17,9 @@ const eventImages = import.meta.glob<{ default: ImageMetadata }>(
 
 const imageKey = `/src/assets${talk.speaker.image}`;
 const imageModule = eventImages[imageKey];
-if (!imageModule) throw new Error(`TalkCard: image not found at ${imageKey}`);
+if (!imageModule) {
+  throw new Error(`TalkCard: image not found at ${imageKey}`);
+}
 const imageSrc = (await imageModule()).default;
 ---
 

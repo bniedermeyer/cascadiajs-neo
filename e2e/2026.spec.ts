@@ -18,7 +18,9 @@ const speakerTalks = allTalks.filter((t) =>
 const organizers = organizersData as Person[];
 
 function talkHref(talk: Talk): string {
-  if (talk.slug) return `/2026/talks/${talk.slug}`;
+  if (talk.slug) {
+    return `/2026/talks/${talk.slug}`;
+  }
   return "/2026/";
 }
 
