@@ -433,7 +433,9 @@ test.describe("schedule page", () => {
   }) => {
     const heading = page.getByRole("heading", { level: 1, name: "Schedule" });
     await expect(heading).toBeVisible();
-    await expect(page).toHaveTitle("CascadiaJS 2026 | Schedule");
+    await expect(page).toHaveTitle(
+      "CascadiaJS 2026 | June 1 - 2 | Seattle, WA",
+    );
   });
 
   test("page-title bar uses the overcast-gray background and sound-navy heading", async ({
