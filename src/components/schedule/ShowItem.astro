@@ -11,8 +11,8 @@ import CtaButton from "../CtaButton.astro";
 import type { Activity } from "@shared/data/types";
 
 const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",
-  { eager: false },
+  "@assets/images/sponsors/*.{jpg,png,svg,jpeg}",
+  { eager: false, base: "/src/assets/images/sponsors" },
 );
 
 type AnchorTarget = "_blank" | "_self" | "_parent" | "_top" | (string & {});
@@ -92,9 +92,9 @@ const ctaWrapperClasses = isInlineCta ? "mt-2" : "";
         )
       }{data.titleSuffix}
       {
-        data.image && sponsorImages[data.image.src] && (
+        data.image && sponsorImages[`./${data.image.src}`] && (
           <Image
-            src={sponsorImages[data.image.src]()}
+            src={sponsorImages[`./${data.image.src}`]()}
             alt={data.image.alt}
             class="ml-1 inline h-5 w-auto align-middle"
             height={20}

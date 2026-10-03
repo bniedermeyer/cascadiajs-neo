@@ -17,7 +17,7 @@ import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
 
 export async function getStaticPaths() {
   const configs = import.meta.glob<{ default: EventConfig }>(
-    "../../shared/data/events/*.config.ts",
+    "@shared/data/events/*.config.ts",
     { eager: true },
   );
   const validYears = new Set(

@@ -11,11 +11,11 @@ interface Props {
 const { talk, href } = Astro.props;
 
 const eventImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/events/**/*.{jpg,png,jpeg}",
-  { eager: false },
+  "@assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false, base: "/src/assets" },
 );
 
-const imageKey = `/src/assets${talk.speaker.image}`;
+const imageKey = `.${talk.speaker.image}`;
 const imageModule = eventImages[imageKey];
 if (!imageModule) {
   throw new Error(`TalkCard: image not found at ${imageKey}`);

@@ -74,8 +74,8 @@ const tierBands = tiered
   : [];
 
 const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",
-  { eager: false },
+  "@assets/images/sponsors/*.{jpg,png,svg,jpeg}",
+  { eager: false, base: "/src/assets/images/sponsors" },
 );
 ---
 
@@ -96,9 +96,7 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
             {tierSponsors.map((sponsor) => {
               const logo = (
                 <Image
-                  src={sponsorImages[
-                    `/src/assets/images/sponsors/${sponsor.logo}`
-                  ]()}
+                  src={sponsorImages[`./${sponsor.logo}`]()}
                   alt={`${sponsor.name} logo`}
                   layout="none"
                   class="mx-auto my-8 block h-12.5 w-auto md:m-0 md:inline md:h-full"
@@ -129,7 +127,7 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
       {flatSponsors.map((sponsor) => (
         <div class="text-center md:m-8">
           <Image
-            src={sponsorImages[`/src/assets/images/sponsors/${sponsor.logo}`]()}
+            src={sponsorImages[`./${sponsor.logo}`]()}
             alt={`${sponsor.name} logo`}
             height={60}
             alt={`${sponsor.name} logo`}

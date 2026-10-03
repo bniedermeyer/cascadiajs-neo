@@ -16,7 +16,7 @@ const yearMatch = routePath(Astro.url).match(/\/(\d{4})(?:\/|$)/);
 const year = yearMatch?.[1];
 
 const configs = import.meta.glob<{ default: EventConfig }>(
-  "../shared/data/events/*.config.ts",
+  "@shared/data/events/*.config.ts",
   { eager: true },
 );
 

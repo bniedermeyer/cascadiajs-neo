@@ -13,11 +13,11 @@ interface Props {
 const { year, logo, nav, id = "nav" } = Astro.props;
 
 const eventImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/events/**/*.{jpg,png,jpeg}",
-  { eager: false },
+  "@assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false, base: "/src/assets" },
 );
 
-const logoKey = `/src/assets${logo}`;
+const logoKey = `.${logo}`;
 const logoModule = eventImages[logoKey];
 if (!logoModule) {
   throw new Error(`EventNav: logo not found at ${logoKey}`);

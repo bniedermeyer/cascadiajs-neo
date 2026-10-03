@@ -36,8 +36,8 @@ const titleClasses =
   "text-sound-navy font-serif text-22 leading-tight font-light";
 
 const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",
-  { eager: false },
+  "@assets/images/sponsors/*.{jpg,png,svg,jpeg}",
+  { eager: false, base: "/src/assets/images/sponsors" },
 );
 ---
 
@@ -73,9 +73,7 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
                   visually inert since it sits behind the image. */}
               <a target="_new" href={sponsor.url} class="text-cascade-blue">
                 <Image
-                  src={sponsorImages[
-                    `/src/assets/images/sponsors/${sponsor.logo}`
-                  ]()}
+                  src={sponsorImages[`./${sponsor.logo}`]()}
                   alt={`${sponsor.name} logo`}
                   layout="full-width"
                 />
