@@ -26,7 +26,7 @@ const speakerTalks = talks.filter((t) =>
 );
 
 function talkHref(talk: Talk): string {
-  return talk.slug ? `/2026/talks/${talk.slug}` : "/2026/";
+  return talk.slug ? `/2026/talks/${talk.slug}` : "/2026";
 }
 
 const headingClass = "mt-0 mb-8 text-5xl";
@@ -172,7 +172,7 @@ const paragraphClass =
   <section id="sponsors" class="box-content p-8 text-center">
     <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
     <SponsorsGrid event="2026" tiered={true} />
-    <CtaButton href="/2026/">Sponsor Our Event</CtaButton>
+    <CtaButton href="/2026">Sponsor Our Event</CtaButton>
   </section>
 
   <section id="testimonials" class="text-center">

@@ -7,6 +7,7 @@ import MarkdownContent from "../../components/MarkdownContent.astro";
 import SponsorsGrid from "../../components/SponsorsGrid.astro";
 import CtaButton from "../../components/CtaButton.astro";
 import Testimonials from "../../components/Testimonials.astro";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "../../shared/site-defaults";
 
 /**
  * Year-scoped markdown pages (markdown/<year>/*.md) render through this page.
@@ -41,15 +42,24 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { year } = Astro.params;
+const { year, slug } = Astro.params;
 const { Content } = await render(entry);
 
-const metaTitle = `CascadiaJS ${year} | ${entry.data.title}`;
+// Legacy omits the year from the title template, and its brochure-request
+// page (`/<year>/sponsor`) has no sharing handler, so it uses the sitewide
+// defaults instead (docs/seo-audit.md P12).
+const isSponsorBrochure = slug === "sponsor";
+const metaTitle = isSponsorBrochure
+  ? DEFAULT_TITLE
+  : `CascadiaJS | ${entry.data.title}`;
+const metaDescription = isSponsorBrochure
+  ? DEFAULT_DESCRIPTION
+  : entry.data.description;
 ---
 
 <EventLayout
   title={metaTitle}
-  description={entry.data.description}
+  description={metaDescription}
   ogImage={entry.data.ogImage}
 >
   <SimplePage title={entry.data.title} width={entry.data.width}>

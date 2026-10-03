@@ -21,7 +21,7 @@ function talkHref(talk: Talk): string {
   if (talk.slug) {
     return `/2026/talks/${talk.slug}`;
   }
-  return "/2026/";
+  return "/2026";
 }
 
 /**
@@ -70,7 +70,7 @@ test.describe("2026 event page", () => {
       /^https:\/\/(platform\.twitter\.com|.*\.twimg\.com)\//,
       (route) => route.abort(),
     );
-    await page.goto("/2026/");
+    await page.goto("/2026");
   });
 
   test("renders", async ({ page }) => {
@@ -180,7 +180,7 @@ test.describe("2026 event page", () => {
     const nav = page.locator("#nav").getByRole("navigation");
     const logoLink = nav.getByRole("link", { name: "CascadiaJS logo" });
     await expect(logoLink).toBeVisible();
-    await expect(logoLink).toHaveAttribute("href", "/2026/");
+    await expect(logoLink).toHaveAttribute("href", "/2026");
   });
 
   test("sub-nav has all eight links with the correct hrefs", async ({
@@ -188,14 +188,14 @@ test.describe("2026 event page", () => {
   }) => {
     const nav = page.locator("#nav").getByRole("navigation");
     const links: [string, string][] = [
-      ["Networking", "/2026/#networking"],
-      ["Pricing", "/2026/#pricing"],
-      ["Speakers", "/2026/#speakers"],
+      ["Networking", "/2026#networking"],
+      ["Pricing", "/2026#pricing"],
+      ["Speakers", "/2026#speakers"],
       ["Schedule", "/2026/schedule"],
       ["Attend", "/2026/attend"],
       ["Sponsor", "/2026/sponsor"],
       ["Trainings", "/2026/trainings"],
-      ["Tickets", "/2026/"],
+      ["Tickets", "/2026"],
     ];
     for (const [name, href] of links) {
       const link = nav.getByRole("link", { name });
@@ -257,11 +257,11 @@ test.describe("2026 event page", () => {
     page,
   }) => {
     const hrefs = allTalks.map(talkHref);
-    const rootCount = hrefs.filter((href) => href === "/2026/").length;
+    const rootCount = hrefs.filter((href) => href === "/2026").length;
     const detailCount = hrefs.filter((href) =>
       href.startsWith("/2026/talks/"),
     ).length;
-    await expect(page.locator("#speakers a[href='/2026/']")).toHaveCount(
+    await expect(page.locator("#speakers a[href='/2026']")).toHaveCount(
       rootCount,
     );
     await expect(page.locator("#speakers a[href^='/2026/talks/']")).toHaveCount(
@@ -325,7 +325,7 @@ test.describe("2026 event page", () => {
   }) => {
     const card = cardFor(page, "Matt Biilmann");
     await expect(card).toContainText("Talk Info Coming Soon");
-    expect(await card.getAttribute("href")).toBe("/2026/");
+    expect(await card.getAttribute("href")).toBe("/2026");
   });
 
   test("a Talk with a detail page shows its own title as the overlay", async ({

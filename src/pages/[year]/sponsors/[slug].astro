@@ -57,7 +57,10 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
 );
 ---
 
-<EventLayout title={metaTitle}>
+<EventLayout
+  title={metaTitle}
+  description={`Thanks for sponsoring CascadiaJS ${year}!`}
+>
   <SimplePage title={pageTitle}>
     <div class="mb-5 text-center">
       <Image

@@ -433,7 +433,9 @@ test.describe("schedule page", () => {
   }) => {
     const heading = page.getByRole("heading", { level: 1, name: "Schedule" });
     await expect(heading).toBeVisible();
-    await expect(page).toHaveTitle("CascadiaJS 2026 | Schedule");
+    await expect(page).toHaveTitle(
+      "CascadiaJS 2026 | June 1 - 2 | Seattle, WA",
+    );
   });
 
   test("page-title bar uses the overcast-gray background and sound-navy heading", async ({
@@ -1519,7 +1521,7 @@ test.describe("schedule page", () => {
     // The 2026 Event page renders the same tiered SponsorsGrid (ADR-0008),
     // so it's the page actually at risk of a leaked indicator rule --
     // unlike the home page's link-less flat grid.
-    await page.goto("/2026/");
+    await page.goto("/2026");
     const sponsorExternalLinks = page.locator('#sponsors a[target="_blank"]');
     const count = await sponsorExternalLinks.count();
     expect(count).toBeGreaterThan(0);

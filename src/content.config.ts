@@ -7,6 +7,7 @@ const markdown = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string().optional(),
+    /** Description fallback when no explicit `description` is set (legacy). */
     width: z.enum(["narrow", "wide"]).default("narrow"),
     image: z.string().optional(),
     /** Share image path under `public/`; defaults to the general image. */

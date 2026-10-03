@@ -2,32 +2,76 @@
 import "../styles/global.css";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "../shared/site-defaults";
+import { routePath } from "../shared/route-path";
 
 interface Props {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   ogImage?: string;
   displayNav?: boolean;
   displayAlert?: boolean;
 }
 
 const {
-  description,
+  description = DEFAULT_DESCRIPTION,
   displayNav = true,
   displayAlert = true,
   ogImage = "/images/2026/share/social-sharing-general.png",
-  title,
+  title = DEFAULT_TITLE,
 } = Astro.props;
 
 const origin = Astro.site ?? Astro.url.origin;
-const canonicalUrl = new URL(Astro.url.pathname, origin).href;
+const canonicalUrl = new URL(routePath(Astro.url), origin).href;
 const ogImageUrl = new URL(ogImage, origin).href;
 ---
 
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {
+      /* ---- Analytics (dormant) ----------------------------------------
+         TODO: enable at migration cutover. Ported verbatim from legacy
+         app/head.mjs; nothing below is emitted. To enable, remove the whole
+         curly-brace-plus-comment wrapper around this block, not just the
+         comment markers (leftover braces would be parsed as an expression),
+         and add `is:inline` to EVERY <script> tag, including the external
+         gtag loader (<script async src=...>): Astro processes scripts that
+         have a src too, and would bundle or drop them without it.
+         Also invert or remove the "no analytics traces" test in
+         e2e/head.spec.ts, which fails once these snippets are emitted.
+         Don't write a star-slash inside this comment: it would end it early.
+
+         Google tag (gtag.js), GA4:
+
+         <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBTPEH9RZW"></script>
+         <script>
+           window.dataLayer = window.dataLayer || [];
+           function gtag(){dataLayer.push(arguments);}
+           gtag('js', new Date());
+
+           gtag('config', 'G-XBTPEH9RZW');
+         </script>
+
+         Meta Pixel Code (its <noscript> fallback image lives at the end of
+         <body>, since an <img> is invalid in <head>):
+
+         <script>
+         !function(f,b,e,v,n,t,s)
+         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+         if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+         n.queue=[];t=b.createElement(e);t.async=!0;
+         t.src=v;s=b.getElementsByTagName(e)[0];
+         s.parentNode.insertBefore(t,s)}(window, document,'script',
+         'https://connect.facebook.net/en_US/fbevents.js');
+         fbq('init', '1431763387943877');
+         fbq('track', 'PageView');
+         </script>
+         ------------------------------------------------------------------ */
+    }
+    <meta name="author" content="CascadiaJS" />
     <meta name="generator" content={Astro.generator} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -83,5 +127,18 @@ const ogImageUrl = new URL(ogImage, origin).href;
     </main>
 
     <SiteFooter />
+    {
+      /* TODO: enable at migration cutover. Meta Pixel <noscript> fallback,
+         dormant like the head snippets above. It is the last child of
+         <body> because an <img> in <head> is invalid and makes the parser
+         close the head early. To enable, remove the whole curly-brace-plus-
+         comment wrapper, not just the comment markers. (This tag is plain
+         HTML, not a <script>, so it needs no `is:inline`.)
+
+         <noscript><img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=1431763387943877&ev=PageView&noscript=1"
+         /></noscript>
+      */
+    }
   </body>
 </html>

@@ -21,14 +21,14 @@ test.describe("year-scoped markdown page (/2026/attend)", () => {
     await expect(nav).toBeVisible();
 
     const links: [string, string][] = [
-      ["Networking", "/2026/#networking"],
-      ["Pricing", "/2026/#pricing"],
-      ["Speakers", "/2026/#speakers"],
+      ["Networking", "/2026#networking"],
+      ["Pricing", "/2026#pricing"],
+      ["Speakers", "/2026#speakers"],
       ["Schedule", "/2026/schedule"],
       ["Attend", "/2026/attend"],
       ["Sponsor", "/2026/sponsor"],
       ["Trainings", "/2026/trainings"],
-      ["Tickets", "/2026/"],
+      ["Tickets", "/2026"],
     ];
     for (const [name, href] of links) {
       const link = nav.getByRole("link", { name });
@@ -41,7 +41,7 @@ test.describe("year-scoped markdown page (/2026/attend)", () => {
     const nav = page.locator("#nav").getByRole("navigation");
     const logoLink = nav.getByRole("link", { name: "CascadiaJS logo" });
     await expect(logoLink).toBeVisible();
-    await expect(logoLink).toHaveAttribute("href", "/2026/");
+    await expect(logoLink).toHaveAttribute("href", "/2026");
   });
 
   test("does not render the global SiteHeader nav", async ({ page }) => {
