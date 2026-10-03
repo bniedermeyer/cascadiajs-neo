@@ -1,5 +1,6 @@
 ---
 title: You are unsubscribed
+ogImage: /images/2026/share/unsubscribed.png
 ---
 
 We have unsubscribed you from ALL of our mailing lists.

@@ -7,7 +7,7 @@ const config: EventConfig = {
   venue: "Town Hall Seattle",
   location: "Seattle, WA, USA",
   logo: "/events/2026/images/icon-dark-blue.png",
-  ogImage: "/images/2026/social/social-sharing-general.png",
+  ogImage: "/images/2026/share/social-sharing-general.png",
   ogDescription: "CascadiaJS 2026 is coming up June 1 - 2 in Seattle, WA!",
   nav: [
     { label: "Networking", href: "/2026/#networking" },

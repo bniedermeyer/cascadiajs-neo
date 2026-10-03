@@ -26,9 +26,25 @@ const abstractHtml = marked.parse(abstract ?? "") as string;
 
 // Legacy title string, hardcoded year included.
 const metaTitle = `CascadiaJS 2026 | Speakers | ${speaker.name}`;
+
+// Legacy keyed Speaker cards on a name slug ("Jeff Otaño" -> "jeff-otano").
+// Speakers without a card fall back to the general image via EventLayout.
+const speakerSlug = speaker.name
+  .normalize("NFD")
+  .replace(/\p{Diacritic}/gu, "")
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/^-|-$/g, "");
+const speakerCard = `/images/2026/share/speaker-${speakerSlug}.png`;
+const speakerCards = Object.keys(
+  import.meta.glob("/public/images/2026/share/speaker-*.png"),
+);
+const ogImage = speakerCards.includes(`/public${speakerCard}`)
+  ? speakerCard
+  : undefined;
 ---
 
-<EventLayout title={metaTitle}>
+<EventLayout title={metaTitle} ogImage={ogImage}>
   <SimplePage title={title}>
     {
       tags && (

@@ -1,5 +1,6 @@
 ---
 title: Sign-up for our mailing list
+ogImage: /images/2026/share/mailing-list.png
 ---
 
 Receive updates and information on all things CascadiaJS 🌲
