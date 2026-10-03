@@ -3,6 +3,7 @@ import "../styles/global.css";
 import SiteHeader from "../components/SiteHeader.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "../shared/site-defaults";
+import { routePath } from "../shared/route-path";
 
 interface Props {
   title?: string;
@@ -21,7 +22,7 @@ const {
 } = Astro.props;
 
 const origin = Astro.site ?? Astro.url.origin;
-const canonicalUrl = new URL(Astro.url.pathname, origin).href;
+const canonicalUrl = new URL(routePath(Astro.url), origin).href;
 const ogImageUrl = new URL(ogImage, origin).href;
 ---
 

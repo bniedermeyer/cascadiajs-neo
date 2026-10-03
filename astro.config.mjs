@@ -21,8 +21,13 @@ export default defineConfig({
   // images and production consolidates on its main address.
   site,
   // Legacy URLs never end in a slash (the slashed form 404s), so routes and
-  // canonical URLs must match. The root stays "/". Leave `build.format` alone.
+  // canonical URLs must match. The root stays "/".
   trailingSlash: "never",
+  // Build `2026/attend.html`, not `2026/attend/index.html`. Netlify's Pretty
+  // URLs 301-redirects a directory index to its slashed form, which legacy
+  // never served. Layouts read the route path via `routePath`, since
+  // `Astro.url.pathname` carries `.html` in this format.
+  build: { format: "file" },
   // Astro 7 defaults to JSX-style whitespace stripping ("jsx"), which drops
   // spaces between inline elements and breaks legacy fidelity. Keep v6 behavior.
   compressHTML: true,

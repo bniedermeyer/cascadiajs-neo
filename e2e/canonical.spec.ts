@@ -47,3 +47,30 @@ test.describe("Canonical URLs", () => {
     expect(slashed).toEqual([]);
   });
 });
+
+test.describe("Build format", () => {
+  test("no canonical, og:url or internal href exposes .html", () => {
+    const leaks: string[] = [];
+    for (const file of builtPages()) {
+      const html = readFileSync(distPath(file), "utf8");
+      const urls = [
+        ...html.matchAll(/<link rel="canonical" href="([^"]*)"/g),
+        ...html.matchAll(/<meta property="og:url" content="([^"]*)"/g),
+        ...html.matchAll(/\shref="(\/[^"]*)"/g),
+      ].map((m) => m[1]);
+      for (const url of urls) {
+        if (/\.html([?#]|$)/.test(url)) {
+          leaks.push(`${file}: ${url}`);
+        }
+      }
+    }
+    expect(leaks).toEqual([]);
+  });
+
+  test("pages build as files, not directory indexes", () => {
+    const pages = builtPages();
+    expect(pages).toContain("2026.html");
+    expect(pages).toContain("2026/attend.html");
+    expect(pages.filter((file) => file.endsWith("/index.html"))).toEqual([]);
+  });
+});

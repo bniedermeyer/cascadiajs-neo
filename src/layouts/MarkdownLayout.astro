@@ -5,6 +5,7 @@ import MarkdownContent from "../components/MarkdownContent.astro";
 import SponsorsGrid from "../components/SponsorsGrid.astro";
 import CtaButton from "../components/CtaButton.astro";
 import Testimonials from "../components/Testimonials.astro";
+import { routePath } from "../shared/route-path";
 
 interface Props {
   title: string;
@@ -23,7 +24,9 @@ const {
   showTestimonials = true,
   ogImage,
 } = Astro.props;
-const eventYear = Astro.url.pathname.split("/")[1]?.match(/^(\d{4})$/)?.[1];
+const eventYear = routePath(Astro.url)
+  .split("/")[1]
+  ?.match(/^(\d{4})$/)?.[1];
 const titlePrefix = eventYear ? `CascadiaJS ${eventYear} | ` : "CascadiaJS | ";
 const metaTitle = title ? `${titlePrefix}${title}` : `CascadiaJS ${eventYear}`;
 ---
