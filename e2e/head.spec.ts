@@ -8,10 +8,9 @@ import {
 import { builtPages, distPath, filesUnder } from "./helpers";
 
 /**
- * Head parity with legacy (issues #88, #89; docs/seo-audit.md P1, P5, P6,
- * P11, P12, P13). Sitewide checks read every built page out of `dist/` (the
- * webServer builds before the suite runs); per-page checks derive their
- * expectations from the markdown frontmatter and sponsors data.
+ * Head parity with legacy (issues #88, #89). Sitewide checks read every built page
+ * out of `dist/` (the webServer builds before the suite runs); per-page
+ * checks derive their expectations from the markdown frontmatter and sponsors data.
  */
 
 /**

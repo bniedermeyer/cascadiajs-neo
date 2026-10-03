@@ -47,7 +47,7 @@ const { Content } = await render(entry);
 
 // Legacy omits the year from the title template, and its brochure-request
 // page (`/<year>/sponsor`) has no sharing handler, so it uses the sitewide
-// defaults instead (docs/seo-audit.md P12).
+// defaults instead.
 const isSponsorBrochure = slug === "sponsor";
 const metaTitle = isSponsorBrochure
   ? DEFAULT_TITLE

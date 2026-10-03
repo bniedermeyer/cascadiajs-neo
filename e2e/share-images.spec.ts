@@ -2,10 +2,10 @@ import { test, expect, type Page } from "@playwright/test";
 import talks from "../src/shared/data/2026/talks.json" with { type: "json" };
 
 /**
- * Share images (issue #86, docs/seo-audit.md P2 + Appendix A): every page's
- * og:image/twitter:image is an absolute URL to a real file under
- * /images/2026/share/. Talk pages use their Speaker's legacy card when one
- * exists; five top-level pages use their own image; everything else uses the
+ * Share images (issue #86): every page's og:image/twitter:image is an absolute
+ * URL to a real file under /images/2026/share/. Talk pages use their
+ * Speaker's legacy card when one exists; five top-level pages use their own
+ * image; everything else uses the
  * general image.
  */
 
