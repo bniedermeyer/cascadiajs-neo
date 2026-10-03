@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { marked } from "marked";
+import type { Talk } from "../src/shared/data/types";
 import talks from "../src/shared/data/2026/talks.json" with { type: "json" };
 
 /**
@@ -115,22 +116,49 @@ test.describe("Talk detail page: missing slugs", () => {
   });
 });
 
+const workshopTalks = (talks as Talk[]).filter(
+  (t) => t.type === "workshop" && t.slug,
+);
+
 test.describe("Workshop talk pages", () => {
-  const slugs = [
-    "offloading-work-with-the-workers",
-    "deploying-ai-agents-on-aws-with-pulumi-and-amazon-bedrock-agentcore",
-    "build-better-agent-tools-with-apify",
-    "build-a-voice-agent-with-vapi",
-  ];
-  for (const slug of slugs) {
-    test(`/2026/talks/${slug} renders with a workshop registration link`, async ({
-      page,
-    }) => {
-      const response = await page.goto(`/2026/talks/${slug}`);
-      expect(response?.status()).toBe(200);
-      await expect(
-        page.locator(`.prose-content a[href^="/2026/workshops/"]`),
-      ).toHaveCount(1);
+  test("there are four Workshop Talks", () => {
+    expect(workshopTalks).toHaveLength(4);
+  });
+
+  for (const { slug, speaker } of workshopTalks) {
+    test.describe(`/2026/talks/${slug}`, () => {
+      test.beforeEach(async ({ page }) => {
+        const response = await page.goto(`/2026/talks/${slug}`);
+        expect(response?.status()).toBe(200);
+      });
+
+      test("title and og:title match the regular Talk format", async ({
+        page,
+      }) => {
+        const expected = `CascadiaJS 2026 | Speakers | ${speaker.name}`;
+        await expect(page).toHaveTitle(expected);
+        await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+          "content",
+          expected,
+        );
+      });
+
+      test("renders Our Sponsors and Testimonials after the body", async ({
+        page,
+      }) => {
+        await expect(
+          page.getByRole("heading", { level: 1, name: "Our Sponsors" }),
+        ).toBeVisible();
+        await expect(page.locator("#testimonials")).toBeVisible();
+      });
+
+      test("abstract links to the Workshop registration page", async ({
+        page,
+      }) => {
+        await expect(
+          page.locator('.prose-content a[href^="/2026/workshops/"]'),
+        ).toHaveCount(1);
+      });
     });
   }
 });
