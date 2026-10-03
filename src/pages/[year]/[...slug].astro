@@ -7,7 +7,6 @@ import MarkdownContent from "../../components/MarkdownContent.astro";
 import SponsorsGrid from "../../components/SponsorsGrid.astro";
 import CtaButton from "../../components/CtaButton.astro";
 import Testimonials from "../../components/Testimonials.astro";
-import { pageDescription } from "../../shared/page-description";
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "../../shared/site-defaults";
 
 /**
@@ -55,7 +54,7 @@ const metaTitle = isSponsorBrochure
   : `CascadiaJS | ${entry.data.title}`;
 const metaDescription = isSponsorBrochure
   ? DEFAULT_DESCRIPTION
-  : pageDescription(entry.data);
+  : entry.data.description;
 ---
 
 <EventLayout

@@ -1,7 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
 import MarkdownLayout from "../layouts/MarkdownLayout.astro";
-import { pageDescription } from "../shared/page-description";
 
 export async function getStaticPaths() {
   const entries = await getCollection("markdown");
@@ -20,7 +19,7 @@ const { Content } = await render(entry);
 
 <MarkdownLayout
   title={entry.data.title}
-  description={pageDescription(entry.data)}
+  description={entry.data.description}
   width={entry.data.width}
   showSponsors={entry.data.showSponsors}
   showTestimonials={entry.data.showTestimonials}

@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import sponsors from "../src/shared/data/sponsors.json" with { type: "json" };
-import { pageDescription } from "../src/shared/page-description";
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_TITLE,
@@ -117,7 +116,7 @@ test.describe("Year-scoped markdown pages", () => {
   for (const file of files) {
     const slug = file.replace(/\.mdx?$/, "");
     const data = frontmatter(`markdown/2026/${file}`);
-    const description = pageDescription(data);
+    const description = data.description;
 
     test(`/2026/${slug} title has no year${description ? " and uses its description" : ""}`, async ({
       page,
@@ -135,23 +134,12 @@ test.describe("Year-scoped markdown pages", () => {
     });
   }
 
-  test("excerpt text is rendered unchanged as the description", async ({
-    page,
-  }) => {
+  test("training description is rendered unchanged", async ({ page }) => {
     await page.goto("/2026/trainings/coding-with-claude");
     await expect(page.locator('meta[name="description"]')).toHaveAttribute(
       "content",
       "Eve Porcello",
     );
-  });
-
-  test("an explicit description wins over excerpt", () => {
-    expect(
-      pageDescription({ description: "explicit", excerpt: "fallback" }),
-    ).toBe("explicit");
-    expect(pageDescription({ excerpt: "fallback" })).toBe("fallback");
-    expect(pageDescription({ description: "explicit" })).toBe("explicit");
-    expect(pageDescription({})).toBeUndefined();
   });
 
   test("/2026/sponsor uses the sitewide defaults", async ({ page }) => {
