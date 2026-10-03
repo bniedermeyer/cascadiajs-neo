@@ -115,6 +115,26 @@ test.describe("Talk detail page: missing slugs", () => {
   });
 });
 
+test.describe("Workshop talk pages", () => {
+  const slugs = [
+    "offloading-work-with-the-workers",
+    "deploying-ai-agents-on-aws-with-pulumi-and-amazon-bedrock-agentcore",
+    "build-better-agent-tools-with-apify",
+    "build-a-voice-agent-with-vapi",
+  ];
+  for (const slug of slugs) {
+    test(`/2026/talks/${slug} renders with a workshop registration link`, async ({
+      page,
+    }) => {
+      const response = await page.goto(`/2026/talks/${slug}`);
+      expect(response?.status()).toBe(200);
+      await expect(
+        page.locator(`.prose-content a[href^="/2026/workshops/"]`),
+      ).toHaveCount(1);
+    });
+  }
+});
+
 test.describe("Talk abstract markdown", () => {
   test("multi-paragraph abstract renders as separate paragraphs", async ({
     page,
