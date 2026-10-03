@@ -92,12 +92,12 @@ test.describe("Talk detail page", () => {
     );
   });
 
-  test("Buy Tickets CTA links to /2026/tickets", async ({ page }) => {
+  test("Buy Tickets CTA links to the 2026 homepage", async ({ page }) => {
     const cta = page.getByRole("link", {
       name: /Tickets to CascadiaJS 2026 on sale now/,
     });
     await expect(cta).toBeVisible();
-    await expect(cta).toHaveAttribute("href", "/2026/tickets");
+    await expect(cta).toHaveAttribute("href", "/2026");
   });
 
   test("EventLayout nav is present", async ({ page }) => {

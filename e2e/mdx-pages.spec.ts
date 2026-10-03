@@ -23,7 +23,7 @@ test.describe("MDX page (/2026/childcare)", () => {
   test("CTA button is visible with the correct href", async ({ page }) => {
     const cta = page.getByRole("link", { name: "Sign up", exact: true });
     await expect(cta).toBeVisible();
-    await expect(cta).toHaveAttribute("href", "/2026/tickets");
+    await expect(cta).toHaveAttribute("href", "/2026");
   });
 
   test("CTA button renders the secondary variant styling", async ({ page }) => {
@@ -79,7 +79,7 @@ test.describe("MDX workshop page (/2026/workshops/deploying-ai-agents)", () => {
       name: "Get Your Conference Ticket Today!",
     });
     await expect(cta).toBeVisible();
-    await expect(cta).toHaveAttribute("href", "/2026/tickets");
+    await expect(cta).toHaveAttribute("href", "/2026");
   });
 });
 
@@ -115,7 +115,7 @@ test.describe("MDX page (/2026/trainings/ai-for-typescript-developers)", () => {
   test("CTA button is visible with the correct href", async ({ page }) => {
     const cta = page.getByRole("link", { name: "Buy Ticket", exact: true });
     await expect(cta).toBeVisible();
-    await expect(cta).toHaveAttribute("href", "/2026/tickets");
+    await expect(cta).toHaveAttribute("href", "/2026");
   });
 });
 

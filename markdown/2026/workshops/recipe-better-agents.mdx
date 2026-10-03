@@ -5,6 +5,8 @@ description: AI agents are becoming more popular, but to make them more useful a
 
 import Callout from "../../../src/components/Callout.astro";
 import CtaButton from "../../../src/components/CtaButton.astro";
+import { Image } from "astro:assets";
+import michaelDaigler from "../../../src/assets/images/workshops/michael-daigler.jpg";
 
 <Callout variant="info">
   This workshop is FREE for attendees of CascadiaJS 2026. Seats are LIMITED,
@@ -12,7 +14,7 @@ import CtaButton from "../../../src/components/CtaButton.astro";
   email for the registration link.
 </Callout>
 
-<CtaButton href="/2026/tickets">🎟️ Get Your Conference Ticket Today!</CtaButton>
+<CtaButton href="/2026">🎟️ Get Your Conference Ticket Today!</CtaButton>
 
 - When: Monday, June 1 (1:40pm - 3:40pm)
 - Where: Town Hall, Forum level
@@ -43,11 +45,7 @@ Understanding how to:
 ## About Michael
 
 <p>
-  <img
-    src="/_public/images/workshops/michael-daigler.jpg"
-    width="200"
-    alt="Michael Daigler"
-  />
+  <Image src={michaelDaigler} width={200} alt="Michael Daigler" />
 </p>
 
 Michael is a Developer Advocate at Apify, where he focuses on educating and helping developers and AI builders leverage Apify tools for their AI agents and workflows. He also runs AITX Community, a community for AI engineers and entrepreneurs across Texas. He's based in Austin, TX.

@@ -76,7 +76,7 @@ We recommend that booth sponsors bring a single, pop-up banner to place alongsid
 
 Recommended booth times are 8:00am - 5:00pm on June 1 and 8:00am - 4:00pm on June 2.
 
-![moovweb](/images/cjs19-moovweb.jpg)
+![moovweb](../../../src/assets/images/cjs19-moovweb.jpg)
 
 ### Lead Capture
 
