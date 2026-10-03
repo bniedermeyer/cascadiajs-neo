@@ -33,22 +33,27 @@ for (const { path, alt } of contentImages) {
   test(`${path} "${alt}" image and every other image load`, async ({
     page,
   }) => {
-    const failures: string[] = [];
-    page.on("response", (res) => {
-      if (res.request().resourceType() === "image" && res.status() >= 400) {
-        failures.push(res.url());
-      }
-    });
-    await page.goto(path, { waitUntil: "networkidle" });
+    await page.goto(path);
+    await expect(
+      page.getByRole("img", { name: alt, exact: true }),
+    ).toBeAttached();
 
-    const image = page.getByRole("img", { name: alt, exact: true });
-    await image.scrollIntoViewIfNeeded();
-    await expect(async () => {
-      const naturalWidth = await image.evaluate(
-        (img: HTMLImageElement) => img.naturalWidth,
+    // Force lazy images to load, then list every same-origin image that
+    // fails to decode (a 404 leaves naturalWidth at 0).
+    const broken = await page.evaluate(async () => {
+      const images = [...document.images].filter(
+        (img) => new URL(img.currentSrc || img.src).origin === location.origin,
       );
-      expect(naturalWidth).toBeGreaterThan(0);
-    }).toPass();
-    expect(failures).toEqual([]);
+      await Promise.all(
+        images.map((img) => {
+          img.loading = "eager";
+          return img.decode().catch(() => {});
+        }),
+      );
+      return images
+        .filter((img) => img.naturalWidth === 0)
+        .map((img) => img.getAttribute("src"));
+    });
+    expect(broken).toEqual([]);
   });
 }
