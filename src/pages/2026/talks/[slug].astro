@@ -12,7 +12,7 @@ import SimplePage from "../../../layouts/SimplePage.astro";
 export async function getStaticPaths() {
   const talks = await getCollection("talks");
   return talks
-    .filter((talk) => talk.data.slug && talk.data.type !== "workshop")
+    .filter((talk) => talk.data.slug)
     .map((talk) => ({
       params: { slug: talk.data.slug! },
       props: { talk: talk.data },

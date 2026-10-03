@@ -26,9 +26,7 @@ const speakerTalks = talks.filter((t) =>
 );
 
 function talkHref(talk: Talk): string {
-  return talk.slug && talk.type !== "workshop"
-    ? `/2026/talks/${talk.slug}`
-    : "/2026/";
+  return talk.slug ? `/2026/talks/${talk.slug}` : "/2026/";
 }
 
 const headingClass = "mt-0 mb-8 text-5xl";
