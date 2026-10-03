@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import eslintPluginAstro from "eslint-plugin-astro";
+import * as mdx from "eslint-plugin-mdx";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
@@ -7,8 +8,47 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   ...eslintPluginAstro.configs.recommended,
   {
+    ...mdx.flat,
+    files: ["**/*.mdx"],
+  },
+  {
+    // MDX is only linted for its import statements. Prose is not JS, and JSX
+    // usage of imports isn't visible to the scope analysis, so these
+    // JS-oriented rules produce false positives there.
+    files: ["**/*.mdx"],
+    rules: {
+      "@typescript-eslint/no-unused-vars": "off",
+      "no-unused-vars": "off",
+      "no-irregular-whitespace": "off",
+    },
+  },
+  {
     rules: {
       curly: ["error", "all"],
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              // Any depth of `../` that lands directly on a top-level alias
+              // directory (`../components/X`, `../../shared/Y`). Same-dir
+              // climbs like `../types`, `../CtaButton.astro`,
+              // `../../content.config` or `../styles/global.css` don't name
+              // one of these directories first, so they pass.
+              regex: "^(\\.\\./)+(components|layouts|shared|assets)(/|$)",
+              message:
+                "Use a path alias (@components, @layouts, @shared, @assets) instead of a relative `../` import.",
+            },
+            {
+              // Paths from outside src/ (markdown/, e2e/), e.g.
+              // `../src/components/Foo.astro`.
+              regex: "^(\\.\\./)+src/(components|layouts|shared|assets)(/|$)",
+              message:
+                "Use a path alias (@components, @layouts, @shared, @assets) instead of reaching into src/ with a relative path.",
+            },
+          ],
+        },
+      ],
     },
   },
   {
