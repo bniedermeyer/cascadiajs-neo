@@ -3,6 +3,10 @@ import { getCollection } from "astro:content";
 import EventLayout from "../../../layouts/EventLayout.astro";
 import PersonDetail from "../../../components/PersonDetail.astro";
 import CtaButton from "../../../components/CtaButton.astro";
+import SponsorsGrid from "../../../components/SponsorsGrid.astro";
+import Testimonials from "../../../components/Testimonials.astro";
+import MarkdownContent from "../../../components/MarkdownContent.astro";
+import { marked } from "marked";
 import SimplePage from "../../../layouts/SimplePage.astro";
 
 export async function getStaticPaths() {
@@ -18,10 +22,13 @@ export async function getStaticPaths() {
 const { talk } = Astro.props;
 const { title, abstract, tags, yt, speaker } = talk;
 
-const paragraphs = abstract?.split("\n\n").filter(Boolean) ?? [];
+const abstractHtml = marked.parse(abstract ?? "") as string;
+
+// Legacy title string, hardcoded year included.
+const metaTitle = `CascadiaJS 2026 | Speakers | ${speaker.name}`;
 ---
 
-<EventLayout title={title}>
+<EventLayout title={metaTitle}>
   <SimplePage title={title}>
     {
       tags && (
@@ -32,7 +39,9 @@ const paragraphs = abstract?.split("\n\n").filter(Boolean) ?? [];
         </div>
       )
     }
-    {paragraphs.map((p) => <p>{p}</p>)}
+    <MarkdownContent>
+      <div set:html={abstractHtml} />
+    </MarkdownContent>
     {
       yt && (
         <div>
@@ -61,5 +70,13 @@ const paragraphs = abstract?.split("\n\n").filter(Boolean) ?? [];
     <CtaButton href="/2026/tickets">
       🎟️ Tickets to CascadiaJS 2026 on sale now!
     </CtaButton>
+    <Fragment slot="after-body">
+      <section id="sponsors" class="box-content p-8 text-center">
+        <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
+        <SponsorsGrid event="2026" tiered={true} />
+        <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
+      </section>
+      <Testimonials />
+    </Fragment>
   </SimplePage>
 </EventLayout>
