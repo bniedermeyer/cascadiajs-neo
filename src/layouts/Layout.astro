@@ -15,12 +15,13 @@ const {
   description,
   displayNav = true,
   displayAlert = true,
-  ogImage = "/images/2026/social/social-sharing-general.png",
+  ogImage = "/images/2026/share/social-sharing-general.png",
   title,
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
-  .href;
+const origin = Astro.site ?? Astro.url.origin;
+const canonicalUrl = new URL(Astro.url.pathname, origin).href;
+const ogImageUrl = new URL(ogImage, origin).href;
 ---
 
 <html lang="en">
@@ -41,14 +42,14 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin)
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
+    <meta property="og:image" content={ogImageUrl} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:site" content="@cascadiajs" />
 
     <!-- Fonts: Adobe Typekit -->

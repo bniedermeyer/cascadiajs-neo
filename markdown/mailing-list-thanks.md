@@ -1,5 +1,6 @@
 ---
 title: Thanks for signing up for our newletter
+ogImage: /images/2026/share/mailing-list-thanks.png
 ---
 
 ## If you are signing-up for the first time:

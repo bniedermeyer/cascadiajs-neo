@@ -12,6 +12,7 @@ interface Props {
   width?: "narrow" | "wide";
   showSponsors?: boolean;
   showTestimonials?: boolean;
+  ogImage?: string;
 }
 
 const {
@@ -20,13 +21,18 @@ const {
   width = "narrow",
   showSponsors = true,
   showTestimonials = true,
+  ogImage,
 } = Astro.props;
 const eventYear = Astro.url.pathname.split("/")[1]?.match(/^(\d{4})$/)?.[1];
 const titlePrefix = eventYear ? `CascadiaJS ${eventYear} | ` : "CascadiaJS | ";
 const metaTitle = title ? `${titlePrefix}${title}` : `CascadiaJS ${eventYear}`;
 ---
 
-<Layout title={metaTitle} description={description ?? metaTitle}>
+<Layout
+  title={metaTitle}
+  description={description ?? metaTitle}
+  ogImage={ogImage}
+>
   <SimplePage title={title} width={width}>
     <MarkdownContent>
       <slot />

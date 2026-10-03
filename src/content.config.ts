@@ -9,6 +9,8 @@ const markdown = defineCollection({
     description: z.string().optional(),
     width: z.enum(["narrow", "wide"]).default("narrow"),
     image: z.string().optional(),
+    /** Share image path under `public/`; defaults to the general image. */
+    ogImage: z.string().optional(),
     showSponsors: z.boolean().default(true),
     showTestimonials: z.boolean().default(true),
     published: z.boolean().default(true),
