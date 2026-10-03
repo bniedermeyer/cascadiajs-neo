@@ -91,6 +91,31 @@ test.describe("Share images", () => {
     });
   }
 
+  // Pinned independently of `slugify` so a shared bug can't mask itself.
+  const talkBy = (speaker: string) =>
+    talks.find((t) => t.speaker.name === speaker && t.slug)!.slug;
+
+  test("an accented Speaker name maps to its card", async ({ page }) => {
+    await page.goto(`/2026/talks/${talkBy("Jeff Otaño")}`);
+    await expectShareImage(page, `${SHARE}/speaker-jeff-otano.png`);
+  });
+
+  for (const speaker of [
+    "Kaelig Deloumeau-Prigent",
+    "Luis Montes",
+    "Erik Hanchett",
+    "James Ide",
+    "Michael Liendo",
+    "Nyah Macklin",
+  ]) {
+    test(`${speaker} has no card and uses the general image`, async ({
+      page,
+    }) => {
+      await page.goto(`/2026/talks/${talkBy(speaker)}`);
+      await expectShareImage(page, GENERAL);
+    });
+  }
+
   for (const name of PAGE_IMAGES) {
     test(`/${name} uses its own image`, async ({ page }) => {
       await page.goto(`/${name}`);
