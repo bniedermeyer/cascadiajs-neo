@@ -1,6 +1,6 @@
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync } from "node:fs";
 import { expect, test, type Page } from "@playwright/test";
+import { builtPages, distPath } from "./helpers";
 
 const canonical = (page: Page) => page.locator('link[rel="canonical"]');
 
@@ -31,15 +31,12 @@ test.describe("Canonical URLs", () => {
   });
 
   test("no built page has an internal link with a trailing slash", () => {
-    // The preview webServer builds first, so dist/ always reflects the site.
-    const pages = (
-      readdirSync("dist", { recursive: true, encoding: "utf8" }) as string[]
-    ).filter((file) => file.endsWith(".html"));
+    const pages = builtPages();
     expect(pages.length).toBeGreaterThan(50);
 
     const slashed: string[] = [];
     for (const file of pages) {
-      const html = readFileSync(join("dist", file), "utf8");
+      const html = readFileSync(distPath(file), "utf8");
       for (const [, href] of html.matchAll(/\shref="(\/[^"]*)"/g)) {
         const path = href.split(/[?#]/)[0];
         if (path !== "/" && path.endsWith("/")) {

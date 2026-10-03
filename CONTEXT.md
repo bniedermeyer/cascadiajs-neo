@@ -49,7 +49,7 @@ The page for an Event that has already happened, captured once as a single self-
 _Avoid_: Archive page, Snapshot page, Past event page
 
 **MarkdownLayout**:
-The Astro layout (`src/layouts/MarkdownLayout.astro`) that wraps `Layout.astro` and adds the page chrome ported from the legacy `simple-page` element. It is invoked with direct props (`title`, `description`, `width`) by the `markdown` Collection's dynamic route, not opted into via frontmatter. See ADR-0007.
+The Astro layout (`src/layouts/MarkdownLayout.astro`) that wraps `Layout.astro` and adds the page chrome ported from the legacy `simple-page` element. It is invoked with direct props (`title`, `description`, `width`) by the `markdown` Collection's dynamic route, not opted into via frontmatter. Its meta description is frontmatter `description`, else `excerpt`; if neither is set, root pages fall back to the meta title and year-scoped pages to the Event's default description. See ADR-0007.
 _Avoid_: simple-page, page-layout (legacy Enhance names)
 
 **Collection**:

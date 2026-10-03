@@ -1,7 +1,12 @@
-import { readdirSync, readFileSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import sponsors from "../src/shared/data/sponsors.json" with { type: "json" };
+import { pageDescription } from "../src/shared/page-description";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+} from "../src/shared/site-defaults";
+import { builtPages, distPath, filesUnder } from "./helpers";
 
 /**
  * Head parity with legacy (issues #88, #89; docs/seo-audit.md P1, P5, P6,
@@ -10,41 +15,25 @@ import sponsors from "../src/shared/data/sponsors.json" with { type: "json" };
  * expectations from the markdown frontmatter and sponsors data.
  */
 
-const DEFAULT_TITLE = "CascadiaJS - a JS conf for the PacNW";
-const DEFAULT_DESCRIPTION =
-  "CascadiaJS 2026 is coming up on June 1 - 2 in Seattle, WA!";
-
-function builtPages(dir = "dist"): string[] {
-  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const path = join(dir, entry.name);
-    if (entry.isDirectory()) {
-      return builtPages(path);
-    }
-    return entry.name.endsWith(".html") ? [path] : [];
-  });
-}
-
-/** Single-line `key: value` frontmatter fields (all this repo's content uses). */
+/**
+ * Single-line `key: value` frontmatter fields, which is all this repo's
+ * content uses. Throws on any line it can't parse (a multi-line or nested
+ * value, a block scalar) rather than silently misparsing it.
+ */
 function frontmatter(file: string): Record<string, string> {
   const block = readFileSync(file, "utf8").match(/^---\n([\s\S]*?)\n---/);
+  if (!block) {
+    throw new Error(`${file}: no frontmatter block`);
+  }
   const fields: Record<string, string> = {};
-  for (const line of block?.[1].split("\n") ?? []) {
-    const m = line.match(/^(\w+):\s*(.*)$/);
-    if (m) {
-      fields[m[1]] = m[2].replace(/^(["'])(.*)\1$/, "$2");
+  for (const line of block[1].split("\n")) {
+    const m = line.match(/^(\w+): (\S.*)$/);
+    if (!m || /^[|>[{&*!]/.test(m[2])) {
+      throw new Error(`${file}: unsupported frontmatter line: ${line}`);
     }
+    fields[m[1]] = m[2].replace(/^(["'])(.*)\1$/, "$2");
   }
   return fields;
-}
-
-function markdownFiles(dir: string): string[] {
-  return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
-    const path = join(dir, entry.name);
-    if (entry.isDirectory()) {
-      return markdownFiles(path);
-    }
-    return /\.mdx?$/.test(entry.name) ? [path] : [];
-  });
 }
 
 test.describe("Sitewide head (every built page)", () => {
@@ -54,9 +43,12 @@ test.describe("Sitewide head (every built page)", () => {
     expect(pages.length).toBeGreaterThan(50);
   });
 
+  // CUTOVER: this test asserts the analytics snippets in Layout.astro are
+  // still dormant. Invert or remove it when they are enabled (see the TODO
+  // in Layout.astro), or it will fail on every page.
   test("every page has the legacy viewport, author meta and no analytics", () => {
     for (const file of pages) {
-      const html = readFileSync(file, "utf8");
+      const html = readFileSync(distPath(file), "utf8");
       expect(html, file).toContain(
         '<meta name="viewport" content="width=device-width, initial-scale=1"',
       );
@@ -75,7 +67,7 @@ test.describe("Sitewide head (every built page)", () => {
   });
 
   test("charset and viewport are the first head children", () => {
-    const html = readFileSync("dist/index.html", "utf8");
+    const html = readFileSync(distPath("index.html"), "utf8");
     const head = html.match(/<head>\s*([\s\S]*?)<\/head>/)![1];
     expect(head.startsWith('<meta charset="utf-8"')).toBe(true);
     expect(head.indexOf("viewport")).toBeLessThan(head.indexOf("<title>"));
@@ -112,8 +104,8 @@ test.describe("Default title and description", () => {
 });
 
 test.describe("Year-scoped markdown pages", () => {
-  const files = markdownFiles("markdown/2026").filter((f) => {
-    const slug = f.replace(/^markdown\/2026\//, "").replace(/\.mdx?$/, "");
+  const files = filesUnder("markdown/2026", /\.mdx?$/).filter((f) => {
+    const slug = f.replace(/\.mdx?$/, "");
     // /2026/schedule is a dedicated page; /2026/sponsor uses the defaults.
     return !["schedule", "sponsor"].includes(slug);
   });
@@ -123,9 +115,9 @@ test.describe("Year-scoped markdown pages", () => {
   });
 
   for (const file of files) {
-    const slug = file.replace(/^markdown\/2026\//, "").replace(/\.mdx?$/, "");
-    const data = frontmatter(file);
-    const description = data.description ?? data.excerpt;
+    const slug = file.replace(/\.mdx?$/, "");
+    const data = frontmatter(`markdown/2026/${file}`);
+    const description = pageDescription(data);
 
     test(`/2026/${slug} title has no year${description ? " and uses its description" : ""}`, async ({
       page,
@@ -151,6 +143,15 @@ test.describe("Year-scoped markdown pages", () => {
       "content",
       "Eve Porcello",
     );
+  });
+
+  test("an explicit description wins over excerpt", () => {
+    expect(
+      pageDescription({ description: "explicit", excerpt: "fallback" }),
+    ).toBe("explicit");
+    expect(pageDescription({ excerpt: "fallback" })).toBe("fallback");
+    expect(pageDescription({ description: "explicit" })).toBe("explicit");
+    expect(pageDescription({})).toBeUndefined();
   });
 
   test("/2026/sponsor uses the sitewide defaults", async ({ page }) => {
