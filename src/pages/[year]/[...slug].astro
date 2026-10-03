@@ -1,13 +1,13 @@
 ---
 import { getCollection, render } from "astro:content";
-import type { EventConfig, Sponsor } from "../../shared/data/types";
-import EventLayout from "../../layouts/EventLayout.astro";
-import SimplePage from "../../layouts/SimplePage.astro";
-import MarkdownContent from "../../components/MarkdownContent.astro";
-import SponsorsGrid from "../../components/SponsorsGrid.astro";
-import CtaButton from "../../components/CtaButton.astro";
-import Testimonials from "../../components/Testimonials.astro";
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "../../shared/site-defaults";
+import type { EventConfig, Sponsor } from "@shared/data/types";
+import EventLayout from "@layouts/EventLayout.astro";
+import SimplePage from "@layouts/SimplePage.astro";
+import MarkdownContent from "@components/MarkdownContent.astro";
+import SponsorsGrid from "@components/SponsorsGrid.astro";
+import CtaButton from "@components/CtaButton.astro";
+import Testimonials from "@components/Testimonials.astro";
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
 
 /**
  * Year-scoped markdown pages (markdown/<year>/*.md) render through this page.

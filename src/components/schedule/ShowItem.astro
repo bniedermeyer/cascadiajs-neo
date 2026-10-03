@@ -8,7 +8,7 @@
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 import CtaButton from "../CtaButton.astro";
-import type { Activity } from "../../shared/data/types";
+import type { Activity } from "@shared/data/types";
 
 const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",

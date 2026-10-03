@@ -3,13 +3,13 @@ import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { marked } from "marked";
-import type { EventConfig } from "../../../shared/data/types";
-import EventLayout from "../../../layouts/EventLayout.astro";
-import SimplePage from "../../../layouts/SimplePage.astro";
-import MarkdownContent from "../../../components/MarkdownContent.astro";
-import CtaButton from "../../../components/CtaButton.astro";
-import SponsorsGrid from "../../../components/SponsorsGrid.astro";
-import Testimonials from "../../../components/Testimonials.astro";
+import type { EventConfig } from "@shared/data/types";
+import EventLayout from "@layouts/EventLayout.astro";
+import SimplePage from "@layouts/SimplePage.astro";
+import MarkdownContent from "@components/MarkdownContent.astro";
+import CtaButton from "@components/CtaButton.astro";
+import SponsorsGrid from "@components/SponsorsGrid.astro";
+import Testimonials from "@components/Testimonials.astro";
 
 export async function getStaticPaths() {
   // Only Events with a config (currently just 2026 -- previous years' content

@@ -6,8 +6,8 @@
  * ShowItem's schema), so Track's time-cell override reaches this row too.
  * A Talk with no `slug` renders its title as plain text, not a dead link.
  */
-import talksData from "../../shared/data/2026/talks.json";
-import type { Talk } from "../../shared/data/types";
+import talksData from "@shared/data/2026/talks.json";
+import type { Talk } from "@shared/data/types";
 
 interface Props {
   /** A Talk's `id` -- looked up from the roster, never passed literally. */
