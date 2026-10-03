@@ -36,9 +36,12 @@ const ogImageUrl = new URL(ogImage, origin).href;
          app/head.mjs; nothing below is emitted. To enable, remove the whole
          curly-brace-plus-comment wrapper around this block, not just the
          comment markers (leftover braces would be parsed as an expression),
-         and add `is:inline` to EVERY <script> tag, including the external
-         gtag loader (<script async src=...>): Astro processes scripts that
+         and add `is:inline` to EVERY script tag, including the external
+         gtag loader (the `async src` one): Astro processes scripts that
          have a src too, and would bundle or drop them without it.
+         Don't write a bare script tag in this prose: Vite's dependency
+         scanner regex-matches script tags even inside comments and would
+         parse the text up to the next closing tag as JavaScript.
          Also invert or remove the "no analytics traces" test in
          e2e/head.spec.ts, which fails once these snippets are emitted.
          Don't write a star-slash inside this comment: it would end it early.
@@ -133,7 +136,7 @@ const ogImageUrl = new URL(ogImage, origin).href;
          <body> because an <img> in <head> is invalid and makes the parser
          close the head early. To enable, remove the whole curly-brace-plus-
          comment wrapper, not just the comment markers. (This tag is plain
-         HTML, not a <script>, so it needs no `is:inline`.)
+         HTML, not a script tag, so it needs no `is:inline`.)
 
          <noscript><img height="1" width="1" style="display:none"
          src="https://www.facebook.com/tr?id=1431763387943877&ev=PageView&noscript=1"
