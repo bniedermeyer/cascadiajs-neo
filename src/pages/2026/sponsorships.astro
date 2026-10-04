@@ -15,6 +15,11 @@ import Testimonials from "@components/Testimonials.astro";
 import { Image } from "astro:assets";
 import logoImage from "@assets/events/2026/images/icon-dark-blue.png";
 import heroImage from "@assets/events/2026/images/sponsor-brochure/hero.jpg";
+
+// The sponsorship brochure is a standalone page meant to be shared with
+// prospective sponsors: it draws its own header band (dates, URL, location)
+// and logo below. So it uses the base Layout with the site nav and alert
+// hidden, not EventLayout, whose Event nav would duplicate that header.
 ---
 
 <Layout displayNav={false} displayAlert={false}>
