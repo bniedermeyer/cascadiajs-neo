@@ -73,13 +73,15 @@ export const sponsorSchema = z.object({
   events: z.array(z.enum(["previous", "2025", "2026"])),
 });
 
-const talks = defineCollection({
+const talks2026 = defineCollection({
   loader: file("./src/shared/data/2026/talks.json"),
-  schema: talkSchema,
+  // Astro defines an error-logging `slug` getter on any entry whose data lacks
+  // the key, so slugless Talks would log on every read. Pin the key present.
+  schema: talkSchema.transform((talk) => ({ slug: undefined, ...talk })),
 });
 const sponsors = defineCollection({
   loader: file("./src/shared/data/sponsors.json"),
   schema: sponsorSchema,
 });
 
-export const collections = { markdown, talks, sponsors };
+export const collections = { markdown, talks2026, sponsors };

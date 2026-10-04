@@ -12,9 +12,9 @@ import DayContent from "@components/schedule/DayContent.astro";
 import Track from "@components/schedule/Track.astro";
 import TalkItem from "@components/schedule/TalkItem.astro";
 import HallwayTrack from "@components/schedule/HallwayTrack.astro";
+import { getEntry } from "astro:content";
 import activities from "@shared/data/2026/activities.json";
-import talks from "@shared/data/2026/talks.json";
-import type { Activity, Talk } from "@shared/data/types";
+import type { Activity } from "@shared/data/types";
 
 // Throws on a typo'd id rather than silently rendering a blank row.
 function activity(id: string): Activity {
@@ -28,12 +28,12 @@ function activity(id: string): Activity {
 // Workshop rows use ShowItem, not TalkItem. Title/description come from
 // the roster, but href doesn't match the Talk's own `slug` -- it's parsed
 // from a trailing "[[More info...]](url)" line in the abstract instead.
-function workshopTalk(id: string): {
+async function workshopTalk(id: string): Promise<{
   title: string;
   url: string;
   description: string;
-} {
-  const talk = (talks as Talk[]).find((t) => t.id === id);
+}> {
+  const talk = (await getEntry("talks2026", id))?.data;
   if (!talk?.abstract) {
     throw new Error(`No workshop Talk with an abstract found for id "${id}"`);
   }
@@ -51,12 +51,12 @@ function workshopTalk(id: string): {
 }
 
 // Looked up once so each is a single roster read, not three per row below.
-const voiceAgentWorkshop = workshopTalk("build-a-voice-agent-with-vapi");
-const apifyWorkshop = workshopTalk("build-better-agent-tools-with-apify");
-const offloadingWorkersWorkshop = workshopTalk(
+const voiceAgentWorkshop = await workshopTalk("build-a-voice-agent-with-vapi");
+const apifyWorkshop = await workshopTalk("build-better-agent-tools-with-apify");
+const offloadingWorkersWorkshop = await workshopTalk(
   "offloading-work-with-the-workers",
 );
-const deployingAgentsWorkshop = workshopTalk(
+const deployingAgentsWorkshop = await workshopTalk(
   "deploying-ai-agents-on-aws-with-pulumi-and-amazon-bedrock-agentcore",
 );
 ---

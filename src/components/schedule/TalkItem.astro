@@ -6,8 +6,7 @@
  * ShowItem's schema), so Track's time-cell override reaches this row too.
  * A Talk with no `slug` renders its title as plain text, not a dead link.
  */
-import talksData from "@shared/data/2026/talks.json";
-import type { Talk } from "@shared/data/types";
+import { getEntry } from "astro:content";
 
 interface Props {
   /** A Talk's `id` -- looked up from the roster, never passed literally. */
@@ -18,10 +17,11 @@ interface Props {
 
 const { talk: talkId, when } = Astro.props;
 
-const talk = (talksData as Talk[]).find((t) => t.id === talkId);
-if (!talk) {
+const entry = await getEntry("talks2026", talkId);
+if (!entry) {
   throw new Error(`No Talk found with id "${talkId}"`);
 }
+const talk = entry.data;
 ---
 
 <div class="m-4 flex">

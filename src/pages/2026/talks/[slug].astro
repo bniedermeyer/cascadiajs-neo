@@ -10,7 +10,7 @@ import { marked } from "marked";
 import SimplePage from "@layouts/SimplePage.astro";
 
 export async function getStaticPaths() {
-  const talks = await getCollection("talks");
+  const talks = await getCollection("talks2026");
   return talks
     .filter((talk) => talk.data.slug)
     .map((talk) => ({
