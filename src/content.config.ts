@@ -41,8 +41,8 @@ export const personSchema = z.object({
 
 export const talkSchema = z.object({
   id: z.string(),
-  /** Absent renders the title as plain text, not a link. */
-  slug: z.string().optional(),
+  /** null renders the title as plain text, not a link. */
+  slug: z.string().nullable(),
   title: z.string(),
   type: z.enum(["keynote", "main", "lightning", "workshop"]),
   abstract: z.string().optional(),
@@ -75,9 +75,7 @@ export const sponsorSchema = z.object({
 
 const talks2026 = defineCollection({
   loader: file("./src/shared/data/2026/talks.json"),
-  // Astro defines an error-logging `slug` getter on any entry whose data lacks
-  // the key, so slugless Talks would log on every read. Pin the key present.
-  schema: talkSchema.transform((talk) => ({ slug: undefined, ...talk })),
+  schema: talkSchema,
 });
 const sponsors = defineCollection({
   loader: file("./src/shared/data/sponsors.json"),

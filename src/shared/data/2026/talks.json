@@ -1,6 +1,7 @@
 [
   {
     "id": "day-one-opening-keynote",
+    "slug": null,
     "title": "Day One Opening Keynote",
     "type": "keynote",
     "speaker": {
