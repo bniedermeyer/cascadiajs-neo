@@ -1,4 +1,4 @@
-import type { EventConfig, EventYear } from "./types";
+import type { Activity, EventConfig, EventYear, Person, Ticket } from "./types";
 
 const configs = import.meta.glob<{ default: EventConfig }>(
   "@shared/data/events/*.config.ts",
@@ -34,4 +34,60 @@ export function getEventConfig(year: EventYear): EventConfig {
     throw new Error(`getEventConfig: no event config found for year "${year}"`);
   }
   return config;
+}
+
+const organizerFiles = import.meta.glob<Person[]>(
+  "@shared/data/*/organizers.json",
+  { eager: true, import: "default" },
+);
+const ticketFiles = import.meta.glob<Ticket[]>("@shared/data/*/tickets.json", {
+  eager: true,
+  import: "default",
+});
+const activityFiles = import.meta.glob<Activity[]>(
+  "@shared/data/*/activities.json",
+  { eager: true, import: "default" },
+);
+
+/**
+ * Read one Event's file of a dataset from an eager glob. Throws for an Event
+ * Key with no Event pages; an Event with pages but no such file gets [].
+ */
+function readDataset<T>(
+  files: Record<string, T[]>,
+  year: EventYear,
+  file: string,
+): T[] {
+  getEventConfig(year);
+  const path = Object.keys(files).find((p) => p.endsWith(`/${year}/${file}`));
+  return path ? files[path] : [];
+}
+
+/** An Event's Organizers, or [] when it has no Organizers file. */
+export function getOrganizers(year: EventYear): Person[] {
+  return readDataset(organizerFiles, year, "organizers.json");
+}
+
+/** An Event's Tickets, or [] when it has no Tickets file. */
+export function getTickets(year: EventYear): Ticket[] {
+  return readDataset(ticketFiles, year, "tickets.json");
+}
+
+/** An Event's Activities, or [] when it has no Activities file. */
+export function getActivities(year: EventYear): Activity[] {
+  return readDataset(activityFiles, year, "activities.json");
+}
+
+/**
+ * Look up one Activity by id. Throws when it is not found so a typo'd id
+ * fails the build rather than rendering a blank row.
+ */
+export function getActivity(year: EventYear, id: string): Activity {
+  const found = getActivities(year).find((a) => a.id === id);
+  if (!found) {
+    throw new Error(
+      `getActivity: no Activity found for year "${year}" with id "${id}"`,
+    );
+  }
+  return found;
 }

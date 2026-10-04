@@ -13,17 +13,7 @@ import Track from "@components/schedule/Track.astro";
 import TalkItem from "@components/schedule/TalkItem.astro";
 import HallwayTrack from "@components/schedule/HallwayTrack.astro";
 import { getEntry } from "astro:content";
-import activities from "@shared/data/2026/activities.json";
-import type { Activity } from "@shared/data/types";
-
-// Throws on a typo'd id rather than silently rendering a blank row.
-function activity(id: string): Activity {
-  const found = (activities as Activity[]).find((a) => a.id === id);
-  if (!found) {
-    throw new Error(`No Activity found with id "${id}"`);
-  }
-  return found;
-}
+import { getActivity } from "@shared/data/events";
 
 // Workshop rows use ShowItem, not TalkItem. Title/description come from
 // the roster, but href doesn't match the Talk's own `slug` -- it's parsed
@@ -74,19 +64,19 @@ const deployingAgentsWorkshop = await workshopTalk(
     <Day id="cascadia-ai-hackathon">
       <DayHeader date={["Pre-Conf", "May 29"]} />
       <LocationBand>TBD</LocationBand>
-      <ShowItem entry={activity("cascadia-ai-hackathon")} />
+      <ShowItem entry={getActivity("2026", "cascadia-ai-hackathon")} />
     </Day>
 
     <Day id="day-zero">
       <DayHeader date="May 31" />
       <LocationBand>Pacific Central Station</LocationBand>
-      <ShowItem entry={activity("vancouver-hacker-train")} />
+      <ShowItem entry={getActivity("2026", "vancouver-hacker-train")} />
 
       <LocationBand>Union Station</LocationBand>
-      <ShowItem entry={activity("portland-hacker-train")} />
+      <ShowItem entry={getActivity("2026", "portland-hacker-train")} />
 
       <LocationBand>Town Hall Seattle</LocationBand>
-      <ShowItem entry={activity("welcome-reception")} />
+      <ShowItem entry={getActivity("2026", "welcome-reception")} />
     </Day>
 
     {
@@ -190,8 +180,8 @@ const deployingAgentsWorkshop = await workshopTalk(
           "Dinner and drinks are included for Premium ticket holders, and there will be a cash bar available as well.",
         ]}
       />
-      <ShowItem entry={activity("networking-mixer")} />
-      <ShowItem entry={activity("pog-tournament")} />
+      <ShowItem entry={getActivity("2026", "networking-mixer")} />
+      <ShowItem entry={getActivity("2026", "pog-tournament")} />
       <ShowItem when="9:30pm" title="Day One Close" icon="fas fa-door-closed" />
     </Day>
 
@@ -295,7 +285,7 @@ const deployingAgentsWorkshop = await workshopTalk(
       />
 
       <LocationBand>Rockbox</LocationBand>
-      <ShowItem entry={activity("karaoke")}>
+      <ShowItem entry={getActivity("2026", "karaoke")}>
         <p class="mt-2">
           We will wrap-up CascadiaJS with an epic karaoke party at Rockbox
           Seattle. We are <b>buying out</b> the venue and there are 12 different rooms
@@ -320,19 +310,19 @@ const deployingAgentsWorkshop = await workshopTalk(
     <Day id="day-training">
       <DayHeader date={["Post-Conf", "Training Workshops", "June 3"]} />
       <LocationBand>Thinkspace Seattle</LocationBand>
-      <ShowItem entry={activity("coding-with-claude")} />
+      <ShowItem entry={getActivity("2026", "coding-with-claude")} />
     </Day>
 
     <Day id="day-training">
       <DayHeader date="June 4" />
       <LocationBand>Thinkspace Seattle</LocationBand>
-      <ShowItem entry={activity("ai-for-typescript-developers")} />
+      <ShowItem entry={getActivity("2026", "ai-for-typescript-developers")} />
     </Day>
 
     <Day id="day-training">
       <DayHeader date="June 5" />
       <LocationBand>Thinkspace Seattle</LocationBand>
-      <ShowItem entry={activity("building-ai-agents")} />
+      <ShowItem entry={getActivity("2026", "building-ai-agents")} />
     </Day>
 
     <section
