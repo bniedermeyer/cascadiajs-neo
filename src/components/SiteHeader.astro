@@ -1,4 +1,6 @@
 ---
+import { FEATURED_EVENT } from "@shared/site-defaults";
+
 interface Props {
   displayNav?: boolean;
   displayAlert?: boolean;
@@ -34,10 +36,10 @@ const { displayNav = true, displayAlert = true } = Astro.props;
           {/* Nav links: pushed to the right on desktop, stacked on mobile */}
           <div class="md:ml-auto md:flex md:items-center">
             <a
-              href="/2026"
+              href={`/${FEATURED_EVENT}`}
               class="font-display text-sound-navy text-21 mt-1 block px-1 font-medium no-underline hover:underline md:mt-0 md:inline-block"
             >
-              CascadiaJS 2026
+              CascadiaJS {FEATURED_EVENT}
             </a>
             <a
               href="/mailing-list"

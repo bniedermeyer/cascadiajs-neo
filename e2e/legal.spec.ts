@@ -1,4 +1,8 @@
 import { test, expect } from "@playwright/test";
+import {
+  expectHeaderEventLinkIsFeaturedEvent,
+  expectPastSponsorsMatchFeaturedEvent,
+} from "./helpers";
 
 const legalPages = [
   {
@@ -27,6 +31,18 @@ for (const legalPage of legalPages) {
 
     test("document title is the sitewide default", async ({ page }) => {
       await expect(page).toHaveTitle("CascadiaJS - a JS conf for the PacNW");
+    });
+
+    test("Past Sponsors set and Sponsor CTA match the Featured Event", async ({
+      page,
+    }) => {
+      await expectPastSponsorsMatchFeaturedEvent(page);
+    });
+
+    test("site header Event link points to the Featured Event", async ({
+      page,
+    }) => {
+      await expectHeaderEventLinkIsFeaturedEvent(page);
     });
 
     test("Termly mount keeps name=termly-embed for the third-party loader", async ({

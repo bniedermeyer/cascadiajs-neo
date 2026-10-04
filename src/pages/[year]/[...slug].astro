@@ -1,6 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
-import type { EventConfig, Sponsor } from "@shared/data/types";
+import { findEventWithPages } from "@shared/data/events";
 import EventLayout from "@layouts/EventLayout.astro";
 import SimplePage from "@layouts/SimplePage.astro";
 import MarkdownContent from "@components/MarkdownContent.astro";
@@ -16,33 +16,23 @@ import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
  */
 
 export async function getStaticPaths() {
-  const configs = import.meta.glob<{ default: EventConfig }>(
-    "@shared/data/events/*.config.ts",
-    { eager: true },
-  );
-  const validYears = new Set(
-    Object.values(configs).map((mod) => mod.default.year),
-  );
-
   const entries = await getCollection("markdown");
   return entries
     .filter((entry) => entry.data.published)
     .map((entry) => {
-      const match = entry.id.match(/^(\d{4})\/(.+)$/);
-      return match ? { entry, year: match[1], slug: match[2] } : null;
+      const [, key, slug] = entry.id.match(/^(\d{4})\/(.+)$/) ?? [];
+      const year = key ? findEventWithPages(key)?.year : undefined;
+      return year ? { entry, year, slug } : null;
     })
-    .filter(
-      (candidate): candidate is NonNullable<typeof candidate> =>
-        candidate !== null && validYears.has(candidate.year),
-    )
+    .filter((candidate) => candidate !== null)
     .map(({ entry, year, slug }) => ({
       params: { year, slug },
-      props: { entry },
+      props: { entry, year },
     }));
 }
 
-const { entry } = Astro.props;
-const { year, slug } = Astro.params;
+const { entry, year } = Astro.props;
+const { slug } = Astro.params;
 const { Content } = await render(entry);
 
 // Legacy omits the year from the title template, and its brochure-request
@@ -58,6 +48,7 @@ const metaDescription = isSponsorBrochure
 ---
 
 <EventLayout
+  year={year}
   title={metaTitle}
   description={metaDescription}
   ogImage={entry.data.ogImage}
@@ -71,10 +62,7 @@ const metaDescription = isSponsorBrochure
         entry.data.showSponsors && (
           <section id="sponsors" class="box-content p-8 text-center">
             <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
-            <SponsorsGrid
-              event={year as Sponsor["events"][number]}
-              tiered={true}
-            />
+            <SponsorsGrid year={year} tiered={true} />
             <CtaButton href={`/${year}/sponsor`}>Sponsor Our Event</CtaButton>
           </section>
         )

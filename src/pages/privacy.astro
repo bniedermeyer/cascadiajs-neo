@@ -4,6 +4,7 @@ import TermlyEmbed from "@components/TermlyEmbed.astro";
 import SponsorsGrid from "@components/SponsorsGrid.astro";
 import CtaButton from "@components/CtaButton.astro";
 import Testimonials from "@components/Testimonials.astro";
+import { FEATURED_EVENT } from "@shared/site-defaults";
 ---
 
 <Layout>
@@ -11,8 +12,8 @@ import Testimonials from "@components/Testimonials.astro";
 
   <section id="sponsors" class="box-content p-8 text-center">
     <h2 class="font-display mt-0 mb-8 text-5xl">Past Sponsors</h2>
-    <SponsorsGrid exclude="2026" />
-    <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
+    <SponsorsGrid exclude={FEATURED_EVENT} />
+    <CtaButton href={`/${FEATURED_EVENT}/sponsor`}>Sponsor Our Event</CtaButton>
   </section>
 
   <Testimonials />

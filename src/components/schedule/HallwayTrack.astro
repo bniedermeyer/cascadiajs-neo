@@ -14,6 +14,14 @@ import { Image } from "astro:assets";
 import CtaButton from "../CtaButton.astro";
 import LocationBand from "./LocationBand.astro";
 import sponsorsData from "@shared/data/sponsors.json";
+import type { EventYear } from "@shared/data/types";
+
+interface Props {
+  /** Event Key whose Sponsors and Cascadia Connect page to show. */
+  year: EventYear;
+}
+
+const { year } = Astro.props;
 
 interface Sponsor {
   id: string;
@@ -28,7 +36,7 @@ interface Sponsor {
 const HALLWAY_TIERS = ["platinum", "gold"] as const;
 const wallSponsors = HALLWAY_TIERS.flatMap((tier) =>
   (sponsorsData as Sponsor[]).filter(
-    (sponsor) => sponsor.tier === tier && sponsor.events.includes("2026"),
+    (sponsor) => sponsor.tier === tier && sponsor.events.includes(year),
   ),
 );
 
@@ -56,7 +64,7 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
       <div class={titleClasses}>Build your Network</div>
       <p class="mt-2">
         Back this year is <a
-          href="/2026/connect"
+          href={`/${year}/connect`}
           class="text-cascade-blue underline">Cascadia Connect</a
         >, a set of low-pressure ways to meet cool humans at CascadiaJS. No
         pressure, no awkwardness—just friendly ways to vibe, learn, and maybe

@@ -5,6 +5,7 @@ import CtaButton from "@components/CtaButton.astro";
 import Trailer from "@components/Trailer.astro";
 import SponsorsGrid from "@components/SponsorsGrid.astro";
 import Testimonials from "@components/Testimonials.astro";
+import { FEATURED_EVENT } from "@shared/site-defaults";
 import heroImage from "@assets/images/hero-camper.png";
 ---
 
@@ -20,7 +21,7 @@ import heroImage from "@assets/images/hero-camper.png";
       job and have fun! In 2026 we'll be back in Seattle for 2+ days of talks,
       workshops and karaoke.
     </p>
-    <CtaButton href="/2026" variant="primary">
+    <CtaButton href={`/${FEATURED_EVENT}`} variant="primary">
       CascadiaJS: June 2026
     </CtaButton>
   </Hero>
@@ -33,8 +34,8 @@ import heroImage from "@assets/images/hero-camper.png";
 
   <section id="sponsors" class="box-content p-8 text-center">
     <h2 class="font-display mt-0 mb-8 text-5xl">Past Sponsors</h2>
-    <SponsorsGrid exclude="2026" />
-    <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
+    <SponsorsGrid exclude={FEATURED_EVENT} />
+    <CtaButton href={`/${FEATURED_EVENT}/sponsor`}>Sponsor Our Event</CtaButton>
   </section>
 
   <Testimonials />

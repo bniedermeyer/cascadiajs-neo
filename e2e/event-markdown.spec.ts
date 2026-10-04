@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { expectEventNav, filesUnder } from "./helpers";
 
 /**
  * Year-scoped markdown pages (markdown/<year>/*.md) render through
@@ -142,4 +143,23 @@ test.describe("root-level markdown pages keep the normal SiteHeader nav", () => 
     await expect(page.locator("#logo")).toBeVisible();
     await expect(page.locator("#nav")).toHaveCount(0);
   });
+});
+
+test.describe("every year-scoped markdown page renders the Event nav", () => {
+  const slugs = filesUnder("markdown/2026", /\.mdx?$/).map((f) =>
+    f.replace(/\.mdx?$/, ""),
+  );
+
+  test("finds markdown pages", () => {
+    expect(slugs.length).toBeGreaterThan(20);
+  });
+
+  for (const slug of slugs) {
+    test(`/2026/${slug} shows EventNav, not the SiteHeader`, async ({
+      page,
+    }) => {
+      await page.goto(`/2026/${slug}`);
+      await expectEventNav(page);
+    });
+  }
 });

@@ -2,11 +2,9 @@
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
-import type { Sponsor } from "@shared/data/types";
+import type { EventYear, Sponsor } from "@shared/data/types";
 
-interface Props {
-  /** Event Key to include (e.g. "2026"). Omit to consider every Sponsor. */
-  event?: Sponsor["events"][number];
+interface BaseProps {
   /**
    * Event Key(s) to exclude. A Sponsor is hidden only when *every* one of its
    * Events is excluded, so a Sponsor in both 2025 and 2026 still shows under
@@ -15,10 +13,19 @@ interface Props {
    * Sponsors such as Cloudflare, Arcjet and Elastic.
    */
   exclude?: Sponsor["events"][number] | Sponsor["events"][number][];
-  tiered?: boolean;
 }
 
-const { event, exclude, tiered = false } = Astro.props;
+/**
+ * `year` is the Event Key to include (e.g. "2026"); omit to consider every
+ * Sponsor. It excludes `previous` (no `/previous/sponsors/<id>` pages exist)
+ * and is required when `tiered`, since tiered logos link to
+ * `/<year>/sponsors/<id>`.
+ */
+type Props =
+  | (BaseProps & { tiered: true; year: EventYear })
+  | (BaseProps & { tiered?: false; year?: EventYear });
+
+const { year, exclude, tiered = false } = Astro.props;
 
 const sponsorsData = await getCollection("sponsors");
 const sponsors = sponsorsData.map((s) => s.data);
@@ -27,7 +34,7 @@ const excluded =
   exclude === undefined ? [] : Array.isArray(exclude) ? exclude : [exclude];
 
 const selected = sponsors.filter((sponsor) => {
-  if (event && !sponsor.events.includes(event)) {
+  if (year && !sponsor.events.includes(year)) {
     return false;
   }
   if (
@@ -106,7 +113,7 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
                 <div class={`text-center md:m-8 ${TIER_HEIGHT[tier]}`}>
                   {LINKED_TIERS.has(tier) ? (
                     sponsor.description ? (
-                      <a href={`/${event}/sponsors/${sponsor.id}`}>{logo}</a>
+                      <a href={`/${year}/sponsors/${sponsor.id}`}>{logo}</a>
                     ) : (
                       <a href={sponsor.url} target="_blank" rel="noopener">
                         {logo}

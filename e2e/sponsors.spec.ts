@@ -1,4 +1,6 @@
 import { test, expect, type Locator } from "@playwright/test";
+import { expectEventNav } from "./helpers";
+import sponsors from "@shared/data/sponsors.json" with { type: "json" };
 
 /**
  * True when the element's generated ::after content shows the external-link
@@ -102,4 +104,38 @@ test.describe("Sponsor detail page: missing slugs", () => {
     const response = await page.goto("/2026/sponsors/nonexistent");
     expect(response?.status()).toBe(404);
   });
+});
+
+const LINKED_TIERS = ["diamond", "platinum", "gold", "silver"];
+const sponsors2026 = sponsors.filter((s) => s.events.includes("2026"));
+const sponsorPages = sponsors2026.filter((s) => s.description);
+
+test.describe("Sponsor detail pages render the Event nav", () => {
+  for (const sponsor of sponsorPages) {
+    test(`/2026/sponsors/${sponsor.id} shows EventNav`, async ({ page }) => {
+      await page.goto(`/2026/sponsors/${sponsor.id}`);
+      await expectEventNav(page);
+    });
+  }
+});
+
+test.describe("Tiered sponsors grid links", () => {
+  for (const path of ["/2026", "/2026/sponsors/arcjet"]) {
+    test(`${path}: linked-tier logos link to their Sponsor detail page`, async ({
+      page,
+    }) => {
+      await page.goto(path);
+      const linked = sponsorPages.filter((s) =>
+        LINKED_TIERS.includes(s.tier ?? ""),
+      );
+      expect(linked.length).toBeGreaterThan(5);
+      for (const sponsor of linked) {
+        await expect(
+          page
+            .getByRole("link", { name: `${sponsor.name} logo`, exact: true })
+            .first(),
+        ).toHaveAttribute("href", `/2026/sponsors/${sponsor.id}`);
+      }
+    });
+  }
 });
