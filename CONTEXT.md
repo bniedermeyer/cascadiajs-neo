@@ -10,7 +10,12 @@ _Avoid_: Edition, Year, Conference (when referring to a specific annual instance
 
 **Event Key**:
 The short identifier used to associate data with an Event in local datasets — a bare year (`2026`, `2025`) or the catch-all bucket `previous` for pre-2025 sponsors. Distinct from the Event slug (`cascadiajs-2024`). Sponsors record their Event membership as an `events` array of Event Keys.
-_Avoid_: Year (as a field or prop name — prefer Event / Event Key)
+A single Event Key that is always a four-digit year may be named `year` in code; anything that can hold `previous` is an Event Key, never a year.
+_Avoid_: Year (in prose, for the Event itself — say "the 2026 Event", not "the 2026 year")
+
+**Featured Event**:
+The one Event the site-wide pages — the homepage, legal pages, header, footer and non-Event markdown pages — promote and link to. It changes deliberately when a new Event launches, not by date, and not when a new Event's pages start being built. An Event's own pages refer to that Event, never to the Featured Event.
+_Avoid_: Current Event, Upcoming Event, highlighted event
 
 **Talk**:
 A presentation delivered by a Speaker at an Event.
