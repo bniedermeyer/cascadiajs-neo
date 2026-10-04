@@ -10,7 +10,7 @@ import { marked } from "marked";
 import SimplePage from "@layouts/SimplePage.astro";
 
 export async function getStaticPaths() {
-  const talks = await getCollection("talks");
+  const talks = await getCollection("talks2026");
   return talks
     .filter((talk) => talk.data.slug)
     .map((talk) => ({
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 }
 
 const { talk } = Astro.props;
-const { title, abstract, tags, yt, speaker } = talk;
+const { title, abstract, registrationUrl, tags, yt, speaker } = talk;
 
 const abstractHtml = marked.parse(abstract ?? "") as string;
 
@@ -57,6 +57,13 @@ const ogImage = speakerCards.includes(`/public${speakerCard}`)
     }
     <MarkdownContent>
       <div set:html={abstractHtml} />
+      {
+        registrationUrl && (
+          <p>
+            <a href={registrationUrl}>[More info and how to register]</a>
+          </p>
+        )
+      }
     </MarkdownContent>
     {
       yt && (

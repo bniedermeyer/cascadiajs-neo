@@ -17,6 +17,10 @@ _Avoid_: Year (in prose, for the Event itself — say "the 2026 Event", not "the
 The one Event the site-wide pages — the homepage, legal pages, header, footer and non-Event markdown pages — promote and link to. It changes deliberately when a new Event launches, not by date, and not when a new Event's pages start being built. An Event's own pages refer to that Event, never to the Featured Event.
 _Avoid_: Current Event, Upcoming Event, highlighted event
 
+**Event Dataset**:
+The records that belong to one Event and that its pages share: its Talks (each with its Speaker), Organizers, Tickets and Activities. Only an Event that is not a Frozen Snapshot has an Event Dataset. Sponsors and Testimonials are not part of it, because they span Events.
+_Avoid_: Roster (for the whole set; a roster is only the people), Event data
+
 **Talk**:
 A presentation delivered by a Speaker at an Event.
 _Avoid_: Session, Presentation

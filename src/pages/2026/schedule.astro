@@ -12,51 +12,38 @@ import DayContent from "@components/schedule/DayContent.astro";
 import Track from "@components/schedule/Track.astro";
 import TalkItem from "@components/schedule/TalkItem.astro";
 import HallwayTrack from "@components/schedule/HallwayTrack.astro";
-import activities from "@shared/data/2026/activities.json";
-import talks from "@shared/data/2026/talks.json";
-import type { Activity, Talk } from "@shared/data/types";
-
-// Throws on a typo'd id rather than silently rendering a blank row.
-function activity(id: string): Activity {
-  const found = (activities as Activity[]).find((a) => a.id === id);
-  if (!found) {
-    throw new Error(`No Activity found with id "${id}"`);
-  }
-  return found;
-}
+import { getEntry } from "astro:content";
+import { getActivity } from "@shared/data/events";
 
 // Workshop rows use ShowItem, not TalkItem. Title/description come from
-// the roster, but href doesn't match the Talk's own `slug` -- it's parsed
-// from a trailing "[[More info...]](url)" line in the abstract instead.
-function workshopTalk(id: string): {
+// the roster, but href doesn't match the Talk's own `slug` -- it's the
+// Talk's `registrationUrl`.
+async function workshopTalk(id: string): Promise<{
   title: string;
   url: string;
   description: string;
-} {
-  const talk = (talks as Talk[]).find((t) => t.id === id);
+}> {
+  const talk = (await getEntry("talks2026", id))?.data;
   if (!talk?.abstract) {
     throw new Error(`No workshop Talk with an abstract found for id "${id}"`);
   }
-  const link = talk.abstract.match(/\n\n\[\[.*?\]\]\((.*?)\)\s*$/);
-  if (!link) {
-    throw new Error(
-      `Workshop Talk "${id}" has no "More info" link in its abstract`,
-    );
+  if (!talk.registrationUrl) {
+    throw new Error(`Workshop Talk "${id}" has no registrationUrl`);
   }
   return {
     title: talk.title,
-    url: link[1],
-    description: talk.abstract.slice(0, link.index).trim(),
+    url: talk.registrationUrl,
+    description: talk.abstract,
   };
 }
 
 // Looked up once so each is a single roster read, not three per row below.
-const voiceAgentWorkshop = workshopTalk("build-a-voice-agent-with-vapi");
-const apifyWorkshop = workshopTalk("build-better-agent-tools-with-apify");
-const offloadingWorkersWorkshop = workshopTalk(
+const voiceAgentWorkshop = await workshopTalk("build-a-voice-agent-with-vapi");
+const apifyWorkshop = await workshopTalk("build-better-agent-tools-with-apify");
+const offloadingWorkersWorkshop = await workshopTalk(
   "offloading-work-with-the-workers",
 );
-const deployingAgentsWorkshop = workshopTalk(
+const deployingAgentsWorkshop = await workshopTalk(
   "deploying-ai-agents-on-aws-with-pulumi-and-amazon-bedrock-agentcore",
 );
 ---
@@ -74,19 +61,19 @@ const deployingAgentsWorkshop = workshopTalk(
     <Day id="cascadia-ai-hackathon">
       <DayHeader date={["Pre-Conf", "May 29"]} />
       <LocationBand>TBD</LocationBand>
-      <ShowItem entry={activity("cascadia-ai-hackathon")} />
+      <ShowItem entry={getActivity("2026", "cascadia-ai-hackathon")} />
     </Day>
 
     <Day id="day-zero">
       <DayHeader date="May 31" />
       <LocationBand>Pacific Central Station</LocationBand>
-      <ShowItem entry={activity("vancouver-hacker-train")} />
+      <ShowItem entry={getActivity("2026", "vancouver-hacker-train")} />
 
       <LocationBand>Union Station</LocationBand>
-      <ShowItem entry={activity("portland-hacker-train")} />
+      <ShowItem entry={getActivity("2026", "portland-hacker-train")} />
 
       <LocationBand>Town Hall Seattle</LocationBand>
-      <ShowItem entry={activity("welcome-reception")} />
+      <ShowItem entry={getActivity("2026", "welcome-reception")} />
     </Day>
 
     {
@@ -190,8 +177,8 @@ const deployingAgentsWorkshop = workshopTalk(
           "Dinner and drinks are included for Premium ticket holders, and there will be a cash bar available as well.",
         ]}
       />
-      <ShowItem entry={activity("networking-mixer")} />
-      <ShowItem entry={activity("pog-tournament")} />
+      <ShowItem entry={getActivity("2026", "networking-mixer")} />
+      <ShowItem entry={getActivity("2026", "pog-tournament")} />
       <ShowItem when="9:30pm" title="Day One Close" icon="fas fa-door-closed" />
     </Day>
 
@@ -295,7 +282,7 @@ const deployingAgentsWorkshop = workshopTalk(
       />
 
       <LocationBand>Rockbox</LocationBand>
-      <ShowItem entry={activity("karaoke")}>
+      <ShowItem entry={getActivity("2026", "karaoke")}>
         <p class="mt-2">
           We will wrap-up CascadiaJS with an epic karaoke party at Rockbox
           Seattle. We are <b>buying out</b> the venue and there are 12 different rooms
@@ -320,19 +307,19 @@ const deployingAgentsWorkshop = workshopTalk(
     <Day id="day-training">
       <DayHeader date={["Post-Conf", "Training Workshops", "June 3"]} />
       <LocationBand>Thinkspace Seattle</LocationBand>
-      <ShowItem entry={activity("coding-with-claude")} />
+      <ShowItem entry={getActivity("2026", "coding-with-claude")} />
     </Day>
 
     <Day id="day-training">
       <DayHeader date="June 4" />
       <LocationBand>Thinkspace Seattle</LocationBand>
-      <ShowItem entry={activity("ai-for-typescript-developers")} />
+      <ShowItem entry={getActivity("2026", "ai-for-typescript-developers")} />
     </Day>
 
     <Day id="day-training">
       <DayHeader date="June 5" />
       <LocationBand>Thinkspace Seattle</LocationBand>
-      <ShowItem entry={activity("building-ai-agents")} />
+      <ShowItem entry={getActivity("2026", "building-ai-agents")} />
     </Day>
 
     <section

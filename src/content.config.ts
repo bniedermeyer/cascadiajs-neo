@@ -41,11 +41,13 @@ export const personSchema = z.object({
 
 export const talkSchema = z.object({
   id: z.string(),
-  /** Absent renders the title as plain text, not a link. */
-  slug: z.string().optional(),
+  /** null renders the title as plain text, not a link. */
+  slug: z.string().nullable(),
   title: z.string(),
   type: z.enum(["keynote", "main", "lightning", "workshop"]),
   abstract: z.string().optional(),
+  /** Site-relative path (not an absolute URL) to a Workshop's registration page. */
+  registrationUrl: z.string().optional(),
   tags: z.array(z.string()).optional(),
   yt: z.string().optional(),
   /** No separate slug -- lookups key on the Talk's id instead. */
@@ -73,13 +75,28 @@ export const sponsorSchema = z.object({
   events: z.array(z.enum(["previous", "2025", "2026"])),
 });
 
-const talks = defineCollection({
-  loader: file("./src/shared/data/2026/talks.json"),
-  schema: talkSchema,
+const talks2026 = defineCollection({
+  loader: file("./src/shared/data/2026/talks.json", {
+    parser: (text) =>
+      (JSON.parse(text) as object[]).map((talk, order) => ({ ...talk, order })),
+  }),
+  // The collection store sorts entries by id, so `order` records each Talk's
+  // position in talks.json for pages that list Talks. It stays off the shared
+  // Talk type.
+  schema: talkSchema.extend({ order: z.number() }),
 });
 const sponsors = defineCollection({
-  loader: file("./src/shared/data/sponsors.json"),
-  schema: sponsorSchema,
+  loader: file("./src/shared/data/sponsors.json", {
+    parser: (text) =>
+      (JSON.parse(text) as object[]).map((sponsor, order) => ({
+        ...sponsor,
+        order,
+      })),
+  }),
+  // The collection store sorts entries by id, so `order` records each
+  // Sponsor's position in sponsors.json for pages that list Sponsors. It
+  // stays off the shared Sponsor type.
+  schema: sponsorSchema.extend({ order: z.number() }),
 });
 
-export const collections = { markdown, talks, sponsors };
+export const collections = { markdown, talks2026, sponsors };

@@ -1,6 +1,7 @@
 [
   {
     "id": "day-one-opening-keynote",
+    "slug": null,
     "title": "Day One Opening Keynote",
     "type": "keynote",
     "speaker": {
@@ -494,7 +495,8 @@
     "slug": "offloading-work-with-the-workers",
     "title": "Offloading Work, Without the Workers",
     "type": "workshop",
-    "abstract": "A workshop on using Render Workflows to handle background jobs without managing queues, retries, or worker infrastructure. You'll build chainable task functions for distributed compute, applicable to workloads like ETL, batch inference, and AI agents. By the end, you'll have a deployed background execution pipeline you can adapt for your own projects.\n\n[[More info and how to register]](/2026/workshops/offloading-work-with-the-workers)",
+    "abstract": "A workshop on using Render Workflows to handle background jobs without managing queues, retries, or worker infrastructure. You'll build chainable task functions for distributed compute, applicable to workloads like ETL, batch inference, and AI agents. By the end, you'll have a deployed background execution pipeline you can adapt for your own projects.",
+    "registrationUrl": "/2026/workshops/offloading-work-with-the-workers",
     "speaker": {
       "name": "Ojus Save",
       "image": "/events/2026/images/ojus-save.jpg",
@@ -514,7 +516,8 @@
     "slug": "deploying-ai-agents-on-aws-with-pulumi-and-amazon-bedrock-agentcore",
     "title": "Deploying AI Agents on AWS With Pulumi and Amazon Bedrock AgentCore",
     "type": "workshop",
-    "abstract": "In this hands-on workshop, you'll go from a minimal agent to a multi-tool, multi-agent system running on Amazon Bedrock AgentCore, with all infrastructure defined as code using Pulumi. You'll build and deploy agents that coordinate tasks, call external tools, execute code, and maintain state over time.\n\n[[More info and how to register]](/2026/workshops/deploying-ai-agents)",
+    "abstract": "In this hands-on workshop, you'll go from a minimal agent to a multi-tool, multi-agent system running on Amazon Bedrock AgentCore, with all infrastructure defined as code using Pulumi. You'll build and deploy agents that coordinate tasks, call external tools, execute code, and maintain state over time.",
+    "registrationUrl": "/2026/workshops/deploying-ai-agents",
     "speaker": {
       "name": "Engin Diri",
       "image": "/events/2026/images/engin-diri.jpg",
@@ -586,7 +589,8 @@
     "slug": "build-better-agent-tools-with-apify",
     "title": "Build Better Agent Tools with Apify",
     "type": "workshop",
-    "abstract": "This workshop guides you through building a cloud-deployed web research tool for AI coding agents by wrapping Apify's RAG Web Browser with custom LLM-powered query generation and relevance filtering. The finished Actor runs on Apify's platform and gives agents like Claude Code or Cursor access to real-time web data. No Apify experience is needed \u2014 just a laptop with Node.js and a coding agent.\n\n[[More info and how to register]](/2026/workshops/recipe-better-agents)",
+    "abstract": "This workshop guides you through building a cloud-deployed web research tool for AI coding agents by wrapping Apify's RAG Web Browser with custom LLM-powered query generation and relevance filtering. The finished Actor runs on Apify's platform and gives agents like Claude Code or Cursor access to real-time web data. No Apify experience is needed \u2014 just a laptop with Node.js and a coding agent.",
+    "registrationUrl": "/2026/workshops/recipe-better-agents",
     "speaker": {
       "name": "Michael Daigler",
       "image": "/events/2026/images/michael-daigler.jpg",
@@ -606,7 +610,8 @@
     "slug": "build-a-voice-agent-with-vapi",
     "title": "Build a Voice Agent with Vapi",
     "type": "workshop",
-    "abstract": "This workshop with Vapi walks through the real execution work behind building enterprise-grade voice agents \u2013 from conversation design fundamentals and persona calibration to prompt engineering patterns purpose-built for voice.\n\n[[More info and how to register]](/2026/workshops/scaling-voice-pipelines)",
+    "abstract": "This workshop with Vapi walks through the real execution work behind building enterprise-grade voice agents \u2013 from conversation design fundamentals and persona calibration to prompt engineering patterns purpose-built for voice.",
+    "registrationUrl": "/2026/workshops/scaling-voice-pipelines",
     "speaker": {
       "name": "Amanda Martin",
       "image": "/events/2026/images/amanda-martin.jpg",

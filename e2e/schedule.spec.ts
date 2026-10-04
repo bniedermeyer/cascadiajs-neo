@@ -1,5 +1,7 @@
 import { test, expect, type Page, type Locator } from "@playwright/test";
 
+import sponsorsData from "@shared/data/sponsors.json" with { type: "json" };
+
 /**
  * Schedule page e2e spec. Fixtures below are transcribed from
  * src/shared/data/sponsors.json and 2026/activities.json (filtered to
@@ -1304,6 +1306,24 @@ test.describe("schedule page", () => {
       );
       expect(altOrder[0]).toBe("Pulumi logo"); // the only platinum Sponsor
       expect(altOrder.slice(1)).toContain("Elastic logo"); // a gold Sponsor
+    }
+  });
+
+  test("the Hallway Sponsor wall follows sponsors.json order within each tier, platinum then gold, on both days", async ({
+    page,
+  }) => {
+    const inOrder = (tier: string) =>
+      sponsorsData
+        .filter((s) => s.tier === tier && s.events.includes("2026"))
+        .map((s) => `${s.name} logo`);
+    const expected = [...inOrder("platinum"), ...inOrder("gold")];
+
+    for (const dayId of ["day-one", "day-two"]) {
+      const hallway = hallwayTrackIn(page.locator(`#${dayId}`));
+      const altOrder = await hallway
+        .locator('img[alt$=" logo"]')
+        .evaluateAll((els) => els.map((el) => el.getAttribute("alt")));
+      expect(altOrder).toEqual(expected);
     }
   });
 
