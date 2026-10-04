@@ -15,7 +15,9 @@ import { getOrganizers, getTickets } from "@shared/data/events";
 import type { Talk } from "@shared/data/types";
 import lockupImage from "@assets/events/2026/images/lockup-horizontal-webai-white.png";
 
-const talks = (await getCollection("talks2026")).map((entry) => entry.data);
+const talks = (await getCollection("talks2026"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((entry) => entry.data);
 const organizers = getOrganizers("2026");
 const tickets = getTickets("2026");
 

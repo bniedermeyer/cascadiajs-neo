@@ -279,6 +279,20 @@ test.describe("2026 event page", () => {
     await expect(grid.locator("a")).toHaveCount(23);
   });
 
+  test("Keynotes and Speakers grids follow talks.json order", async ({
+    page,
+  }) => {
+    const photos = (heading: string) =>
+      page
+        .locator(`h1:text-is('${heading}') + div img`)
+        .evaluateAll((imgs) => imgs.map((img) => img.getAttribute("alt")));
+    const altsFor = (talks: Talk[]) =>
+      talks.map((t) => `photo of ${t.speaker.name}`);
+
+    expect(await photos("Keynotes")).toEqual(altsFor(keynotes));
+    expect(await photos("Speakers")).toEqual(altsFor(speakerTalks));
+  });
+
   test("Organizers grid has exactly fourteen cards, none of them links", async ({
     page,
   }) => {

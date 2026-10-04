@@ -74,8 +74,14 @@ export const sponsorSchema = z.object({
 });
 
 const talks2026 = defineCollection({
-  loader: file("./src/shared/data/2026/talks.json"),
-  schema: talkSchema,
+  loader: file("./src/shared/data/2026/talks.json", {
+    parser: (text) =>
+      (JSON.parse(text) as object[]).map((talk, order) => ({ ...talk, order })),
+  }),
+  // The collection store sorts entries by id, so `order` records each Talk's
+  // position in talks.json for pages that list Talks. It stays off the shared
+  // Talk type.
+  schema: talkSchema.extend({ order: z.number() }),
 });
 const sponsors = defineCollection({
   loader: file("./src/shared/data/sponsors.json"),
