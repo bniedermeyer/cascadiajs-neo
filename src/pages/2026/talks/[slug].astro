@@ -44,7 +44,7 @@ const ogImage = speakerCards.includes(`/public${speakerCard}`)
   : undefined;
 ---
 
-<EventLayout title={metaTitle} ogImage={ogImage}>
+<EventLayout year="2026" title={metaTitle} ogImage={ogImage}>
   <SimplePage title={title}>
     {
       tags && (
@@ -89,7 +89,7 @@ const ogImage = speakerCards.includes(`/public${speakerCard}`)
     <Fragment slot="after-body">
       <section id="sponsors" class="box-content p-8 text-center">
         <h1 class="mt-0 mb-8 text-5xl">Our Sponsors</h1>
-        <SponsorsGrid event="2026" tiered={true} />
+        <SponsorsGrid year="2026" tiered={true} />
         <CtaButton href="/2026/sponsor">Sponsor Our Event</CtaButton>
       </section>
       <Testimonials />

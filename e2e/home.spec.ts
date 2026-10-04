@@ -1,4 +1,9 @@
 import { test, expect } from "@playwright/test";
+import { FEATURED_EVENT } from "@shared/site-defaults";
+import {
+  expectHeaderEventLinkIsFeaturedEvent,
+  expectPastSponsorsMatchFeaturedEvent,
+} from "./helpers";
 
 test.describe("home page", () => {
   test.beforeEach(async ({ page }) => {
@@ -147,6 +152,24 @@ test.describe("home page", () => {
       page.getByRole("img", { name: "Cloudflare logo" }),
     ).toBeVisible();
     await expect(page.getByRole("img", { name: "Arcjet logo" })).toBeVisible();
+  });
+
+  test("site header Event link points to the Featured Event", async ({
+    page,
+  }) => {
+    await expectHeaderEventLinkIsFeaturedEvent(page);
+  });
+
+  test("hero CTA points to the Featured Event", async ({ page }) => {
+    await expect(
+      page.getByRole("link", { name: /^CascadiaJS: June/ }),
+    ).toHaveAttribute("href", `/${FEATURED_EVENT}`);
+  });
+
+  test("Past Sponsors set and Sponsor CTA match the Featured Event", async ({
+    page,
+  }) => {
+    await expectPastSponsorsMatchFeaturedEvent(page);
   });
 
   test("sponsors section shows the Past Sponsors heading", async ({ page }) => {

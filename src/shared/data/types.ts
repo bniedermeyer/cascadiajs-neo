@@ -69,10 +69,17 @@ export interface EventNavItem {
   isCta?: boolean;
 }
 
+/**
+ * An Event Key that names a real Event (every Sponsor Event Key except
+ * `previous`, which groups years that have no Event pages). Always a
+ * four-digit year.
+ */
+export type EventYear = Exclude<Sponsor["events"][number], "previous">;
+
 /** Per-Event site configuration (branding, dates, nav). */
 export interface EventConfig {
   name: string;
-  year: string;
+  year: EventYear;
   dates: string;
   venue: string;
   location: string;
