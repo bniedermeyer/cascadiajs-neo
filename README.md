@@ -2,7 +2,7 @@
 
 The website for [CascadiaJS](https://cascadiajs.com), the Pacific Northwest's web + AI developer conference. It's a static [Astro](https://docs.astro.build) site styled with [Tailwind CSS v4](https://tailwindcss.com/docs), with all content and data stored in this repo. It deploys to Netlify.
 
-This README is the onboarding guide. Read it top to bottom once, then come back to the section you need.
+This README is the onboarding guide. Read it top to bottom once, then return to the section you need.
 
 - [Getting started](#getting-started)
 - [How we work](#how-we-work)
@@ -47,20 +47,20 @@ We track work in [GitHub Issues](https://github.com/bniedermeyer/cascadiajs-neo/
 
 | Label             | Meaning                                                                |
 | :---------------- | :--------------------------------------------------------------------- |
-| `needs-triage`    | New; a maintainer hasn't evaluated it yet                              |
+| `needs-triage`    | New. Waiting for a maintainer to evaluate it                           |
 | `needs-info`      | Waiting on the reporter for more detail                                |
 | `ready-for-agent` | Fully specified. An agent can implement it unattended                  |
 | `ready-for-human` | Needs a person: judgment calls, design taste, or access an agent lacks |
-| `wontfix`         | Won't be actioned                                                      |
+| `wontfix`         | We will not work on it                                                 |
 
-The `ready-for-agent` and `ready-for-human` labels decide who builds a ticket: an agent or you. An agent-ready issue has acceptance criteria an agent can verify without asking questions. If you pick up a `ready-for-agent` issue that falls short, relabel it instead of guessing.
+The `ready-for-agent` and `ready-for-human` labels decide who builds a ticket: an agent or you. An agent-ready issue has acceptance criteria that an agent can check without asking questions. If you take a `ready-for-agent` issue and it is not fully specified, relabel it instead of guessing.
 
 ### Branches, commits and PRs
 
-- Branch off `main`, open a PR back into `main`.
-- Commit messages use [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`, `ci:`. Look at `git log` for the house style.
+- Create a branch from `main`. Open a PR into `main`.
+- Commit messages use [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`, `ci:`. Read `git log` for examples of the house style.
 - CI must be green before merge. It runs lint, a Prettier check, `astro check`, a production build, and the Playwright suite. See [Testing and CI](#testing-and-ci).
-- If your change alters something this README documents (layouts, routing, content shape, commands, workflow, recipes), update the matching section in the same PR.
+- If you change something this README documents (layouts, routing, content shape, commands, workflow, recipes), update the matching section in the same PR.
 
 ### Decisions and vocabulary
 
@@ -113,7 +113,7 @@ The aliases are `@components`, `@layouts`, `@shared` and `@assets`. Stylesheets 
 The full glossary is in [`CONTEXT.md`](CONTEXT.md). You'll meet these four throughout the code:
 
 - **Event**: one annual CascadiaJS conference, such as CascadiaJS 2026.
-- **Event Key**: the short id that ties data to an Event: a year (`"2026"`) or the bucket `"previous"` for older sponsors. In code, a value that can only be a real year is typed `EventYear` and may be called `year`. Anything that can hold `previous` is an Event Key.
+- **Event Key**: the short id that ties data to an Event: a year (`"2026"`) or the bucket `"previous"` for older sponsors. In code, the `EventYear` type holds a value that can only be a real year, and you can name that value `year`. Anything that can hold `previous` is an Event Key.
 - **Featured Event**: the one Event the site-wide pages (homepage, header, footer, legal and general content pages) promote. `FEATURED_EVENT` in `src/shared/site-defaults.ts` sets it, and you change it when a new Event launches. An Event's own pages always refer to _that_ Event, never to the Featured Event.
 - **Event Dataset**: an Event's Talks (each with its Speaker), Organizers, Tickets and Activities, stored under `src/shared/data/<year>/`. Sponsors and Testimonials span Events, so they aren't part of it.
 
@@ -133,9 +133,9 @@ There are two kinds of page.
 
 A file under a year folder only gets a page if that Event has a config in `src/shared/data/events/` (see [Launching a new Event](#launching-a-new-event)). Set `published: false` in frontmatter to keep a page out of the build.
 
-A few more dynamic routes generate pages from data: `src/pages/2026/talks/[slug].astro` (one page per Talk with a `slug`) and `src/pages/[year]/sponsors/[slug].astro` (one page per Sponsor with a `description`, for each Event they sponsored). See Astro's [routing guide](https://docs.astro.build/en/guides/routing/) for how `[param]` and `[...rest]` routes and `getStaticPaths` work.
+Two more dynamic routes generate pages from data. `src/pages/2026/talks/[slug].astro` makes one page per Talk with a `slug`. `src/pages/[year]/sponsors/[slug].astro` makes one page per Sponsor with a `description`, for each Event that the Sponsor sponsored. See Astro's [routing guide](https://docs.astro.build/en/guides/routing/) for how `[param]` and `[...rest]` routes and `getStaticPaths` work.
 
-**URLs never end in a slash.** `/2026/attend` works; `/2026/attend/` doesn't. Write every internal link without a trailing slash. The root `/` is the only exception. An e2e test scans every built page and fails on a slashed internal link. `Layout` builds canonical URLs from `routePath()` in `src/shared/route-path.ts`. If a page needs its own path, call `routePath()` instead of reading `Astro.url.pathname`.
+**URLs never end in a slash.** `/2026/attend` works. `/2026/attend/` does not. Write every internal link without a trailing slash. The root `/` is the only exception. An e2e test scans every built page and fails on a slashed internal link. `Layout` builds canonical URLs from `routePath()` in `src/shared/route-path.ts`. If a page needs its own path, call `routePath()` instead of reading `Astro.url.pathname`.
 
 ## Layouts: which one to use
 
@@ -148,8 +148,8 @@ A few more dynamic routes generate pages from data: `src/pages/2026/talks/[slug]
 
 Rules of thumb:
 
-- Start from the page's owner. If it belongs to an Event, use `EventLayout`; otherwise use `Layout`.
-- Then decide the body. For a text-heavy page, nest `SimplePage` inside the layout. Look at `src/pages/2026/talks/[slug].astro` or `src/pages/[year]/sponsors/[slug].astro` for the pattern.
+- Start from the page's owner. If it belongs to an Event, use `EventLayout`. If not, use `Layout`.
+- Then decide the body. For a text-heavy page, nest `SimplePage` inside the layout. See `src/pages/2026/talks/[slug].astro` or `src/pages/[year]/sponsors/[slug].astro` for the pattern.
 - `EventLayout` has a `hero` slot that renders above the Event nav (the 2026 landing page puts its video there). `SimplePage` has an `after-body` slot that renders outside the text column, which is where sponsor grids and testimonials go.
 - **Pages own their sponsors section.** Only `MarkdownLayout` renders sponsors for you. On a hand-written page, place `SponsorsGrid` yourself and pass `year` (and `tiered`) or `exclude` as needed.
 
@@ -159,17 +159,17 @@ Wrap Markdown-derived HTML (an abstract, a description) in `MarkdownContent` to 
 
 ### Content pages (`markdown/`)
 
-The `markdown` collection schema in `src/content.config.ts` validates each file's frontmatter:
+The `markdown` collection schema in `src/content.config.ts` checks each file's frontmatter:
 
-| Field              | Default    | Notes                                                 |
-| :----------------- | :--------- | :---------------------------------------------------- |
-| `title`            | (required) | Title bar text; the page's `<title>` is built from it |
-| `description`      |            | Meta and Open Graph description                       |
-| `width`            | `narrow`   | `narrow` or `wide` content column                     |
-| `ogImage`          |            | Share image path under `public/`                      |
-| `showSponsors`     | `true`     | Append the sponsors section                           |
-| `showTestimonials` | `true`     | Append testimonials                                   |
-| `published`        | `true`     | `false` leaves the page out of the build              |
+| Field              | Default    | Notes                                                              |
+| :----------------- | :--------- | :----------------------------------------------------------------- |
+| `title`            | (required) | Title bar text. The route also builds the page's `<title>` from it |
+| `description`      |            | Meta and Open Graph description                                    |
+| `width`            | `narrow`   | `narrow` or `wide` content column                                  |
+| `ogImage`          |            | Share image path under `public/`                                   |
+| `showSponsors`     | `true`     | Append the sponsors section                                        |
+| `showTestimonials` | `true`     | Append testimonials                                                |
+| `published`        | `true`     | `false` leaves the page out of the build                           |
 
 Reference images in `src/assets/` by alias: `![alt](@assets/images/example.jpg)`.
 
@@ -199,8 +199,8 @@ src/shared/data/
 
 You read data two ways:
 
-- **Talks and Sponsors are content collections** (`talks2026`, `sponsors`), so read them with `getCollection("talks2026")` / `getEntry(...)` from `astro:content`. Their Zod schemas in `src/content.config.ts` are the single source of truth. The types in `types.ts` (`Talk`, `Person`, `Sponsor`) are inferred from them, so change the schema, not the type. Astro sorts collection entries by id, so each loader stamps an `order` field with the entry's position in the JSON file. Sort by `order` when a listing should follow file order.
-- **Organizers, Tickets and Activities** are read through the helpers in `events.ts`, keyed by year: `getTickets("2026")`. The helpers **throw on an unknown year or Activity id**, so a typo fails the build instead of rendering an empty section.
+- **Talks and Sponsors are content collections** (`talks2026`, `sponsors`), so read them with `getCollection("talks2026")` / `getEntry(...)` from `astro:content`. Their Zod schemas in `src/content.config.ts` are the single source of truth. TypeScript infers the types in `types.ts` (`Talk`, `Person`, `Sponsor`) from these schemas, so change the schema, not the type. Astro sorts collection entries by id, so each loader stamps an `order` field with the entry's position in the JSON file. Sort by `order` when a listing should follow file order.
+- **Organizers, Tickets and Activities** come from the helpers in `events.ts`, keyed by year: `getTickets("2026")`. The helpers **throw on an unknown year or Activity id**, so a typo fails the build instead of rendering an empty section.
 
 A Speaker isn't a separate record: it lives inside its Talk as `speaker`. Organizers use the same `Person` shape. Person images are paths under `src/assets/` (for example `/events/2026/images/jane-doe.jpg` means `src/assets/events/2026/images/jane-doe.jpg`), and the build fails if the file is missing.
 
@@ -208,7 +208,7 @@ For the reasoning behind this split, see [ADR-0013](docs/adr/0013-event-pages-re
 
 ## Styling
 
-Styling is Tailwind-first: use utility classes in markup, and reach for a `<style>` block only when Tailwind can't express the rule ([ADR-0003](docs/adr/0003-tailwind-first-styling.md)).
+Styling is Tailwind-first: use utility classes in markup, and use a `<style>` block only when Tailwind can't express the rule ([ADR-0003](docs/adr/0003-tailwind-first-styling.md)).
 
 Design tokens live in the `@theme` block of `src/styles/global.css`:
 
@@ -216,13 +216,13 @@ Design tokens live in the `@theme` block of `src/styles/global.css`:
 - **Fonts:** `font-sans`, `font-display`, `font-serif` (served by Adobe Typekit).
 - **Extra font sizes:** named sizes like `text-21`, `text-40` for values outside Tailwind's scale.
 
-Use a token before an arbitrary value. If you need a new color or size, add a token rather than sprinkling `text-[23px]` around. Tailwind v4 is configured in CSS, not in a `tailwind.config.js`; see the [theme docs](https://tailwindcss.com/docs/theme).
+Use a token before an arbitrary value. If you need a new color or size, add a token instead of one-off values like `text-[23px]`. This project configures Tailwind v4 in CSS, not in a `tailwind.config.js` file. See the [theme docs](https://tailwindcss.com/docs/theme).
 
 Font Awesome icons are available site-wide (`<i class="fa-solid fa-...">`).
 
 ## Recipes
 
-Checklists for the common changes. Run `pnpm dev` and look at the page, then `pnpm check` and `pnpm lint`, before you push.
+Checklists for the common changes. Run `pnpm dev` and open the page in a browser, then `pnpm check` and `pnpm lint`, before you push.
 
 ### Add or edit a content page
 
@@ -233,11 +233,11 @@ Checklists for the common changes. Run `pnpm dev` and look at the page, then `pn
 
 ### Add a Talk and Speaker
 
-1. Add an object to `src/shared/data/<year>/talks.json` in the position it should appear: `id`, `slug` (or `null` for no Talk page), `title`, `type` (`keynote`, `main`, `lightning`, `workshop`), optional `abstract` (Markdown), `tags`, `yt`, and a `speaker` object.
+1. Add an object to `src/shared/data/<year>/talks.json`, at the position where the Talk should appear. Required fields: `id`, `slug` (or `null` for no Talk page), `title`, `type` (`keynote`, `main`, `lightning`, `workshop`) and `speaker`. Optional fields: `abstract` (Markdown), `tags`, `yt`.
 2. Put the speaker photo in `src/assets/events/<year>/images/` and reference it in `speaker.image`.
 3. Optional: add a share card at `public/images/<year>/share/speaker-<name-slug>.png`. The Talk page uses it when the file exists.
 4. For a Workshop with a registration page, set `registrationUrl` to a site-relative path and add the page under `markdown/<year>/workshops/`.
-5. Place it on the schedule: add a `<TalkItem talk="<id>" />` in `src/pages/<year>/schedule.astro` (Workshops use `ShowItem`; follow the existing ones). The schedule shows only the Talks you place on it.
+5. Place it on the schedule. Add a `<TalkItem talk="<id>" />` in `src/pages/<year>/schedule.astro`. Workshops use `ShowItem` instead, so copy an existing Workshop entry. The schedule shows only the Talks you place on it.
 
 ### Add a Sponsor
 
@@ -263,11 +263,11 @@ Checklists for the common changes. Run `pnpm dev` and look at the page, then `pn
 
 This happens once a year and touches several places. The steps below use 2027 as the example.
 
-Start with config and data. Create `src/shared/data/events/2027.config.ts` modelled on `2026.config.ts` (name, dates, venue, logo, nav, share defaults). `events.ts` globs these configs, so the new file alone turns on the `markdown/2027/` and `/2027/sponsors/*` pages. Add `"2027"` to the `events` enum in `sponsorSchema` in `src/content.config.ts`: `EventYear` derives from it, so nothing type-checks with `"2027"` until you do. Then create `src/shared/data/2027/` with `talks.json`, `organizers.json`, `tickets.json` and `activities.json`, and register a `talks2027` collection in `src/content.config.ts` next to `talks2026`.
+Start with config and data. Create `src/shared/data/events/2027.config.ts` modelled on `2026.config.ts` (name, dates, venue, logo, nav, share defaults). `events.ts` globs these configs, so the new file alone enables the `markdown/2027/` and `/2027/sponsors/*` pages. Add `"2027"` to the `events` enum in `sponsorSchema` in `src/content.config.ts`: `EventYear` derives from it, so nothing type-checks with `"2027"` until you do. Then create `src/shared/data/2027/` with `talks.json`, `organizers.json`, `tickets.json` and `activities.json`, and register a `talks2027` collection in `src/content.config.ts` next to `talks2026`.
 
-Next, the pages. The Event landing page, schedule and Talk pages are hand-written per Event, so create `src/pages/2027/` using the 2026 pages as a starting point and swap the year and collection name. Content pages go in `markdown/2027/`. Images go in `src/assets/events/2027/images/`, share images in `public/images/2027/share/`, and sponsors get `"2027"` added to their `events`.
+Next, the pages. Each Event has its own hand-written landing page, schedule and Talk pages. Create `src/pages/2027/` from the 2026 pages, then change the year and the collection name. Content pages go in `markdown/2027/`. Images go in `src/assets/events/2027/images/`, and share images go in `public/images/2027/share/`. Add `"2027"` to the `events` of each 2027 Sponsor.
 
-Flip the launch switch on launch day, once the 2027 pages are ready: set `FEATURED_EVENT` to `"2027"` and update `DEFAULT_DESCRIPTION` in `src/shared/site-defaults.ts`. The homepage, header, footer and site-wide pages follow from that. Run the full test suite: several tests read `FEATURED_EVENT` and the data files, so they follow the switch too.
+Flip the launch switch on launch day, once the 2027 pages are ready: set `FEATURED_EVENT` to `"2027"` and update `DEFAULT_DESCRIPTION` in `src/shared/site-defaults.ts`. The homepage, header, footer and site-wide pages read that value. Then run the full test suite. Several tests read `FEATURED_EVENT` and the data files, so they also change with the switch.
 
 ## Testing and CI
 
@@ -280,7 +280,7 @@ pnpm test e2e/talks.spec.ts             # one file
 pnpm test --ui                          # Playwright's interactive runner
 ```
 
-Many tests derive their cases from the data files (every Talk with a slug gets a page, every Sponsor with a description gets a detail page, and so on), so new data needs no new tests in most cases. Add or update a spec when you add a page, a route or a behavior.
+Many tests generate their cases from the data files. For example, one test checks that each Talk with a slug has a page. Another test checks that each Sponsor with a description has a detail page. In most cases, new data needs no new tests. Add or update a spec when you add a page, a route or a behavior.
 
 If a dev server is already running on port 4321, Playwright reuses it instead of building. Stop `pnpm dev` before `pnpm test` if you want to test the real build.
 
@@ -313,29 +313,29 @@ The skills come from [Matt Pocock's skills collection](https://github.com/mattpo
 
 The repo installs more skills than we use. We use these:
 
-| Skill                           | Reach for it when                                                                                                           | Example                                                         |
+| Skill                           | Use it when                                                                                                                 | Example                                                         |
 | :------------------------------ | :-------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------- |
 | `grill-with-docs`               | You have an idea or plan and want it stress-tested before building. It also updates `CONTEXT.md` and ADRs as decisions land | `/grill-with-docs I want speaker pages to show past talks`      |
-| `to-spec`                       | The conversation has settled what to build; turn it into an issue                                                           | `/to-spec`                                                      |
-| `to-tickets`                    | A spec is too big for one PR; split it into issues with blocking order                                                      | `/to-tickets #42`                                               |
+| `to-spec`                       | You and the agent agreed what to build. Turn that into an issue                                                             | `/to-spec`                                                      |
+| `to-tickets`                    | A spec is too big for one PR. Split it into issues in blocking order                                                        | `/to-tickets #42`                                               |
 | `triage`                        | Issues need evaluating, labelling, and agent-ready briefs                                                                   | `/triage`                                                       |
 | `implement`                     | Build an issue or spec end to end                                                                                           | `/implement #57`                                                |
 | `tdd`                           | Build or fix something test-first (red, green, refactor)                                                                    | `/tdd the schedule should hide unpublished activities`          |
 | `diagnosing-bugs`               | Something is broken, flaky or slow and the cause isn't obvious                                                              | `/diagnosing-bugs sponsor logos 404 on /2026/sponsors/temporal` |
 | `code-review`                   | Review a branch against the repo's standards and its originating issue                                                      | `/code-review since main`                                       |
 | `improve-codebase-architecture` | Periodically, to find modules worth deepening or simplifying                                                                | `/improve-codebase-architecture`                                |
-| `handoff`                       | A session is getting long; hand the context to a fresh agent                                                                | `/handoff`                                                      |
+| `handoff`                       | A session is long. Give its context to a new agent                                                                          | `/handoff`                                                      |
 
 ### A typical flow
 
 1. **Shape it.** `/grill-with-docs` on the idea until the open questions are gone.
-2. **Write it down.** `/to-spec` creates the issue; `/to-tickets` splits it if it's large.
+2. **Record it.** `/to-spec` creates the issue. If the issue is large, `/to-tickets` splits it.
 3. **Triage.** `/triage` labels each ticket `ready-for-agent` or `ready-for-human`.
-4. **Build.** `/implement` (or `/tdd`) on an agent-ready ticket; pick up human-ready ones yourself.
+4. **Build.** Run `/implement` (or `/tdd`) on an agent-ready ticket. Do the human-ready tickets yourself.
 5. **Review.** `/code-review` before opening the PR, then human review on the PR.
 6. If the session runs long, `/handoff` and continue in a fresh one.
 
-Agents do well here when the issue is specific. "Add the 2027 tickets from this table" works; "make the tickets section better" doesn't.
+Agents do well here when the issue is specific. For example, "Add the 2027 tickets from this table" works. "Make the tickets section better" does not.
 
 ## Gotchas
 
