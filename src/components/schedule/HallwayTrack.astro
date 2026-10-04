@@ -10,11 +10,11 @@
  */
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
 
 import CtaButton from "../CtaButton.astro";
 import LocationBand from "./LocationBand.astro";
-import sponsorsData from "@shared/data/sponsors.json";
-import type { EventYear } from "@shared/data/types";
+import type { EventYear, Sponsor } from "@shared/data/types";
 
 interface Props {
   /** Event Key whose Sponsors and Cascadia Connect page to show. */
@@ -23,19 +23,14 @@ interface Props {
 
 const { year } = Astro.props;
 
-interface Sponsor {
-  id: string;
-  logo: string;
-  name: string;
-  url?: string;
-  tier?: string;
-  events: string[];
-}
+const sponsors: Sponsor[] = (await getCollection("sponsors"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((entry) => entry.data);
 
 // Platinum before gold, matching the reference's own iteration order.
 const HALLWAY_TIERS = ["platinum", "gold"] as const;
 const wallSponsors = HALLWAY_TIERS.flatMap((tier) =>
-  (sponsorsData as Sponsor[]).filter(
+  sponsors.filter(
     (sponsor) => sponsor.tier === tier && sponsor.events.includes(year),
   ),
 );

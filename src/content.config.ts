@@ -84,8 +84,17 @@ const talks2026 = defineCollection({
   schema: talkSchema.extend({ order: z.number() }),
 });
 const sponsors = defineCollection({
-  loader: file("./src/shared/data/sponsors.json"),
-  schema: sponsorSchema,
+  loader: file("./src/shared/data/sponsors.json", {
+    parser: (text) =>
+      (JSON.parse(text) as object[]).map((sponsor, order) => ({
+        ...sponsor,
+        order,
+      })),
+  }),
+  // The collection store sorts entries by id, so `order` records each
+  // Sponsor's position in sponsors.json for pages that list Sponsors. It
+  // stays off the shared Sponsor type.
+  schema: sponsorSchema.extend({ order: z.number() }),
 });
 
 export const collections = { markdown, talks2026, sponsors };
