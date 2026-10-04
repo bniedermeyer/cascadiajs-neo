@@ -46,6 +46,8 @@ export const talkSchema = z.object({
   title: z.string(),
   type: z.enum(["keynote", "main", "lightning", "workshop"]),
   abstract: z.string().optional(),
+  /** Site-relative path (not an absolute URL) to a Workshop's registration page. */
+  registrationUrl: z.string().optional(),
   tags: z.array(z.string()).optional(),
   yt: z.string().optional(),
   /** No separate slug -- lookups key on the Talk's id instead. */

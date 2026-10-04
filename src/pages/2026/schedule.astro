@@ -16,8 +16,8 @@ import { getEntry } from "astro:content";
 import { getActivity } from "@shared/data/events";
 
 // Workshop rows use ShowItem, not TalkItem. Title/description come from
-// the roster, but href doesn't match the Talk's own `slug` -- it's parsed
-// from a trailing "[[More info...]](url)" line in the abstract instead.
+// the roster, but href doesn't match the Talk's own `slug` -- it's the
+// Talk's `registrationUrl`.
 async function workshopTalk(id: string): Promise<{
   title: string;
   url: string;
@@ -27,16 +27,13 @@ async function workshopTalk(id: string): Promise<{
   if (!talk?.abstract) {
     throw new Error(`No workshop Talk with an abstract found for id "${id}"`);
   }
-  const link = talk.abstract.match(/\n\n\[\[.*?\]\]\((.*?)\)\s*$/);
-  if (!link) {
-    throw new Error(
-      `Workshop Talk "${id}" has no "More info" link in its abstract`,
-    );
+  if (!talk.registrationUrl) {
+    throw new Error(`Workshop Talk "${id}" has no registrationUrl`);
   }
   return {
     title: talk.title,
-    url: link[1],
-    description: talk.abstract.slice(0, link.index).trim(),
+    url: talk.registrationUrl,
+    description: talk.abstract,
   };
 }
 

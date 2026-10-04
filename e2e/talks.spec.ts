@@ -1,5 +1,4 @@
 import { test, expect } from "@playwright/test";
-import { marked } from "marked";
 import type { Talk } from "@shared/data/types";
 import talks from "@shared/data/2026/talks.json" with { type: "json" };
 
@@ -125,7 +124,7 @@ test.describe("Workshop talk pages", () => {
     expect(workshopTalks).toHaveLength(4);
   });
 
-  for (const { slug, speaker } of workshopTalks) {
+  for (const { slug, speaker, registrationUrl } of workshopTalks) {
     test.describe(`/2026/talks/${slug}`, () => {
       test.beforeEach(async ({ page }) => {
         const response = await page.goto(`/2026/talks/${slug}`);
@@ -152,12 +151,20 @@ test.describe("Workshop talk pages", () => {
         await expect(page.locator("#testimonials")).toBeVisible();
       });
 
-      test("abstract links to the Workshop registration page", async ({
+      test("renders the registrationUrl link after the abstract", async ({
         page,
       }) => {
-        await expect(
-          page.locator('.prose-content a[href^="/2026/workshops/"]'),
-        ).toHaveCount(1);
+        expect(registrationUrl).toBeTruthy();
+        const anchor = page.locator(
+          ".prose-content a[href^='/2026/workshops/']",
+        );
+        await expect(anchor).toHaveCount(1);
+        await expect(anchor).toHaveAttribute("href", registrationUrl!);
+        await expect(anchor).toHaveText("[More info and how to register]");
+        // The link follows the abstract, as the last paragraph.
+        await expect(page.locator(".prose-content p").last()).toContainText(
+          "[More info and how to register]",
+        );
       });
     });
   }
@@ -172,15 +179,5 @@ test.describe("Talk abstract markdown", () => {
     );
     const body = page.locator(".prose-content");
     expect(await body.locator("p").count()).toBeGreaterThan(1);
-  });
-
-  test("[[text]](url) abstracts render a real anchor with bracketed text", () => {
-    const workshop = (talks as { abstract?: string }[]).find((t) =>
-      t.abstract?.includes("[[More info and how to register]]"),
-    );
-    const html = marked.parse(workshop!.abstract!) as string;
-    expect(html).toMatch(
-      /<a href="\/2026\/workshops\/[^"]+">\[More info and how to register\]<\/a>/,
-    );
   });
 });
