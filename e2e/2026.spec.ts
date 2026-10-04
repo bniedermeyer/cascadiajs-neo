@@ -1,7 +1,7 @@
 import { test, expect, type Page, type Locator } from "@playwright/test";
-import type { Talk, Person } from "../src/shared/data/types";
-import talksData from "../src/shared/data/2026/talks.json" with { type: "json" };
-import organizersData from "../src/shared/data/2026/organizers.json" with { type: "json" };
+import type { Talk, Person } from "@shared/data/types";
+import talksData from "@shared/data/2026/talks.json" with { type: "json" };
+import organizersData from "@shared/data/2026/organizers.json" with { type: "json" };
 
 /**
  * The 2026 Event page spec drives the rendered page and asserts what a

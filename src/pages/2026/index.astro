@@ -1,20 +1,20 @@
 ---
-import EventLayout from "../../layouts/EventLayout.astro";
-import CtaButton from "../../components/CtaButton.astro";
-import SponsorsGrid from "../../components/SponsorsGrid.astro";
-import Testimonials from "../../components/Testimonials.astro";
-import VideoHero from "../../components/VideoHero.astro";
-import ImageMosaic from "../../components/ImageMosaic.astro";
-import PeopleGrid from "../../components/PeopleGrid.astro";
-import TalkCard from "../../components/TalkCard.astro";
-import PersonCard from "../../components/PersonCard.astro";
-import TicketCard from "../../components/TicketCard.astro";
+import EventLayout from "@layouts/EventLayout.astro";
+import CtaButton from "@components/CtaButton.astro";
+import SponsorsGrid from "@components/SponsorsGrid.astro";
+import Testimonials from "@components/Testimonials.astro";
+import VideoHero from "@components/VideoHero.astro";
+import ImageMosaic from "@components/ImageMosaic.astro";
+import PeopleGrid from "@components/PeopleGrid.astro";
+import TalkCard from "@components/TalkCard.astro";
+import PersonCard from "@components/PersonCard.astro";
+import TicketCard from "@components/TicketCard.astro";
 import { Image } from "astro:assets";
-import type { Talk, Person, Ticket } from "../../shared/data/types";
-import talksData from "../../shared/data/2026/talks.json";
-import organizersData from "../../shared/data/2026/organizers.json";
-import ticketsData from "../../shared/data/2026/tickets.json";
-import lockupImage from "../../assets/events/2026/images/lockup-horizontal-webai-white.png";
+import type { Talk, Person, Ticket } from "@shared/data/types";
+import talksData from "@shared/data/2026/talks.json";
+import organizersData from "@shared/data/2026/organizers.json";
+import ticketsData from "@shared/data/2026/tickets.json";
+import lockupImage from "@assets/events/2026/images/lockup-horizontal-webai-white.png";
 
 const talks = talksData as Talk[];
 const organizers = organizersData as Person[];

@@ -1,13 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import EventLayout from "../../../layouts/EventLayout.astro";
-import PersonDetail from "../../../components/PersonDetail.astro";
-import CtaButton from "../../../components/CtaButton.astro";
-import SponsorsGrid from "../../../components/SponsorsGrid.astro";
-import Testimonials from "../../../components/Testimonials.astro";
-import MarkdownContent from "../../../components/MarkdownContent.astro";
+import EventLayout from "@layouts/EventLayout.astro";
+import PersonDetail from "@components/PersonDetail.astro";
+import CtaButton from "@components/CtaButton.astro";
+import SponsorsGrid from "@components/SponsorsGrid.astro";
+import Testimonials from "@components/Testimonials.astro";
+import MarkdownContent from "@components/MarkdownContent.astro";
 import { marked } from "marked";
-import SimplePage from "../../../layouts/SimplePage.astro";
+import SimplePage from "@layouts/SimplePage.astro";
 
 export async function getStaticPaths() {
   const talks = await getCollection("talks");

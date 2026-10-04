@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source not "../../reference";
 
 @theme {
   --color-sound-navy: #112378;

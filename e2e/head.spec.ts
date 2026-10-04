@@ -1,10 +1,7 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
-import sponsors from "../src/shared/data/sponsors.json" with { type: "json" };
-import {
-  DEFAULT_DESCRIPTION,
-  DEFAULT_TITLE,
-} from "../src/shared/site-defaults";
+import sponsors from "@shared/data/sponsors.json" with { type: "json" };
+import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
 import { builtPages, distPath, filesUnder } from "./helpers";
 
 /**

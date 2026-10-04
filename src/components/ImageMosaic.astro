@@ -10,8 +10,8 @@ interface Props {
 const { images, id = "features" } = Astro.props;
 
 const eventImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/events/**/*.{jpg,png,jpeg}",
-  { eager: false },
+  "@assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false, base: "/src/assets" },
 );
 
 const rows = images.reduce<{ src: string; alt: string }[][]>((acc, image) => {
@@ -30,7 +30,7 @@ const rows = images.reduce<{ src: string; alt: string }[][]>((acc, image) => {
     rows.map((row) => (
       <div class="md:flex md:w-full">
         {row.map(async (image, index) => {
-          const imageKey = `/src/assets${image.src}`;
+          const imageKey = `.${image.src}`;
           const imageModule = eventImages[imageKey];
           if (!imageModule) {
             throw new Error(`ImageMosaic: image not found at ${imageKey}`);

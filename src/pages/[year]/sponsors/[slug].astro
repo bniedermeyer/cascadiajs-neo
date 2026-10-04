@@ -3,13 +3,13 @@ import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { marked } from "marked";
-import type { EventConfig } from "../../../shared/data/types";
-import EventLayout from "../../../layouts/EventLayout.astro";
-import SimplePage from "../../../layouts/SimplePage.astro";
-import MarkdownContent from "../../../components/MarkdownContent.astro";
-import CtaButton from "../../../components/CtaButton.astro";
-import SponsorsGrid from "../../../components/SponsorsGrid.astro";
-import Testimonials from "../../../components/Testimonials.astro";
+import type { EventConfig } from "@shared/data/types";
+import EventLayout from "@layouts/EventLayout.astro";
+import SimplePage from "@layouts/SimplePage.astro";
+import MarkdownContent from "@components/MarkdownContent.astro";
+import CtaButton from "@components/CtaButton.astro";
+import SponsorsGrid from "@components/SponsorsGrid.astro";
+import Testimonials from "@components/Testimonials.astro";
 
 export async function getStaticPaths() {
   // Only Events with a config (currently just 2026 -- previous years' content
@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   // filter would hit for Sponsors whose `events` also include e.g. "2025".
   // Same validYears pattern as [year]/[...slug].astro.
   const configs = import.meta.glob<{ default: EventConfig }>(
-    "../../../shared/data/events/*.config.ts",
+    "@shared/data/events/*.config.ts",
     { eager: true },
   );
   const validYears = new Set(
@@ -52,8 +52,8 @@ const pageTitle = (
 const descriptionHtml = marked.parse(sponsor.description ?? "") as string;
 
 const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/images/sponsors/*.{jpg,png,svg,jpeg}",
-  { eager: false },
+  "@assets/images/sponsors/*.{jpg,png,svg,jpeg}",
+  { eager: false, base: "/src/assets/images/sponsors" },
 );
 ---
 
@@ -64,7 +64,7 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
   <SimplePage title={pageTitle}>
     <div class="mb-5 text-center">
       <Image
-        src={sponsorImages[`/src/assets/images/sponsors/${sponsor.logo}`]()}
+        src={sponsorImages[`./${sponsor.logo}`]()}
         alt={`${sponsor.name} logo`}
         layout="none"
         class="inline w-1/2"

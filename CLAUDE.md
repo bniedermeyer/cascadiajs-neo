@@ -9,6 +9,8 @@
 - Never copy Enhance routing patterns, `$`/`$$` catch-all routes, or component patterns into Astro.
 - Exclude it from all tooling: TypeScript, ESLint, Prettier, and Astro config.
 
+**Imports:** Cross-directory imports between top-level `src/` directories use the `@components`, `@layouts`, `@shared` and `@assets` aliases (tsconfig `paths`); `styles` stays relative.
+
 **Acceptance bar:** The new app must be indistinguishable from the legacy site — visually, by URL, and behaviorally. URL preservation is in scope.
 
 **Out of scope:**

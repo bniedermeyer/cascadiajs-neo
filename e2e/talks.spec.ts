@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { marked } from "marked";
-import type { Talk } from "../src/shared/data/types";
-import talks from "../src/shared/data/2026/talks.json" with { type: "json" };
+import type { Talk } from "@shared/data/types";
+import talks from "@shared/data/2026/talks.json" with { type: "json" };
 
 /**
  * Talk detail page (issue #53): a per-Talk page rendered from the `talks`

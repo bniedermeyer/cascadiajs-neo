@@ -1,20 +1,20 @@
 ---
-import EventLayout from "../../layouts/EventLayout.astro";
-import SimplePage from "../../layouts/SimplePage.astro";
-import SponsorsGrid from "../../components/SponsorsGrid.astro";
-import CtaButton from "../../components/CtaButton.astro";
-import Testimonials from "../../components/Testimonials.astro";
-import Day from "../../components/schedule/Day.astro";
-import DayHeader from "../../components/schedule/DayHeader.astro";
-import LocationBand from "../../components/schedule/LocationBand.astro";
-import ShowItem from "../../components/schedule/ShowItem.astro";
-import DayContent from "../../components/schedule/DayContent.astro";
-import Track from "../../components/schedule/Track.astro";
-import TalkItem from "../../components/schedule/TalkItem.astro";
-import HallwayTrack from "../../components/schedule/HallwayTrack.astro";
-import activities from "../../shared/data/2026/activities.json";
-import talks from "../../shared/data/2026/talks.json";
-import type { Activity, Talk } from "../../shared/data/types";
+import EventLayout from "@layouts/EventLayout.astro";
+import SimplePage from "@layouts/SimplePage.astro";
+import SponsorsGrid from "@components/SponsorsGrid.astro";
+import CtaButton from "@components/CtaButton.astro";
+import Testimonials from "@components/Testimonials.astro";
+import Day from "@components/schedule/Day.astro";
+import DayHeader from "@components/schedule/DayHeader.astro";
+import LocationBand from "@components/schedule/LocationBand.astro";
+import ShowItem from "@components/schedule/ShowItem.astro";
+import DayContent from "@components/schedule/DayContent.astro";
+import Track from "@components/schedule/Track.astro";
+import TalkItem from "@components/schedule/TalkItem.astro";
+import HallwayTrack from "@components/schedule/HallwayTrack.astro";
+import activities from "@shared/data/2026/activities.json";
+import talks from "@shared/data/2026/talks.json";
+import type { Activity, Talk } from "@shared/data/types";
 
 // Throws on a typo'd id rather than silently rendering a blank row.
 function activity(id: string): Activity {

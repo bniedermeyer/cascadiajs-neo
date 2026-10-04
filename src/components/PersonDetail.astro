@@ -1,7 +1,7 @@
 ---
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
-import type { Person } from "../shared/data/types";
+import type { Person } from "@shared/data/types";
 
 interface Props {
   name: Person["name"];
@@ -16,11 +16,11 @@ interface Props {
 const { name, image, company, location, pronouns, social, url } = Astro.props;
 
 const eventImages = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/events/**/*.{jpg,png,jpeg}",
-  { eager: false },
+  "@assets/events/**/*.{jpg,png,jpeg}",
+  { eager: false, base: "/src/assets" },
 );
 
-const imageKey = `/src/assets${image}`;
+const imageKey = `.${image}`;
 const imageModule = eventImages[imageKey];
 if (!imageModule) {
   throw new Error(`PersonDetail: image not found at ${imageKey}`);

@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import talks from "../src/shared/data/2026/talks.json" with { type: "json" };
+import talks from "@shared/data/2026/talks.json" with { type: "json" };
 
 /**
  * Share images (issue #86): every page's og:image/twitter:image is an absolute

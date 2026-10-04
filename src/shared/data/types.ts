@@ -40,6 +40,7 @@ export type Activity = {
   url?: string;
   target?: "_blank";
   titleSuffix?: string;
+  /** `src` is a sponsor-logo filename relative to src/assets/images/sponsors (like sponsors.json `logo`). */
   image?: { src: string; alt: string };
   /** One string per paragraph. */
   body?: string[];
