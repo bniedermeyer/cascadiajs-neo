@@ -1,4 +1,4 @@
-import { expect, type Page } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { readdirSync } from "node:fs";
 import { join } from "node:path";
 import sponsors from "@shared/data/sponsors.json" with { type: "json" };
@@ -20,6 +20,16 @@ export function builtPages(): string[] {
 }
 
 export const distPath = (file: string) => join("dist", file);
+
+/**
+ * Built pages (`dist/`-relative) that are Frozen Snapshots: exact legacy
+ * captures (ADR-0008), not Layout-rendered. Sitewide checks of Layout's
+ * output exclude or relax them.
+ */
+export const FROZEN_SNAPSHOT_PAGES = ["2024.html", "2025.html"];
+
+export const isFrozenSnapshotPage = (file: string) =>
+  FROZEN_SNAPSHOT_PAGES.includes(file);
 
 /**
  * Names of the Sponsors the Past Sponsors grid shows: a Sponsor is hidden only
@@ -63,4 +73,97 @@ export async function expectEventNav(page: Page, eventHref = "/2026") {
   await expect(
     nav.getByRole("link", { name: "CascadiaJS logo" }),
   ).toHaveAttribute("href", eventHref);
+}
+
+/**
+ * Shared checks for a Frozen Snapshot page (ADR-0008): a legacy page captured
+ * as its exact rendered HTML. The page is not rebuilt, so these assert only
+ * what the capture must guarantee: it is served at its legacy URL, it decodes
+ * as UTF-8, and every same-origin link and asset resolves inside this site.
+ * Third-party requests are aborted so the suite never waits on them.
+ */
+export function describeFrozenSnapshot({
+  year,
+  title,
+  sampleText,
+  deadAssets = [],
+}: {
+  year: string;
+  title: string;
+  /** Visible text containing non-ASCII characters, to catch mis-decoding. */
+  sampleText: string;
+  /** Same-origin assets that were already broken on the legacy page. */
+  deadAssets?: string[];
+}) {
+  test.describe(`${year} Frozen Snapshot`, () => {
+    test.beforeEach(async ({ page, baseURL }) => {
+      const origin = new URL(baseURL!).origin;
+      await page.route(
+        (url) => url.origin !== origin,
+        (route) => route.abort(),
+      );
+    });
+
+    test("is served at the legacy URL with the legacy title", async ({
+      page,
+    }) => {
+      const response = await page.goto(`/${year}`);
+      expect(response?.status()).toBe(200);
+      await expect(page).toHaveTitle(title);
+    });
+
+    test("decodes as UTF-8", async ({ page }) => {
+      await page.goto(`/${year}`);
+      await expect(page.getByText(sampleText).first()).toBeVisible();
+    });
+
+    test("references no legacy asset paths", async ({ page }) => {
+      await page.goto(`/${year}`);
+      expect(await page.content()).not.toContain("/_public/");
+    });
+
+    test("every same-origin link resolves", async ({ page }) => {
+      await page.goto(`/${year}`);
+      const hrefs = await page
+        .locator('a[href^="/"]')
+        .evaluateAll((as) => as.map((a) => a.getAttribute("href")!));
+      const paths = [...new Set(hrefs.map((h) => h.split("#")[0]))];
+      expect(paths.length).toBeGreaterThan(0);
+      for (const path of paths) {
+        const response = await page.request.get(path);
+        expect(response.status(), path).toBe(200);
+      }
+    });
+
+    test("every same-origin asset resolves", async ({ page }) => {
+      await page.goto(`/${year}`);
+      const urls = await page.evaluate(() => [
+        ...[...document.querySelectorAll("img[src], source[src]")].map(
+          (e) => e.getAttribute("src")!,
+        ),
+        ...[...document.querySelectorAll("link[href]")].map(
+          (e) => e.getAttribute("href")!,
+        ),
+        ...[
+          ...document.querySelectorAll(
+            'meta[content^="https://cascadiajs.com/"]',
+          ),
+        ].map((e) => e.getAttribute("content")!),
+      ]);
+      const assets = [
+        ...new Set(
+          urls
+            .map((u) => u.replace(/^https:\/\/cascadiajs\.com(?=\/)/, ""))
+            .filter((u) => u.startsWith(`/images/events/${year}/`)),
+        ),
+      ];
+      expect(assets.length).toBeGreaterThan(0);
+      for (const asset of assets) {
+        const response = await page.request.get(asset);
+        expect(response.status(), asset).toBe(
+          deadAssets.includes(asset) ? 404 : 200,
+        );
+      }
+    });
+  });
 }

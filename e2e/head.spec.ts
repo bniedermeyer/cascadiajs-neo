@@ -2,7 +2,12 @@ import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import sponsors from "@shared/data/sponsors.json" with { type: "json" };
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
-import { builtPages, distPath, filesUnder } from "./helpers";
+import {
+  builtPages,
+  distPath,
+  filesUnder,
+  isFrozenSnapshotPage,
+} from "./helpers";
 
 /**
  * Head parity with legacy (issues #88, #89). Sitewide checks read every built page
@@ -40,10 +45,16 @@ test.describe("Sitewide head (every built page)", () => {
 
   // CUTOVER: this test asserts the analytics snippets in Layout.astro are
   // still dormant. Invert or remove it when they are enabled (see the TODO
-  // in Layout.astro), or it will fail on every page.
+  // in Layout.astro), or it will fail on every page. The Frozen Snapshot pages
+  // (src/pages/2024 and 2025 index.html) carry the same snippets, commented
+  // out; uncomment them at cutover too, and drop the comment-stripping below.
   test("every page has the legacy viewport, author meta and no analytics", () => {
     for (const file of pages) {
       const html = readFileSync(distPath(file), "utf8");
+      // Frozen Snapshots (ADR-0008) keep their analytics commented out until cutover.
+      const live = isFrozenSnapshotPage(file)
+        ? html.replace(/<!--[\s\S]*?-->/g, "")
+        : html;
       expect(html, file).toContain(
         '<meta name="viewport" content="width=device-width, initial-scale=1"',
       );
@@ -56,7 +67,7 @@ test.describe("Sitewide head (every built page)", () => {
         "1431763387943877",
         "facebook.com/tr",
       ]) {
-        expect(html, `${file} contains ${trace}`).not.toContain(trace);
+        expect(live, `${file} contains ${trace}`).not.toContain(trace);
       }
     }
   });
