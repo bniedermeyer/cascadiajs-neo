@@ -154,7 +154,11 @@ export function describeFrozenSnapshot({
         ...new Set(
           urls
             .map((u) => u.replace(/^https:\/\/cascadiajs\.com(?=\/)/, ""))
-            .filter((u) => u.startsWith(`/images/events/${year}/`)),
+            .filter(
+              (u) =>
+                u.startsWith(`/images/events/${year}/`) ||
+                u.startsWith(`/events/${year}/`),
+            ),
         ),
       ];
       expect(assets.length).toBeGreaterThan(0);
