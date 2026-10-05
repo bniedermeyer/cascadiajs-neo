@@ -24,6 +24,8 @@
 
 **Assets and data** are stored locally in the repo.
 
+**Docs:** `README.md` is the human onboarding guide. When a change alters something it documents (layouts, routing, content/data shape, commands, workflow, recipes), update the matching README section in the same change.
+
 ## Agent skills
 
 ### Issue tracker
