@@ -155,7 +155,7 @@ test.describe("Share images", () => {
       const html = await res.text();
 
       for (const pattern of [
-        /<meta property="og:image" content="([^"]*)"/,
+        /<meta [^>]*property="og:image" content="([^"]*)"/,
         /<meta name="twitter:image" content="([^"]*)"/,
       ]) {
         const content = html.match(pattern)?.[1];

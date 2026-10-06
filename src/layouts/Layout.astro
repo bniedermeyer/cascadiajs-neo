@@ -44,6 +44,10 @@ const ogImageUrl = new URL(ogImage, origin).href;
          parse the text up to the next closing tag as JavaScript.
          Also invert or remove the "no analytics traces" test in
          e2e/head.spec.ts, which fails once these snippets are emitted.
+         The Frozen Snapshot pages (src/pages/2024 and src/pages/2025
+         index.html) carry the same snippets inside HTML comments; uncomment
+         those at cutover too, and drop the comment-stripping for snapshot
+         pages in that test.
          Don't write a star-slash inside this comment: it would end it early.
 
          Google tag (gtag.js), GA4:
