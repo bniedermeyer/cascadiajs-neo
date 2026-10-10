@@ -84,7 +84,7 @@ src/
   styles/global.css Tailwind entry point and design tokens
   content.config.ts Content collections and their Zod schemas
 markdown/           Content pages (.md / .mdx), one file per page
-public/             Files served as-is: share images, video, downloads, favicon
+public/             Files served as-is: share images, video, downloads, favicon, `_redirects` (Netlify legacy-URL redirects)
 e2e/                Playwright tests
 docs/
   adr/              Architecture decision records
