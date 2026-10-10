@@ -13,7 +13,6 @@
     "check": "astro check",
     "astro": "astro",
     "test": "playwright test",
-    "compare": "node scripts/compare.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky"
