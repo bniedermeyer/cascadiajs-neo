@@ -19,7 +19,7 @@
   --font-display: mono45-headline, sans-serif;
   --font-serif: freight-macro-pro, sans-serif;
 
-  /* Off-scale font sizes lifted verbatim from the legacy reference
+  /* Off-scale font sizes lifted verbatim from the Legacy Site
      stylesheet. None has an exact Tailwind default equivalent, and computed
      font sizes were verified against the Legacy Site (ADR-0015), so these
      values must not be rounded or otherwise altered. Named as tokens
