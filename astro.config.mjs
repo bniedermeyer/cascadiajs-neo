@@ -5,10 +5,12 @@ import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import mdx from "@astrojs/mdx";
 
+import sitemap from "@astrojs/sitemap";
+
 // Netlify sets these at build time: URL is the site's main address,
 // DEPLOY_PRIME_URL the stable URL for a deploy preview or branch deploy, and
 // CONTEXT which of those this build is. Outside Netlify (local builds, tests)
-// fall back to the live site.
+// fall back to https://cascadiajs.com.
 const productionSite = process.env.URL ?? "https://cascadiajs.com";
 const site =
   process.env.CONTEXT === "production"
@@ -34,7 +36,12 @@ export default defineConfig({
   image: {
     layout: "constrained",
   },
-  integrations: [mdx()],
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) => !page.includes("/admin"),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

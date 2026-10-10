@@ -28,9 +28,6 @@ export const distPath = (file: string) => join("dist", file);
  */
 export const FROZEN_SNAPSHOT_PAGES = ["2024.html", "2025.html"];
 
-export const isFrozenSnapshotPage = (file: string) =>
-  FROZEN_SNAPSHOT_PAGES.includes(file);
-
 /**
  * Names of the Sponsors the Past Sponsors grid shows: a Sponsor is hidden only
  * when every one of its Events is the Featured Event.

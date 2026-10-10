@@ -73,3 +73,7 @@ The overcast-gray banner at the top of a MarkdownLayout page holding the page's 
 **Width (narrow/wide)**:
 A MarkdownLayout frontmatter value controlling the desktop body column width — `narrow` (50%, the default and the only value legacy markdown pages ever used) or `wide` (70%).
 _Avoid_: Column, Size
+
+**Legacy Site**:
+The Enhance implementation CascadiaJS ran on before this port. The port reproduces its visible look, URLs and behavior; once the port is live it is a historical record only, not a specification to verify against.
+_Avoid_: Reference repo, old site

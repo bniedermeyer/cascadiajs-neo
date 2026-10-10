@@ -194,7 +194,7 @@ test.describe("Sponsorships brochure page", () => {
     await expect(page.locator("#testimonials")).toBeVisible();
   });
 
-  // -- Fidelity spot-checks (ADR-0004) ---------------------------------------
+  // -- Fidelity spot-checks (ADR-0015) ---------------------------------------
 
   test("hero section uses the mint background", async ({ page }) => {
     const bg = await heroSection(page).evaluate(

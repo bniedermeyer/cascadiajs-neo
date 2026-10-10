@@ -71,8 +71,8 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
         {
           wallSponsors.map((sponsor) => (
             <div class="mb-8 text-center">
-              {/* text-cascade-blue matches the live page's inherited
-                  prose-link colour here for computed-style parity (ADR-0004);
+              {/* text-cascade-blue matches the Legacy Site page's inherited
+                  prose-link colour here, for computed-style parity;
                   visually inert since it sits behind the image. */}
               <a target="_new" href={sponsor.url} class="text-cascade-blue">
                 <Image

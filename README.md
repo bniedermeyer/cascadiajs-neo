@@ -64,7 +64,7 @@ The `ready-for-agent` and `ready-for-human` labels decide who builds a ticket: a
 
 ### Decisions and vocabulary
 
-- [`CONTEXT.md`](CONTEXT.md) is the glossary. Use its terms in code, issues and PRs.
+- [`GLOSSARY.md`](GLOSSARY.md) is the glossary. Use its terms in code, issues and PRs.
 - [`docs/adr/`](docs/adr/) holds the architecture decision records. Read the ADRs that touch an area before changing it. To reverse a decision, write a new ADR that supersedes the old one, and leave the old one in place.
 
 ## Project map
@@ -78,22 +78,23 @@ src/
     table/          Table primitives (used by the sponsorship brochure)
   shared/
     data/           JSON datasets, Event configs, shared types, data helpers
-    site-defaults.ts  Site-wide title/description and the Featured Event
+    site-defaults.ts  Site-wide title/description, Featured Event, analytics IDs
     route-path.ts   Normalized route path for canonical URLs
   assets/           Images processed by Astro (people, sponsor logos, page images)
   styles/global.css Tailwind entry point and design tokens
   content.config.ts Content collections and their Zod schemas
 markdown/           Content pages (.md / .mdx), one file per page
-public/             Files served as-is: share images, video, downloads, favicon
+public/             Files served as-is: share images, video, downloads, favicon, `_redirects` (Netlify legacy-URL redirects)
 e2e/                Playwright tests
 docs/
   adr/              Architecture decision records
   agents/           Config that agent skills read (issue tracker, labels, domain docs)
 .agents/skills/     Agent skills (symlinked into .claude/skills/)
-CONTEXT.md          Domain glossary
+GLOSSARY.md          Domain glossary
 CLAUDE.md           Rules for coding agents (AGENTS.md is a symlink to it)
-reference/          The previous site. Read-only; ignore it unless a task tells you otherwise
 ```
+
+The previous Enhance site (the Legacy Site) is preserved on the [cascadiajs-legacy-pre-migration](../../tree/cascadiajs-legacy-pre-migration) branch, as a historical reference only.
 
 ### Imports
 
@@ -110,7 +111,7 @@ The aliases are `@components`, `@layouts`, `@shared` and `@assets`. Stylesheets 
 
 ## Key terms
 
-The full glossary is in [`CONTEXT.md`](CONTEXT.md). You'll meet these four throughout the code:
+The full glossary is in [`GLOSSARY.md`](GLOSSARY.md). You'll meet these four throughout the code:
 
 - **Event**: one annual CascadiaJS conference, such as CascadiaJS 2026.
 - **Event Key**: the short id that ties data to an Event: a year (`"2026"`) or the bucket `"previous"` for older sponsors. In code, the `EventYear` type holds a value that can only be a real year, and you can name that value `year`. Anything that can hold `previous` is an Event Key.
@@ -297,7 +298,7 @@ You can work on this repo by hand. If you use a coding agent such as Claude Code
 ### What the agent reads
 
 - **[`CLAUDE.md`](CLAUDE.md)**: Claude Code loads it at the start of every session, and `AGENTS.md` symlinks to it for other tools. It's the agent's rulebook and source of truth: stack, package manager, import rules, what's out of scope, and what it must never touch. This README explains the same project to people, so keep the two consistent. If you change a rule, change `CLAUDE.md`.
-- **[`CONTEXT.md`](CONTEXT.md)** and **[`docs/adr/`](docs/adr/)** give the agent the domain vocabulary and past decisions. Skills read them before exploring code, and flag it when a change would contradict an ADR.
+- **[`GLOSSARY.md`](GLOSSARY.md)** and **[`docs/adr/`](docs/adr/)** give the agent the domain vocabulary and past decisions. Skills read them before exploring code, and flag it when a change would contradict an ADR.
 - **[`docs/agents/`](docs/agents/)** tells skills where issues live and which labels mean what.
 
 ### Repo hooks (Claude Code)
@@ -313,18 +314,18 @@ The skills come from [Matt Pocock's skills collection](https://github.com/mattpo
 
 The repo installs more skills than we use. We use these:
 
-| Skill                           | Use it when                                                                                                                 | Example                                                         |
-| :------------------------------ | :-------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------- |
-| `grill-with-docs`               | You have an idea or plan and want it stress-tested before building. It also updates `CONTEXT.md` and ADRs as decisions land | `/grill-with-docs I want speaker pages to show past talks`      |
-| `to-spec`                       | You and the agent agreed what to build. Turn that into an issue                                                             | `/to-spec`                                                      |
-| `to-tickets`                    | A spec is too big for one PR. Split it into issues in blocking order                                                        | `/to-tickets #42`                                               |
-| `triage`                        | Issues need evaluating, labelling, and agent-ready briefs                                                                   | `/triage`                                                       |
-| `implement`                     | Build an issue or spec end to end                                                                                           | `/implement #57`                                                |
-| `tdd`                           | Build or fix something test-first (red, green, refactor)                                                                    | `/tdd the schedule should hide unpublished activities`          |
-| `diagnosing-bugs`               | Something is broken, flaky or slow and the cause isn't obvious                                                              | `/diagnosing-bugs sponsor logos 404 on /2026/sponsors/temporal` |
-| `code-review`                   | Review a branch against the repo's standards and its originating issue                                                      | `/code-review since main`                                       |
-| `improve-codebase-architecture` | Periodically, to find modules worth deepening or simplifying                                                                | `/improve-codebase-architecture`                                |
-| `handoff`                       | A session is long. Give its context to a new agent                                                                          | `/handoff`                                                      |
+| Skill                           | Use it when                                                                                                                  | Example                                                         |
+| :------------------------------ | :--------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------- |
+| `grill-with-docs`               | You have an idea or plan and want it stress-tested before building. It also updates `GLOSSARY.md` and ADRs as decisions land | `/grill-with-docs I want speaker pages to show past talks`      |
+| `to-spec`                       | You and the agent agreed what to build. Turn that into an issue                                                              | `/to-spec`                                                      |
+| `to-tickets`                    | A spec is too big for one PR. Split it into issues in blocking order                                                         | `/to-tickets #42`                                               |
+| `triage`                        | Issues need evaluating, labelling, and agent-ready briefs                                                                    | `/triage`                                                       |
+| `implement`                     | Build an issue or spec end to end                                                                                            | `/implement #57`                                                |
+| `tdd`                           | Build or fix something test-first (red, green, refactor)                                                                     | `/tdd the schedule should hide unpublished activities`          |
+| `diagnosing-bugs`               | Something is broken, flaky or slow and the cause isn't obvious                                                               | `/diagnosing-bugs sponsor logos 404 on /2026/sponsors/temporal` |
+| `code-review`                   | Review a branch against the repo's standards and its originating issue                                                       | `/code-review since main`                                       |
+| `improve-codebase-architecture` | Periodically, to find modules worth deepening or simplifying                                                                 | `/improve-codebase-architecture`                                |
+| `handoff`                       | A session is long. Give its context to a new agent                                                                           | `/handoff`                                                      |
 
 ### A typical flow
 

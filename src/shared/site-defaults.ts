@@ -11,5 +11,12 @@ export const DEFAULT_TITLE = "CascadiaJS - a JS conf for the PacNW";
 export const DEFAULT_DESCRIPTION =
   "CascadiaJS 2026 is coming up on June 1 - 2 in Seattle, WA!";
 
-/** Event Key of the Featured Event (see CONTEXT.md). */
+/** Event Key of the Featured Event (see GLOSSARY.md). */
 export const FEATURED_EVENT = "2026" as const;
+
+/**
+ * Legacy analytics IDs, kept so reporting carries on across the migration.
+ * Emitted on every page (ADR-0014).
+ */
+export const GA4_ID = "G-XBTPEH9RZW";
+export const META_PIXEL_ID = "1431763387943877";

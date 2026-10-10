@@ -2,7 +2,12 @@
 import "../styles/global.css";
 import SiteHeader from "@components/SiteHeader.astro";
 import SiteFooter from "@components/SiteFooter.astro";
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  GA4_ID,
+  META_PIXEL_ID,
+} from "@shared/site-defaults";
 import { routePath } from "@shared/route-path";
 
 interface Props {
@@ -21,6 +26,28 @@ const {
   title = DEFAULT_TITLE,
 } = Astro.props;
 
+// Legacy snippets, verbatim from app/head.mjs. Kept as strings so the braces
+// in them aren't parsed as template expressions.
+const GTAG_CONFIG = `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${GA4_ID}');
+`;
+const META_PIXEL = `
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '${META_PIXEL_ID}');
+fbq('track', 'PageView');
+`;
+const META_PIXEL_NOSCRIPT = ` <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1"> `;
 const origin = Astro.site ?? Astro.url.origin;
 const canonicalUrl = new URL(routePath(Astro.url), origin).href;
 const ogImageUrl = new URL(ogImage, origin).href;
@@ -30,65 +57,20 @@ const ogImageUrl = new URL(ogImage, origin).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {
-      /* ---- Analytics (dormant) ----------------------------------------
-         TODO: enable at migration cutover. Ported verbatim from legacy
-         app/head.mjs; nothing below is emitted. To enable, remove the whole
-         curly-brace-plus-comment wrapper around this block, not just the
-         comment markers (leftover braces would be parsed as an expression),
-         and add `is:inline` to EVERY script tag, including the external
-         gtag loader (the `async src` one): Astro processes scripts that
-         have a src too, and would bundle or drop them without it.
-         Don't write a bare script tag in this prose: Vite's dependency
-         scanner regex-matches script tags even inside comments and would
-         parse the text up to the next closing tag as JavaScript.
-         Also invert or remove the "no analytics traces" test in
-         e2e/head.spec.ts, which fails once these snippets are emitted.
-         The Frozen Snapshot pages (src/pages/2024 and src/pages/2025
-         index.html) carry the same snippets inside HTML comments; uncomment
-         those at cutover too, and drop the comment-stripping for snapshot
-         pages in that test.
-         Don't write a star-slash inside this comment: it would end it early.
-
-         Google tag (gtag.js), GA4:
-
-         <script async src="https://www.googletagmanager.com/gtag/js?id=G-XBTPEH9RZW"></script>
-         <script>
-           window.dataLayer = window.dataLayer || [];
-           function gtag(){dataLayer.push(arguments);}
-           gtag('js', new Date());
-
-           gtag('config', 'G-XBTPEH9RZW');
-         </script>
-
-         Meta Pixel Code (its <noscript> fallback image lives at the end of
-         <body>, since an <img> is invalid in <head>):
-
-         <script>
-         !function(f,b,e,v,n,t,s)
-         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-         if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-         n.queue=[];t=b.createElement(e);t.async=!0;
-         t.src=v;s=b.getElementsByTagName(e)[0];
-         s.parentNode.insertBefore(t,s)}(window, document,'script',
-         'https://connect.facebook.net/en_US/fbevents.js');
-         fbq('init', '1431763387943877');
-         fbq('track', 'PageView');
-         </script>
-         ------------------------------------------------------------------ */
-    }
+    <script
+      is:inline
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>
+    <script is:inline set:html={GTAG_CONFIG} />
+    <script is:inline set:html={META_PIXEL} />
     <meta name="author" content="CascadiaJS" />
     <meta name="generator" content={Astro.generator} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
 
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    <!-- TODO: remove this once we're live -->
-    <meta name="robots" content="noindex, nofollow" />
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -134,18 +116,6 @@ const ogImageUrl = new URL(ogImage, origin).href;
     </main>
 
     <SiteFooter />
-    {
-      /* TODO: enable at migration cutover. Meta Pixel <noscript> fallback,
-         dormant like the head snippets above. It is the last child of
-         <body> because an <img> in <head> is invalid and makes the parser
-         close the head early. To enable, remove the whole curly-brace-plus-
-         comment wrapper, not just the comment markers. (This tag is plain
-         HTML, not a script tag, so it needs no `is:inline`.)
-
-         <noscript><img height="1" width="1" style="display:none"
-         src="https://www.facebook.com/tr?id=1431763387943877&ev=PageView&noscript=1"
-         /></noscript>
-      */
-    }
+    <noscript set:html={META_PIXEL_NOSCRIPT} />
   </body>
 </html>

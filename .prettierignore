@@ -1,4 +1,3 @@
-reference/
 pnpm-lock.yaml
 
 # Frozen Snapshots are byte-for-byte legacy captures (ADR-0008); never reformat.

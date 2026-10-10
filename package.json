@@ -13,13 +13,13 @@
     "check": "astro check",
     "astro": "astro",
     "test": "playwright test",
-    "compare": "node scripts/compare.mjs",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
+    "@astrojs/sitemap": "^3.7.4",
     "@tailwindcss/vite": "^4.3.1",
     "astro": "^7.3.5",
     "marked": "^18.0.13",

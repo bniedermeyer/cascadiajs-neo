@@ -27,7 +27,7 @@ export type Sponsor = z.infer<typeof sponsorSchema>;
 
 /**
  * A non-Talk happening at an Event, occurring at a stated time -- see
- * CONTEXT.md's Activity glossary entry. Renders in fixed order: icon ->
+ * GLOSSARY.md's Activity glossary entry. Renders in fixed order: icon ->
  * title (linked if `url`) -> titleSuffix -> image -> body -> slot -> cta.
  */
 export type Activity = {

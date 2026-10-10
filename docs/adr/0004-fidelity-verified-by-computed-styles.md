@@ -1,3 +1,7 @@
+---
+status: superseded by ADR-0015
+---
+
 # Fidelity Verified by Computed-Style Comparison, Not Pixel Snapshots
 
 The visual fidelity bar in ADR-0001 is verified by comparing computed styles and element geometry (via `getComputedStyle` and bounding boxes) between the local site and the live legacy site at cascadiajs.com — not by screenshot pixel-diffing. A pixel diff only says _that_ something differs; a computed-style diff says _which property on which element_, which is what an agent needs to resolve drift. It is also the right abstraction for this port: Tailwind utilities and the legacy CSS should resolve to identical computed values even though class names and DOM structure differ.

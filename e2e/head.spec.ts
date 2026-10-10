@@ -1,12 +1,17 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
 import sponsors from "@shared/data/sponsors.json" with { type: "json" };
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  GA4_ID,
+  META_PIXEL_ID,
+} from "@shared/site-defaults";
 import {
   builtPages,
   distPath,
   filesUnder,
-  isFrozenSnapshotPage,
+  FROZEN_SNAPSHOT_PAGES,
 } from "./helpers";
 
 /**
@@ -43,31 +48,35 @@ test.describe("Sitewide head (every built page)", () => {
     expect(pages.length).toBeGreaterThan(50);
   });
 
-  // CUTOVER: this test asserts the analytics snippets in Layout.astro are
-  // still dormant. Invert or remove it when they are enabled (see the TODO
-  // in Layout.astro), or it will fail on every page. The Frozen Snapshot pages
-  // (src/pages/2024 and 2025 index.html) carry the same snippets, commented
-  // out; uncomment them at cutover too, and drop the comment-stripping below.
-  test("every page has the legacy viewport, author meta and no analytics", () => {
+  test("no page tells crawlers not to index it", () => {
     for (const file of pages) {
       const html = readFileSync(distPath(file), "utf8");
-      // Frozen Snapshots (ADR-0008) keep their analytics commented out until cutover.
-      const live = isFrozenSnapshotPage(file)
-        ? html.replace(/<!--[\s\S]*?-->/g, "")
-        : html;
+      expect(html, file).not.toMatch(/<meta[^>]+name="?robots"?[^>]*noindex/i);
+    }
+  });
+
+  test("every page has the legacy viewport and author meta", () => {
+    for (const file of pages) {
+      const html = readFileSync(distPath(file), "utf8");
       expect(html, file).toContain(
         '<meta name="viewport" content="width=device-width, initial-scale=1"',
       );
       expect(html, file).toContain('<meta name="author" content="CascadiaJS"');
+    }
+  });
+
+  test("every page loads GA4 and the Meta Pixel, Frozen Snapshots included", () => {
+    expect(pages).toEqual(expect.arrayContaining(FROZEN_SNAPSHOT_PAGES));
+    for (const file of pages) {
+      const html = readFileSync(distPath(file), "utf8");
       for (const trace of [
-        "googletagmanager",
-        "gtag",
-        "fbevents",
-        "G-XBTPEH9RZW",
-        "1431763387943877",
-        "facebook.com/tr",
+        `googletagmanager.com/gtag/js?id=${GA4_ID}`,
+        `gtag('config', '${GA4_ID}')`,
+        "connect.facebook.net/en_US/fbevents.js",
+        `fbq('init', '${META_PIXEL_ID}')`,
+        `facebook.com/tr?id=${META_PIXEL_ID}`,
       ]) {
-        expect(live, `${file} contains ${trace}`).not.toContain(trace);
+        expect(html, `${file} is missing ${trace}`).toContain(trace);
       }
     }
   });

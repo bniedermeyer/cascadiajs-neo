@@ -4,10 +4,7 @@
 
 **Package manager:** pnpm. Use `pnpm`/`pnx exec`, not `npm`/`npx`.
 
-**Reference repo:** `reference/cascadiajs/` is a read-only, fixed-commit git submodule of the legacy Enhance implementation. Use it ONLY for visual fidelity, CSS, and design tokens. Never make any changes to files within `/reference/cascadiajs/
-
-- Never copy Enhance routing patterns, `$`/`$$` catch-all routes, or component patterns into Astro.
-- Exclude it from all tooling: TypeScript, ESLint, Prettier, and Astro config.
+**Legacy Site:** the Enhance implementation this port reproduces is preserved on the [cascadiajs-legacy-pre-migration](../../tree/cascadiajs-legacy-pre-migration) branch. Historical reference only, not a specification to verify against. Never copy Enhance routing patterns, `$`/`$$` catch-all routes, or component patterns into Astro.
 
 **Imports:** Cross-directory imports between top-level `src/` directories use the `@components`, `@layouts`, `@shared` and `@assets` aliases (tsconfig `paths`); `styles` stays relative.
 
@@ -38,4 +35,4 @@ Default five-role vocabulary (needs-triage, needs-info, ready-for-agent, ready-f
 
 ### Domain docs
 
-Single-context — one `CONTEXT.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+Single-context — one `GLOSSARY.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
