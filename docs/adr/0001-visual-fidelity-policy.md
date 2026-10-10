@@ -1,3 +1,7 @@
+---
+status: partially superseded by ADR-0015 (the clause that the reference codebase is the visual specification)
+---
+
 # Visual Fidelity Policy for Reference Port
 
 When porting any component from the Enhance reference implementation to Astro, the rendered output must be visually identical to the original — same layout, colors, typography, and spacing. The implementation approach may differ: Tailwind utility classes are the right tool (see ADR-0003).
