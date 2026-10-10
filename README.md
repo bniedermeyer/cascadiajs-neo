@@ -271,6 +271,17 @@ Next, the pages. Each Event has its own hand-written landing page, schedule and 
 
 Flip the launch switch on launch day, once the 2027 pages are ready: set `FEATURED_EVENT` to `"2027"` and update `DEFAULT_DESCRIPTION` in `src/shared/site-defaults.ts`. The homepage, header, footer and site-wide pages read that value. Then run the full test suite. Several tests read `FEATURED_EVENT` and the data files, so they also change with the switch.
 
+## Going live
+
+Indexing and analytics switch on by themselves when a build is _live_: a Netlify production build whose main address is cascadiajs.com (`isLiveSite` in `src/shared/live-site.ts`, decision in [ADR-0014](docs/adr/0014-indexing-and-analytics-only-on-the-live-site.md)). Every other build stays hidden and untracked.
+
+1. Add cascadiajs.com as the main domain in Netlify.
+2. **Redeploy production.** `URL` is read at build time, so skipping this launches with `noindex` and no analytics.
+3. Flip DNS.
+4. Check by hand (CI never builds the live site): robots.txt allows crawling and lists the sitemap; `/sitemap.xml` 301s to `/sitemap-index.xml`; a Layout page and a Frozen Snapshot page (`/2024`, `/2025`) have no `noindex` and have both the GA4 and Meta Pixel snippets.
+
+The 2024 and 2025 snapshots keep their analytics in `ANALYTICS DORMANT` comments. An integration in `astro.config.mjs` fails the build if those markers disappear, and on a live build uncomments them in `dist`. Never edit the snapshot sources for this.
+
 ## Testing and CI
 
 End-to-end tests live in `e2e/` and use [Playwright](https://playwright.dev/docs/intro). They run against a production build (`pnpm build && pnpm preview`), the same output Netlify deploys.
