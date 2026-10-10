@@ -13,15 +13,15 @@
   --color-mint: #ccf1db;
 
   /* Fallback stacks match the legacy stylesheet exactly: computed
-     font-family is matched against the Legacy Site, so extra fallbacks
-     would register as drift on every text element. */
+     font-family was verified against the Legacy Site (ADR-0015), and extra
+     fallbacks would have registered as drift on every text element. */
   --font-sans: freight-sans-pro, sans-serif;
   --font-display: mono45-headline, sans-serif;
   --font-serif: freight-macro-pro, sans-serif;
 
   /* Off-scale font sizes lifted verbatim from the legacy reference
      stylesheet. None has an exact Tailwind default equivalent, and computed
-     font sizes are matched against the Legacy Site, so these
+     font sizes were verified against the Legacy Site (ADR-0015), so these
      values must not be rounded or otherwise altered. Named as tokens
      rather than left as arbitrary `text-[Npx]` values so the sanctioned
      size vocabulary stays enumerable instead of drifting one-off per

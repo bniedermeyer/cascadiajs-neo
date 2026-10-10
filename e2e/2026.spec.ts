@@ -382,9 +382,10 @@ test.describe("2026 event page", () => {
   }) => {
     // Legacy Site (`cascadiajs-legacy-pre-migration` branch,
     // `app/elements/nav-2026.mjs`): the lone `class="buy"` anchor, styled by
-    // `a.buy` in `public/styles/main.css`. Unlike the SOLD OUT pill's split-class miss, `a.buy`'s
-    // own class-level specificity wins cleanly over the nav's scoped
-    // `nav a` color rule, so the yellow button renders as authored.
+    // `a.buy` in `public/styles/main.css`. Verified against the live legacy
+    // site: unlike the SOLD OUT pill's split-class miss, `a.buy`'s own
+    // class-level specificity wins cleanly over the nav's scoped `nav a`
+    // color rule, so the yellow button renders as authored.
     const nav = page.locator("#nav").getByRole("navigation");
     const ticketsLink = nav.getByRole("link", { name: "Tickets" });
     const styles = await ticketsLink.evaluate((el) => {
