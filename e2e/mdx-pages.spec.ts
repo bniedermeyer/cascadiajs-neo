@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 /**
- * childcare.mdx (markdown/2026/childcare.mdx) is the first page converted to
+ * childcare.mdx (src/content/markdown/2026/childcare.mdx) is the first page converted to
  * MDX (ADR-0012) so it can import and render CtaButton directly instead of
  * the legacy `<div class="cta secondary">` markup.
  */
@@ -42,7 +42,7 @@ test.describe("MDX page (/2026/childcare)", () => {
 });
 
 /**
- * Workshop pages (markdown/2026/workshops/*.mdx, ticket #77) are the second
+ * Workshop pages (src/content/markdown/2026/workshops/*.mdx, ticket #77) are the second
  * batch converted to MDX so they can render Callout and CtaButton directly
  * instead of the legacy `<div class="highlight info">` / `<div class="cta">`
  * markup.
@@ -84,7 +84,7 @@ test.describe("MDX workshop page (/2026/workshops/deploying-ai-agents)", () => {
 });
 
 /**
- * The three 2026 trainings (markdown/2026/trainings/*.mdx) were converted to
+ * The three 2026 trainings (src/content/markdown/2026/trainings/*.mdx) were converted to
  * MDX so their "Buy Ticket" CTA renders through CtaButton instead of the
  * legacy `<div class="cta">` markup, and their speaker photo renders as a
  * markdown image resolved through src/assets (ticket #78).
@@ -120,7 +120,7 @@ test.describe("MDX page (/2026/trainings/ai-for-typescript-developers)", () => {
 });
 
 /**
- * attend.mdx (markdown/2026/attend.mdx) converted from .md to .mdx so the
+ * attend.mdx (src/content/markdown/2026/attend.mdx) converted from .md to .mdx so the
  * "Travel Guide" CTA can use the CtaButton component directly (ADR-0012).
  * See e2e/event-markdown.spec.ts for other /2026/attend coverage (nav,
  * page-title bar, etc.) -- these tests cover only what's new from the MDX
@@ -170,7 +170,7 @@ test.describe("MDX page (/2026/attend)", () => {
 });
 
 /**
- * cfp.mdx (markdown/2026/cfp.mdx) is the batch of remaining CTA/highlight
+ * cfp.mdx (src/content/markdown/2026/cfp.mdx) is the batch of remaining CTA/highlight
  * pages converted to MDX so the "please double-check your URL" block
  * renders through the Callout component instead of the legacy
  * `<div class="highlight warning">` markup (ticket #80).
@@ -197,7 +197,7 @@ test.describe("MDX page (/2026/cfp)", () => {
 });
 
 /**
- * travel.mdx (markdown/2026/travel.mdx) swaps its legacy
+ * travel.mdx (src/content/markdown/2026/travel.mdx) swaps its legacy
  * `<span class="highlight warning">` booking-deadline markup for Tailwind
  * utility classes, and its "Buy Train or Bus Ticket" CTA for CtaButton
  * (ticket #80).

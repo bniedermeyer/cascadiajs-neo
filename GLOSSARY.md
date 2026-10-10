@@ -62,10 +62,10 @@ The Astro layout (`src/layouts/MarkdownLayout.astro`) that wraps `Layout.astro` 
 _Avoid_: simple-page, page-layout (legacy Enhance names)
 
 **Collection**:
-An Astro content collection — a schema-validated set of content entries loaded from disk. The `markdown` collection holds standalone markdown pages (e.g. `welcome`), loaded by `glob` from the root-level `/markdown/` directory (a sibling of `src/`) and defined in `src/content.config.ts`.
+An Astro content collection — a schema-validated set of content entries loaded from disk. The `markdown` collection holds standalone markdown pages (e.g. `welcome`), loaded by `glob` and defined in `src/content.config.ts`.
 
 **Entry / id (slug)**:
-A single item in a Collection — for the `markdown` collection, one `.md` file. Its `id` (e.g. `welcome` for `/markdown/welcome.md`) becomes the route slug that `[...slug].astro` serves it at.
+A single item in a Collection — for the `markdown` collection, one `.md` file. Its `id` (e.g. `welcome` for `welcome.md`) becomes the route slug that `[...slug].astro` serves it at.
 
 **Page-title bar**:
 The overcast-gray banner at the top of a MarkdownLayout page holding the page's `<h1>` (rendered from frontmatter `title`), in sound-navy. Ported from `simple-page`'s `.page-title`.

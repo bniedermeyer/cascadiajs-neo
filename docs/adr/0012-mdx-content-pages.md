@@ -2,7 +2,7 @@
 
 The `markdown` content collection's loader glob now matches `**/*.{md,mdx}` instead of `**/*.md` (`src/content.config.ts`), and `@astrojs/mdx` is registered as an Astro integration (`astro.config.mjs`). This makes MDX available to the collection, but it is opt-in per page: a page adopts MDX only by being authored with the `.mdx` extension. Every existing `.md` file is untouched by this change — the `@astrojs/mdx` integration only processes files it owns by extension, so plain Markdown continues to be parsed exactly as before, with no new parser, no new syntax rules, and no risk of an existing page silently breaking because MDX's stricter grammar rejected something in it.
 
-The only page converted so far is `markdown/2026/childcare.mdx`, because it needs to render `CtaButton` — an actual Astro component — where the legacy markup used a bare `<div class="cta secondary">` wrapper. MDX supports importing and rendering components directly in content; plain Markdown does not.
+The only page converted so far is `src/content/markdown/2026/childcare.mdx`, because it needs to render `CtaButton` — an actual Astro component — where the legacy markup used a bare `<div class="cta secondary">` wrapper. MDX supports importing and rendering components directly in content; plain Markdown does not.
 
 **When to use `.mdx` vs `.md`.** Use `.mdx` only when a page needs to import and render an Astro component inline in its content — `CtaButton`, a future `Callout`, or similar. Keep `.md` for every page that only needs standard Markdown plus inline HTML (headings, lists, links, `<div>`/`<h2>` wrappers, etc.) as the existing pages already do; converting those to `.mdx` would buy nothing and would only expose them to MDX's stricter parsing for no benefit.
 

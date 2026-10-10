@@ -83,7 +83,7 @@ src/
   assets/           Images processed by Astro (people, sponsor logos, page images)
   styles/global.css Tailwind entry point and design tokens
   content.config.ts Content collections and their Zod schemas
-markdown/           Content pages (.md / .mdx), one file per page
+  content/markdown/ Content pages (.md / .mdx), one file per page
 public/             Files served as-is: share images, video, downloads, favicon, `_redirects` (Netlify legacy-URL redirects)
 e2e/                Playwright tests
 docs/
@@ -107,7 +107,7 @@ import { getTickets } from "@shared/data/events";
 import hero from "@assets/images/hero-camper.png";
 ```
 
-The aliases are `@components`, `@layouts`, `@shared` and `@assets`. Stylesheets stay relative (`../styles/global.css`). **ESLint fails on a relative import into an aliased directory**, including from `markdown/` and `e2e/`, so the pre-commit hook and CI will catch it.
+The aliases are `@components`, `@layouts`, `@shared` and `@assets`. Stylesheets stay relative (`../styles/global.css`). **ESLint fails on a relative import into an aliased directory**, including from `e2e/`, so the pre-commit hook and CI will catch it.
 
 ## Key terms
 
@@ -124,13 +124,13 @@ There are two kinds of page.
 
 **Hand-written pages** are `.astro` files in `src/pages/`. The file path is the URL: `src/pages/2026/schedule.astro` serves `/2026/schedule`. Use these for anything with custom structure: the homepage, the Event landing page, the schedule, Talk pages, and the legal pages.
 
-**Content pages** are Markdown files in `markdown/`, served by two catch-all routes:
+**Content pages** are Markdown files in `src/content/markdown/`, served by two catch-all routes:
 
-| File                                   | URL                         | Route                              |
-| :------------------------------------- | :-------------------------- | :--------------------------------- |
-| `markdown/code-of-conduct.md`          | `/code-of-conduct`          | `src/pages/[...slug].astro`        |
-| `markdown/2026/attend.mdx`             | `/2026/attend`              | `src/pages/[year]/[...slug].astro` |
-| `markdown/2026/next-steps/speakers.md` | `/2026/next-steps/speakers` | `src/pages/[year]/[...slug].astro` |
+| File                                               | URL                         | Route                              |
+| :------------------------------------------------- | :-------------------------- | :--------------------------------- |
+| `src/content/markdown/code-of-conduct.md`          | `/code-of-conduct`          | `src/pages/[...slug].astro`        |
+| `src/content/markdown/2026/attend.mdx`             | `/2026/attend`              | `src/pages/[year]/[...slug].astro` |
+| `src/content/markdown/2026/next-steps/speakers.md` | `/2026/next-steps/speakers` | `src/pages/[year]/[...slug].astro` |
 
 A file under a year folder only gets a page if that Event has a config in `src/shared/data/events/` (see [Launching a new Event](#launching-a-new-event)). Set `published: false` in frontmatter to keep a page out of the build.
 
@@ -158,7 +158,7 @@ Wrap Markdown-derived HTML (an abstract, a description) in `MarkdownContent` to 
 
 ## Content and data
 
-### Content pages (`markdown/`)
+### Content pages (`src/content/markdown/`)
 
 The `markdown` collection schema in `src/content.config.ts` checks each file's frontmatter:
 
@@ -227,8 +227,8 @@ Checklists for the common changes. Run `pnpm dev` and open the page in a browser
 
 ### Add or edit a content page
 
-1. Create `markdown/<name>.md` for a site-wide page, or `markdown/<year>/<name>.md` for an Event page.
-2. Add frontmatter: at least `title`, and usually `description`. See the [field table](#content-pages-markdown).
+1. Create `src/content/markdown/<name>.md` for a site-wide page, or `src/content/markdown/<year>/<name>.md` for an Event page.
+2. Add frontmatter: at least `title`, and usually `description`. See the [field table](#content-pages-srccontentmarkdown).
 3. Only if it needs a component: use `.mdx` and import the component with an alias.
 4. Link to it without a trailing slash.
 
@@ -237,7 +237,7 @@ Checklists for the common changes. Run `pnpm dev` and open the page in a browser
 1. Add an object to `src/shared/data/<year>/talks.json`, at the position where the Talk should appear. Required fields: `id`, `slug` (or `null` for no Talk page), `title`, `type` (`keynote`, `main`, `lightning`, `workshop`) and `speaker`. Optional fields: `abstract` (Markdown), `tags`, `yt`.
 2. Put the speaker photo in `src/assets/events/<year>/images/` and reference it in `speaker.image`.
 3. Optional: add a share card at `public/images/<year>/share/speaker-<name-slug>.png`. The Talk page uses it when the file exists.
-4. For a Workshop with a registration page, set `registrationUrl` to a site-relative path and add the page under `markdown/<year>/workshops/`.
+4. For a Workshop with a registration page, set `registrationUrl` to a site-relative path and add the page under `src/content/markdown/<year>/workshops/`.
 5. Place it on the schedule. Add a `<TalkItem talk="<id>" />` in `src/pages/<year>/schedule.astro`. Workshops use `ShowItem` instead, so copy an existing Workshop entry. The schedule shows only the Talks you place on it.
 
 ### Add a Sponsor
@@ -264,9 +264,9 @@ Checklists for the common changes. Run `pnpm dev` and open the page in a browser
 
 This happens once a year and touches several places. The steps below use 2027 as the example.
 
-Start with config and data. Create `src/shared/data/events/2027.config.ts` modelled on `2026.config.ts` (name, dates, venue, logo, nav, share defaults). `events.ts` globs these configs, so the new file alone enables the `markdown/2027/` and `/2027/sponsors/*` pages. Add `"2027"` to the `events` enum in `sponsorSchema` in `src/content.config.ts`: `EventYear` derives from it, so nothing type-checks with `"2027"` until you do. Then create `src/shared/data/2027/` with `talks.json`, `organizers.json`, `tickets.json` and `activities.json`, and register a `talks2027` collection in `src/content.config.ts` next to `talks2026`.
+Start with config and data. Create `src/shared/data/events/2027.config.ts` modelled on `2026.config.ts` (name, dates, venue, logo, nav, share defaults). `events.ts` globs these configs, so the new file alone enables the `src/content/markdown/2027/` and `/2027/sponsors/*` pages. Add `"2027"` to the `events` enum in `sponsorSchema` in `src/content.config.ts`: `EventYear` derives from it, so nothing type-checks with `"2027"` until you do. Then create `src/shared/data/2027/` with `talks.json`, `organizers.json`, `tickets.json` and `activities.json`, and register a `talks2027` collection in `src/content.config.ts` next to `talks2026`.
 
-Next, the pages. Each Event has its own hand-written landing page, schedule and Talk pages. Create `src/pages/2027/` from the 2026 pages, then change the year and the collection name. Content pages go in `markdown/2027/`. Images go in `src/assets/events/2027/images/`, and share images go in `public/images/2027/share/`. Add `"2027"` to the `events` of each 2027 Sponsor.
+Next, the pages. Each Event has its own hand-written landing page, schedule and Talk pages. Create `src/pages/2027/` from the 2026 pages, then change the year and the collection name. Content pages go in `src/content/markdown/2027/`. Images go in `src/assets/events/2027/images/`, and share images go in `public/images/2027/share/`. Add `"2027"` to the `events` of each 2027 Sponsor.
 
 Flip the launch switch on launch day, once the 2027 pages are ready: set `FEATURED_EVENT` to `"2027"` and update `DEFAULT_DESCRIPTION` in `src/shared/site-defaults.ts`. The homepage, header, footer and site-wide pages read that value. Then run the full test suite. Several tests read `FEATURED_EVENT` and the data files, so they also change with the switch.
 
@@ -341,5 +341,5 @@ Agents do well here when the issue is specific. For example, "Add the 2027 ticke
 ## Gotchas
 
 - **No trailing slashes** in URLs or links. See [Pages and routing](#pages-and-routing).
-- **`.md` vs `.mdx`:** use `.mdx` only for pages that render components, and follow its stricter syntax. See [Content pages](#content-pages-markdown).
+- **`.md` vs `.mdx`:** use `.mdx` only for pages that render components, and follow its stricter syntax. See [Content pages](#content-pages-srccontentmarkdown).
 - **Alias imports** across `src/` directories, never `../components/...`. ESLint enforces it. See [Imports](#imports).

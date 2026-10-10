@@ -119,11 +119,13 @@ test.describe("Default title and description", () => {
 });
 
 test.describe("Year-scoped markdown pages", () => {
-  const files = filesUnder("markdown/2026", /\.mdx?$/).filter((f) => {
-    const slug = f.replace(/\.mdx?$/, "");
-    // /2026/schedule is a dedicated page; /2026/sponsor uses the defaults.
-    return !["schedule", "sponsor"].includes(slug);
-  });
+  const files = filesUnder("src/content/markdown/2026", /\.mdx?$/).filter(
+    (f) => {
+      const slug = f.replace(/\.mdx?$/, "");
+      // /2026/schedule is a dedicated page; /2026/sponsor uses the defaults.
+      return !["schedule", "sponsor"].includes(slug);
+    },
+  );
 
   test("finds markdown pages", () => {
     expect(files.length).toBeGreaterThan(20);
@@ -131,7 +133,7 @@ test.describe("Year-scoped markdown pages", () => {
 
   for (const file of files) {
     const slug = file.replace(/\.mdx?$/, "");
-    const data = frontmatter(`markdown/2026/${file}`);
+    const data = frontmatter(`src/content/markdown/2026/${file}`);
     const description = data.description;
 
     test(`/2026/${slug} title has no year${description ? " and uses its description" : ""}`, async ({
