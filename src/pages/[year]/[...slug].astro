@@ -10,9 +10,9 @@ import Testimonials from "@components/Testimonials.astro";
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
 
 /**
- * Year-scoped markdown pages (markdown/<year>/*.md) render through this page.
+ * Year-scoped markdown pages (src/content/markdown/<year>/*.md) render through this page.
  * This is a special case vs the catch-all slug page, which renders markdown pages
- * that are not year-scoped (markdown/*.md).
+ * that are not year-scoped (src/content/markdown/*.md).
  */
 
 export async function getStaticPaths() {

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { expectEventNav, filesUnder } from "./helpers";
 
 /**
- * Year-scoped markdown pages (markdown/<year>/*.md) render through
+ * Year-scoped markdown pages (src/content/markdown/<year>/*.md) render through
  * EventLayout + MarkdownContent instead of the normal MarkdownLayout, so
  * they get the event's own nav (EventNav) instead of the global SiteHeader
  * nav. This is a deliberate departure from legacy behavior (see #59).
@@ -146,7 +146,7 @@ test.describe("root-level markdown pages keep the normal SiteHeader nav", () => 
 });
 
 test.describe("every year-scoped markdown page renders the Event nav", () => {
-  const slugs = filesUnder("markdown/2026", /\.mdx?$/).map((f) =>
+  const slugs = filesUnder("src/content/markdown/2026", /\.mdx?$/).map((f) =>
     f.replace(/\.mdx?$/, ""),
   );
 

@@ -29,7 +29,7 @@ export default tseslint.config(
                 "Use a path alias (@components, @layouts, @shared, @assets) instead of a relative `../` import.",
             },
             {
-              // Paths from outside src/ (markdown/, e2e/), e.g.
+              // Paths from outside src/ (e.g. e2e/), such as
               // `../src/components/Foo.astro`.
               regex: "^(\\.\\./)+src/(components|layouts|shared|assets)(/|$)",
               message:
