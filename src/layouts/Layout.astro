@@ -9,7 +9,6 @@ import {
   META_PIXEL_ID,
 } from "@shared/site-defaults";
 import { routePath } from "@shared/route-path";
-import { isLiveSite } from "@shared/live-site";
 
 interface Props {
   title?: string;
@@ -26,8 +25,6 @@ const {
   ogImage = "/images/2026/share/social-sharing-general.png",
   title = DEFAULT_TITLE,
 } = Astro.props;
-
-const live = isLiveSite();
 
 // Legacy snippets, verbatim from app/head.mjs. Kept as strings so the braces
 // in them aren't parsed as template expressions.
@@ -60,19 +57,12 @@ const ogImageUrl = new URL(ogImage, origin).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {
-      live && (
-        <>
-          <script
-            is:inline
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
-          />
-          <script is:inline set:html={GTAG_CONFIG} />
-          <script is:inline set:html={META_PIXEL} />
-        </>
-      )
-    }
+    <script
+      is:inline
+      async
+      src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>
+    <script is:inline set:html={GTAG_CONFIG} />
+    <script is:inline set:html={META_PIXEL} />
     <meta name="author" content="CascadiaJS" />
     <meta name="generator" content={Astro.generator} />
 
@@ -81,7 +71,6 @@ const ogImageUrl = new URL(ogImage, origin).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
-    {!live && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
     <meta property="og:title" content={title} />
@@ -127,6 +116,6 @@ const ogImageUrl = new URL(ogImage, origin).href;
     </main>
 
     <SiteFooter />
-    {live && <noscript set:html={META_PIXEL_NOSCRIPT} />}
+    <noscript set:html={META_PIXEL_NOSCRIPT} />
   </body>
 </html>
