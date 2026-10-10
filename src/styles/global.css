@@ -12,16 +12,16 @@
   --color-overcast-gray: #cfd3e4;
   --color-mint: #ccf1db;
 
-  /* Fallback stacks match the legacy stylesheet exactly: the fidelity
-     comparator (ADR-0004) reads computed font-family, so extra fallbacks
-     register as drift on every text element. */
+  /* Fallback stacks match the legacy stylesheet exactly: computed
+     font-family is matched against the Legacy Site, so extra fallbacks
+     would register as drift on every text element. */
   --font-sans: freight-sans-pro, sans-serif;
   --font-display: mono45-headline, sans-serif;
   --font-serif: freight-macro-pro, sans-serif;
 
   /* Off-scale font sizes lifted verbatim from the legacy reference
-     stylesheet. None has an exact Tailwind default equivalent, and the
-     fidelity comparator (ADR-0004) reads computed font sizes, so these
+     stylesheet. None has an exact Tailwind default equivalent, and computed
+     font sizes are matched against the Legacy Site, so these
      values must not be rounded or otherwise altered. Named as tokens
      rather than left as arbitrary `text-[Npx]` values so the sanctioned
      size vocabulary stays enumerable instead of drifting one-off per
@@ -112,7 +112,7 @@
    example), but we keep it here as a Tailwind component-layer rule instead so
    no Astro page carries a <style> block. It reproduces the glyph the legacy
    site appends after any link that opens in a new tab
-   (reference/cascadiajs/public/styles/main.css, lines 132-140).
+   (Legacy Site, `cascadiajs-legacy-pre-migration` branch, `public/styles/main.css`).
 
    Scoped to a `.mark-external-links` container -- the Schedule page's body --
    rather than applied globally, because the shared `SponsorsGrid` renders its

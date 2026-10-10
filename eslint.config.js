@@ -41,12 +41,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: [
-      "dist/**",
-      ".astro/**",
-      "reference/**",
-      ".agents/**",
-      ".claude/**",
-    ],
+    ignores: ["dist/**", ".astro/**", ".agents/**", ".claude/**"],
   },
 );

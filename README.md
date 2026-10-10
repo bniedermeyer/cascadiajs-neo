@@ -92,8 +92,9 @@ docs/
 .agents/skills/     Agent skills (symlinked into .claude/skills/)
 GLOSSARY.md          Domain glossary
 CLAUDE.md           Rules for coding agents (AGENTS.md is a symlink to it)
-reference/          The previous site. Read-only; ignore it unless a task tells you otherwise
 ```
+
+The previous Enhance site (the Legacy Site) is preserved on the [cascadiajs-legacy-pre-migration](../../tree/cascadiajs-legacy-pre-migration) branch, as a historical reference only.
 
 ### Imports
 
