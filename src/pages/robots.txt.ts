@@ -1,13 +1,21 @@
 import type { APIRoute } from "astro";
+import { isLiveSite } from "@shared/live-site";
 
-const getRobotsTxt = (sitemapURL: URL) => `\
+const liveRobotsTxt = (sitemapURL: URL) => `\
 User-agent: *
 Allow: /
 
 Sitemap: ${sitemapURL.href}
 `;
 
-export const GET: APIRoute = ({ site }) => {
-  const sitemapURL = new URL("sitemap-index.xml", site);
-  return new Response(getRobotsTxt(sitemapURL));
-};
+const nonLiveRobotsTxt = `\
+User-agent: *
+Disallow: /
+`;
+
+export const GET: APIRoute = ({ site }) =>
+  new Response(
+    isLiveSite()
+      ? liveRobotsTxt(new URL("sitemap-index.xml", site))
+      : nonLiveRobotsTxt,
+  );
