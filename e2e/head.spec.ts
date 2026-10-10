@@ -43,15 +43,19 @@ test.describe("Sitewide head (every built page)", () => {
     expect(pages.length).toBeGreaterThan(50);
   });
 
-  // CUTOVER: this test asserts the analytics snippets in Layout.astro are
-  // still dormant. Invert or remove it when they are enabled (see the TODO
-  // in Layout.astro), or it will fail on every page. The Frozen Snapshot pages
-  // (src/pages/2024 and 2025 index.html) carry the same snippets, commented
-  // out; uncomment them at cutover too, and drop the comment-stripping below.
-  test("every page has the legacy viewport, author meta and no analytics", () => {
+  test("non-live builds tell crawlers not to index any Layout page", () => {
+    for (const file of pages.filter((f) => !isFrozenSnapshotPage(f))) {
+      const html = readFileSync(distPath(file), "utf8");
+      expect(html, file).toContain(
+        '<meta name="robots" content="noindex, nofollow"',
+      );
+    }
+  });
+
+  test("every page has the legacy viewport, author meta and no analytics in non-live builds", () => {
     for (const file of pages) {
       const html = readFileSync(distPath(file), "utf8");
-      // Frozen Snapshots (ADR-0008) keep their analytics commented out until cutover.
+      // Frozen Snapshots (ADR-0008) keep their analytics commented out.
       const live = isFrozenSnapshotPage(file)
         ? html.replace(/<!--[\s\S]*?-->/g, "")
         : html;

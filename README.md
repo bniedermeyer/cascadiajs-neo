@@ -153,6 +153,8 @@ Rules of thumb:
 - `EventLayout` has a `hero` slot that renders above the Event nav (the 2026 landing page puts its video there). `SimplePage` has an `after-body` slot that renders outside the text column, which is where sponsor grids and testimonials go.
 - **Pages own their sponsors section.** Only `MarkdownLayout` renders sponsors for you. On a hand-written page, place `SponsorsGrid` yourself and pass `year` (and `tiered`) or `exclude` as needed.
 
+**Live switch.** `Layout` calls `isLiveSite()` (`@shared/live-site`). On non-live builds (previews, local, CI) it emits `<meta name="robots" content="noindex, nofollow">`. On the live build it emits the GA4 and Meta Pixel snippets instead (all `is:inline`, with the Pixel `<noscript>` image as the last child of `<body>`). See [ADR-0014](docs/adr/0014-indexing-and-analytics-only-on-the-live-site.md).
+
 Wrap Markdown-derived HTML (an abstract, a description) in `MarkdownContent` to get prose styling for headings, lists and links.
 
 ## Content and data
