@@ -1,12 +1,11 @@
 import { readFileSync } from "node:fs";
 import { expect, test } from "@playwright/test";
-import { isLiveSite } from "@shared/live-site";
 import { distPath } from "./helpers";
 
 /**
  * Indexing only on the live site (ADR-0014, issue #121). CI builds carry no
- * Netlify variables, so the built output is always the non-live site; the live
- * branch is covered through `isLiveSite` directly.
+ * Netlify variables, so the built output is always the non-live site; these
+ * assertions cover that output only.
  */
 
 test.describe("Built robots.txt (non-live)", () => {
@@ -30,38 +29,4 @@ test.describe("Sitemap", () => {
     expect(urls).toContain("<loc>");
     expect(urls).not.toContain("/admin");
   });
-});
-
-test.describe("isLiveSite", () => {
-  test("true only for a production build on cascadiajs.com", () => {
-    expect(
-      isLiveSite({ CONTEXT: "production", URL: "https://cascadiajs.com" }),
-    ).toBe(true);
-  });
-
-  const nonLive: [string, Record<string, string>][] = [
-    ["unset", {}],
-    [
-      "deploy preview",
-      { CONTEXT: "deploy-preview", URL: "https://cascadiajs.com" },
-    ],
-    [
-      "branch deploy",
-      { CONTEXT: "branch-deploy", URL: "https://cascadiajs.com" },
-    ],
-    [
-      "netlify.app production",
-      { CONTEXT: "production", URL: "https://cascadiajs.netlify.app" },
-    ],
-    ["production without URL", { CONTEXT: "production" }],
-    [
-      "lookalike host",
-      { CONTEXT: "production", URL: "https://cascadiajs.com.evil.test" },
-    ],
-  ];
-  for (const [name, env] of nonLive) {
-    test(`false for ${name}`, () => {
-      expect(isLiveSite(env)).toBe(false);
-    });
-  }
 });

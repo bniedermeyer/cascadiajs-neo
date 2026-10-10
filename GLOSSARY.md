@@ -73,3 +73,11 @@ The overcast-gray banner at the top of a MarkdownLayout page holding the page's 
 **Width (narrow/wide)**:
 A MarkdownLayout frontmatter value controlling the desktop body column width — `narrow` (50%, the default and the only value legacy markdown pages ever used) or `wide` (70%).
 _Avoid_: Column, Size
+
+**Live site**:
+The production deployment served at cascadiajs.com, and the only build that is indexed by search engines and carries analytics. See ADR-0014.
+_Avoid_: Production (netlify.app production builds are not the live site), prod
+
+**Non-live build**:
+Any build that is not the Live site: local builds, CI, deploy previews, branch deploys and netlify.app production. It disallows indexing and carries no analytics. See ADR-0014.
+_Avoid_: Staging, preview (only one kind of non-live build)

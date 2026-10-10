@@ -16,6 +16,8 @@ import { isLiveSite } from "./src/shared/live-site.ts";
 // CONTEXT which of those this build is. Outside Netlify (local builds, tests)
 // fall back to the live site.
 const productionSite = process.env.URL ?? "https://cascadiajs.com";
+// Deliberately not `isLiveSite`: a netlify.app production build is not the live
+// site (non-live for indexing/analytics) but still needs its own `site` URL.
 const site =
   process.env.CONTEXT === "production"
     ? productionSite

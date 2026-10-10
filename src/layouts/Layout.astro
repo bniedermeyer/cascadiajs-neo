@@ -24,6 +24,9 @@ const {
 
 const live = isLiveSite();
 
+const GA4_ID = "G-XBTPEH9RZW";
+const META_PIXEL_ID = "1431763387943877";
+
 // Legacy snippets, verbatim from app/head.mjs. Kept as strings so the braces
 // in them aren't parsed as template expressions.
 const GTAG_CONFIG = `
@@ -31,7 +34,7 @@ const GTAG_CONFIG = `
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-XBTPEH9RZW');
+  gtag('config', '${GA4_ID}');
 `;
 const META_PIXEL = `
 !function(f,b,e,v,n,t,s)
@@ -42,9 +45,10 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1431763387943877');
+fbq('init', '${META_PIXEL_ID}');
 fbq('track', 'PageView');
 `;
+const META_PIXEL_NOSCRIPT = ` <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${META_PIXEL_ID}&ev=PageView&noscript=1"> `;
 const origin = Astro.site ?? Astro.url.origin;
 const canonicalUrl = new URL(routePath(Astro.url), origin).href;
 const ogImageUrl = new URL(ogImage, origin).href;
@@ -60,7 +64,7 @@ const ogImageUrl = new URL(ogImage, origin).href;
           <script
             is:inline
             async
-            src="https://www.googletagmanager.com/gtag/js?id=G-XBTPEH9RZW"
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}
           />
           <script is:inline set:html={GTAG_CONFIG} />
           <script is:inline set:html={META_PIXEL} />
@@ -121,17 +125,6 @@ const ogImageUrl = new URL(ogImage, origin).href;
     </main>
 
     <SiteFooter />
-    {
-      live && (
-        <noscript>
-          <img
-            height="1"
-            width="1"
-            style="display:none"
-            src="https://www.facebook.com/tr?id=1431763387943877&ev=PageView&noscript=1"
-          />
-        </noscript>
-      )
-    }
+    {live && <noscript set:html={META_PIXEL_NOSCRIPT} />}
   </body>
 </html>
