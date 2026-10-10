@@ -78,7 +78,7 @@ src/
     table/          Table primitives (used by the sponsorship brochure)
   shared/
     data/           JSON datasets, Event configs, shared types, data helpers
-    site-defaults.ts  Site-wide title/description and the Featured Event
+    site-defaults.ts  Site-wide title/description, Featured Event, analytics IDs
     route-path.ts   Normalized route path for canonical URLs
   assets/           Images processed by Astro (people, sponsor logos, page images)
   styles/global.css Tailwind entry point and design tokens

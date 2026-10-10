@@ -13,3 +13,10 @@ export const DEFAULT_DESCRIPTION =
 
 /** Event Key of the Featured Event (see GLOSSARY.md). */
 export const FEATURED_EVENT = "2026" as const;
+
+/**
+ * Legacy analytics IDs, kept so reporting carries on across the migration.
+ * Emitted only on the live site (ADR-0014).
+ */
+export const GA4_ID = "G-XBTPEH9RZW";
+export const META_PIXEL_ID = "1431763387943877";

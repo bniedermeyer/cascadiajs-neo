@@ -2,7 +2,12 @@
 import "../styles/global.css";
 import SiteHeader from "@components/SiteHeader.astro";
 import SiteFooter from "@components/SiteFooter.astro";
-import { DEFAULT_DESCRIPTION, DEFAULT_TITLE } from "@shared/site-defaults";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  GA4_ID,
+  META_PIXEL_ID,
+} from "@shared/site-defaults";
 import { routePath } from "@shared/route-path";
 import { isLiveSite } from "@shared/live-site";
 
@@ -23,9 +28,6 @@ const {
 } = Astro.props;
 
 const live = isLiveSite();
-
-const GA4_ID = "G-XBTPEH9RZW";
-const META_PIXEL_ID = "1431763387943877";
 
 // Legacy snippets, verbatim from app/head.mjs. Kept as strings so the braces
 // in them aren't parsed as template expressions.
