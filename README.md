@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This codebase has been moved to https://github.com/cascadiajs/cascadiajs. All future work should be done from that repository.
+
 # CascadiaJS
 
 The website for [CascadiaJS](https://cascadiajs.com), the Pacific Northwest's web + AI developer conference. It's a static [Astro](https://docs.astro.build) site styled with [Tailwind CSS v4](https://tailwindcss.com/docs), with all content and data stored in this repo. It deploys to Netlify.
